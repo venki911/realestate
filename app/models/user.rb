@@ -4,6 +4,11 @@ class User < ActiveRecord::Base
   validates :email, presence: true
   validates :email, email: true
 
+  validates :user_name, presence: true, if: ->(user) {user.sign_up_step > 1}
+  validates :user_name, uniqueness: true, if: ->(user) {user.sign_up_step > 1}
+
+  validates :phone, presence: true, if: ->(user) { user.sign_up_step > 1}
+
   validates :password, presence: true, if: ->(user) { user.sign_up_step > 1 }
   validates :password, length: { in: 6..72}, if: ->(user) { user.sign_up_step > 1}
   validates :password, confirmation: true, if: ->(user) { user.sign_up_step > 1 }
@@ -11,6 +16,9 @@ class User < ActiveRecord::Base
   GENDER_MALE = "Male"
   GENDER_FEMALE = "Female"
   GENDER_OTHER  = "Other"
+
+  SIGN_UP_STEP_FB = 1
+  SIGN_UP_STEP_SITE = 2
 
   GENDERS = [GENDER_MALE, GENDER_FEMALE, GENDER_OTHER]
 
@@ -25,17 +33,22 @@ class User < ActiveRecord::Base
     false
   end
 
-  def self.create_with_sign_up params
+  def self.profile_from_fb_token fb_token
+    graph = Koala::Facebook::API.new(fb_token)
+    graph.get_object("me")
+  end
 
+  def self.from_fb_token
+    profile = profile_from_fb_token(fb_token)
+    User.find_by(fb_id: profile['id'])
   end
 
   def self.create_from_fb_token!(fb_token)
-    graph = Koala::Facebook::API.new(fb_token)
-    profile = graph.get_object("me")
+    profile = profile_from_fb_token(fb_token)
     create_from_fb_profile!(profile)
   end
 
-  def self.create_from_fb_profile! profile
+  def self.create_from_fb_profile profile
     # we dont create user if it is already registered
     user = User.find_by(fb_id: profile['id'])
     return user if user
@@ -44,8 +57,18 @@ class User < ActiveRecord::Base
     #attrs[:user_name] = profile['email']
     attrs[:fb_id] = profile['id']
     attrs[:avatar] = "http://graph.facebook.com/#{profile['id']}/picture"
-    attrs[:sign_up_step] = 1
-    User.create!(attrs)
+    user = User.new(attrs).with_fb_sign_up_step
+    user.save ? user : nil
+  end
+
+  def with_fb_sign_up_step
+    self.sign_up_step = User::SIGN_UP_STEP_FB
+    self
+  end
+
+  def with_site_sign_up_step
+    self.sign_up_step = User::SIGN_UP_STEP_SITE
+    self
   end
 
 end

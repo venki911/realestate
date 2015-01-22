@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'sign_in' => 'sessions#new'
+  get 'sign_in_fb' => 'sessions#create_with_fb'
+  get 'sign_in_fb_m' => 'sessions#create_with_fb_m'
+
   delete 'sign_out' => 'sessions#destroy'
 
   resources :registrations, only: [:new, :create]

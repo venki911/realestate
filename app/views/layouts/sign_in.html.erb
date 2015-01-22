@@ -13,7 +13,10 @@
   </head>
 
   <body>
-    <div class='sign-in'> <%= yield %> </div>
+    <div class='sign-in'>
+      <%= flash_messages %>
+      <%= yield %>
+    </div>
     <%= javascript_include_tag "application" %>
   </body>
 </html>

@@ -12,7 +12,7 @@
   </head>
 
   <body>
-
+    <%= flash_messages %>
     <%= yield %>
     <%= render 'layouts/signed_in_bar' %>
     <%= javascript_include_tag "application" %>

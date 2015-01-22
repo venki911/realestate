@@ -7,36 +7,46 @@ class SessionsController < ApplicationController
     if user_signed_in?
       redirect_to after_signed_in_path_for(current_user), notice: "You already signed in"
     end
+    @koala_auth = Koala::Facebook::OAuth.new(ENV['FB_ID'], ENV['FB_SECRET'])
   end
 
   def create
     if user = User.authenticate(params[:email], params[:password])
-      sign_in(user)
-
-      respond_to do |format|
-        format.html do
-          redirect_to after_signed_in_path_for(user), notice: "Signed in successfully"
-        end
-        format.json { head :ok }
-      end
-
+      redirect_to sign_in_and_redirect_for(user), notice: "Signed in successfully"
     else
-      respond_to do |format|
-        format.html do
-          flash.now[:alert] = "Invalid email/password"
-          render :new
-        end
-
-        format.json do 
-          errors = { success: false, error: "The email or password is incorrect." }
-          render json: errors, status: 401
-        end
-      end
+      flash.now[:alert] = "Invalid email/password"
+      render :new
     end
+  end
 
+  def create_with_fb
+    user = User.from_fb_token(params[:fb_access_token])
+    if user
+      redirect_to sign_in_and_redirect_for(user), notice: 'You have been registered successfully'
+    else
+      redirect_to sign_up_path, notice: "You don't have Facebook account associated with our records"
+    end
+  end
+
+  def create_with_fb_m
+    if params[:code]
+      fb_token = Koala::Facebook::OAuth.new(ENV['FB_ID'], ENV['FB_SECRET'], sign_up_fb_m_url()).get_access_token(params[:code])
+      if user
+        redirect_to sign_in_and_redirect_for(user), notice: 'You have been registered successfully'
+      else
+        redirect_to sign_up_path, notice: "You don't have Facebook account associated with our records"
+      end
+    else
+      redirect_to sign_up_path, alert: "You don't have Facebook account associated with our records"
+    end
   end
 
   def destroy
     redirect_to sign_out_and_redirect_for(current_user), notice: "You have been signed out"
+  end
+
+  private
+  def set_koala_auth
+    @koala_auth = Koala::Facebook::OAuth.new(ENV['FB_ID'], ENV['FB_SECRET'])
   end
 end

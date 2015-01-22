@@ -16,6 +16,9 @@
       <p> Don't have an account!, <%= link_to 'Sign up', sign_up_path %> <br /> </p>
       <%= button_tag "Login", class: 'button button-tny radius', style: 'display: block; width: 100%;' %>
 
+      <%=link_to 'Sign With Facebook', 'javascript:void(0)', class: 'fb-login button radius btn-block', data: { url: sign_up_fb_path } %>
+      <%=link_to 'Sign With Facebook Mobile', @koala_auth.url_for_oauth_code(:callback => sign_up_fb_m_url), class: 'button radius btn-block'%>
+
     </div>
 
   <% end %>

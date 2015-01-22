@@ -1,40 +1,49 @@
 <% content_for(:title) { "Sign up" } %>
 
 <div class='form-box'>
-
-  <%= form_tag sessions_path, role: 'form', class: 'form-center radius' do %>
-
+  
+  <%= simple_form_for @user, url: registrations_path, role: 'form', html: {class: 'form-center radius'} do |f| %>
+    <%= errors_for(@user) %>
     <div class='form-control'>
-      <%= password_field_tag :first_name, '', class: 'form-control radius', placeholder: 'First name' %>
+      <%= f.input :first_name, input_html: { class: 'form-control radius', placeholder: 'First name' } %>
     </div>
 
     <div class='form-control'>
-      <%= password_field_tag :last_name, '', class: 'form-control radius', placeholder: 'Last name' %>
+      <%= f.input :last_name, input_html: {class: 'form-control radius', placeholder: 'Last name' } %>
     </div>
 
     <div class='form-control'>
-      <%= email_field_tag :user_name, params[:user_name], class: 'form-control radius', placeholder: 'User name' %>
+      <%= f.input :phone, input_html: { class: 'form-control radius', placeholder: 'Phone' } %>
     </div>
 
     <div class='form-control'>
-      <%= select_tag :gender, options_for_select(User::GENDERS, User::GENDER_MALE), class: 'form-control radius', placeholder: 'User name' %>
+      <%= f.input :user_name, required: true, input_html: { class: 'form-control radius', placeholder: 'User name' } %>
     </div>
 
     <div class='form-control'>
-      <%= password_field_tag :password, '', class: 'form-control radius', placeholder: 'Password' %>
+      <%= f.input :email, input_html: { class: 'form-control radius', placeholder: 'Email' } %>
     </div>
 
     <div class='form-control'>
-      <%= password_field_tag :password_confirmation, '', class: 'form-control radius', placeholder: 'Confirm' %>
+      <%= f.select :gender, options_for_select(User::GENDERS, User::GENDER_MALE), 
+                   input_html: { class: 'form-control radius', placeholder: 'Gender'} %>
+    </div>
+
+    <div class='form-control'>
+      <%= f.input :password, required: true, input_html: { class: 'form-control radius', placeholder: 'Password'} %>
+    </div>
+
+    <div class='form-control'>
+      <%= f.input :password_confirmation, input_html: { class: 'form-control radius', placeholder: 'Confirm' } %>
     </div>
 
     <div class='div-row'>
-      <%= button_tag "Create", class: 'button button-tny radius btn-block' %>
+      <%= f.button :submit, "Create", class: 'button button-tny radius btn-block' %>
     </div>
     <hr/>
 
     <%=link_to 'Create With Facebook', 'javascript:void(0)', class: 'fb-login button radius btn-block', data: { url: sign_up_fb_path } %>
-    <%=link_to 'Create With Facebook', @koala_auth.url_for_oauth_code(:callback => sign_up_fb_m_url), class: 'button radius btn-block'%>
+    <%=link_to 'Create With Facebook Mobile', @koala_auth.url_for_oauth_code(:callback => sign_up_fb_m_url), class: 'button radius btn-block'%>
   <% end %>
 
 </div>
