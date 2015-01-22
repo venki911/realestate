@@ -30,7 +30,8 @@ class SessionsController < ApplicationController
 
   def create_with_fb_m
     if params[:code]
-      fb_token = Koala::Facebook::OAuth.new(ENV['FB_ID'], ENV['FB_SECRET'], sign_up_fb_m_url()).get_access_token(params[:code])
+      fb_token = Koala::Facebook::OAuth.new(ENV['FB_ID'], ENV['FB_SECRET'], sign_in_fb_m_url()).get_access_token(params[:code])
+      user = User.from_fb_token(fb_token)
       if user
         redirect_to sign_in_and_redirect_for(user), notice: 'You have been registered successfully'
       else

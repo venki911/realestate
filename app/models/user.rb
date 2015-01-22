@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true
   validates :email, email: true
+  validates :email, uniqueness: true
 
   validates :user_name, presence: true, if: ->(user) {user.sign_up_step > 1}
   validates :user_name, uniqueness: true, if: ->(user) {user.sign_up_step > 1}
@@ -26,8 +27,8 @@ class User < ActiveRecord::Base
     [ [GENDER_MALE, GENDER_MALE], [GENDER_FEMALE, GENDER_FEMALE] ]
   end
 
-  def self.authenticate(email, password)
-    user = User.find_by!(email: email.downcase)
+  def self.authenticate(login, password)
+    user = User.where([" email = ? OR user_name = ? ", login.downcase, login.downcase ])
     user.authenticate(password)
   rescue ActiveRecord::RecordNotFound
     false
@@ -38,7 +39,7 @@ class User < ActiveRecord::Base
     graph.get_object("me")
   end
 
-  def self.from_fb_token
+  def self.from_fb_token(fb_token)
     profile = profile_from_fb_token(fb_token)
     User.find_by(fb_id: profile['id'])
   end
