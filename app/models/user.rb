@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   has_secure_password(validations: false)
 
+  has_many :properties
+
   validates :email, presence: true
   validates :email, email: true
   validates :email, uniqueness: true
@@ -13,6 +15,8 @@ class User < ActiveRecord::Base
   validates :password, presence: true, if: ->(user) { user.sign_up_step > 1 }
   validates :password, length: { in: 6..72}, if: ->(user) { user.sign_up_step > 1}
   validates :password, confirmation: true, if: ->(user) { user.sign_up_step > 1 }
+
+  attr_accessor :agree
 
   GENDER_MALE = "Male"
   GENDER_FEMALE = "Female"
@@ -28,9 +32,9 @@ class User < ActiveRecord::Base
   end
 
   def self.authenticate(login, password)
-    user = User.where([" email = ? OR user_name = ? ", login.downcase, login.downcase ])
+    user = User.where([" email = ? OR user_name = ? ", login.downcase, login.downcase ]).first
     user.authenticate(password)
-  rescue ActiveRecord::RecordNotFound
+  rescue =>e
     false
   end
 

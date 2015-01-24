@@ -1,0 +1,12 @@
+<%= page_title("Your Properties") %>
+<%= page_header "Your Properties" %>
+
+<%= breadcrumb_admin([ Properties: nil ]) %>
+<%= paginate @properties %>
+
+<% @properties.each do |property| %>
+  <%= render 'shared/property', property: property %>
+<% end %>
+
+
+<%= paginate @properties %>

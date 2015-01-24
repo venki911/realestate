@@ -1,0 +1,19 @@
+<%= simple_form_for [:member, @property], html: {class: 'form'} do |f| %>
+  <%= f.input :code_ref %>
+
+  <%= f.input :borey_name, collection: Property.available_boreys %>
+  <%= f.association :category, collection: Category.all.map{|c| [c.name, c.id]} %>
+  <%= f.input :type_of, collection: Property.available_types %>
+
+  <%= f.input :width, input_html: { css: 'radius'} %>
+  <%= f.input :height, input_html: { css: 'radius'} %>
+  <%= f.input :area, input_html: { css: 'radius'} %>
+
+  <%= f.input :unit, collection: Property.available_units %>
+
+  <%= f.association :province, collection: Province.all.map{|p| [p.name, p.id]} %>
+  <%= f.association :district, collection: District.all.map{|d| [d.name, d.id]} %>
+  <%= f.association :commune, collection: Commune.all.map{|d| [d.name, d.id]} %>
+
+  <%= f.submit "Save", class: 'button radius' %>
+<% end %>

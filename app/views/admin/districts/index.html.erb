@@ -1,0 +1,31 @@
+<%= page_title("District") %>
+<%= page_header "Districts" do %>
+  <%= link_to "New", new_admin_district_path %>
+<% end %>
+
+<%= breadcrumb_admin %>
+<%= paginate @districts %>
+
+<table>
+  <thead>
+   <td>No</td>
+   <td>Name</td>
+   <td>Province</td>
+   <td></td>
+  </thead>
+
+  <tbody>
+    <% @districts.each_with_index do |district, index| %>
+      <tr>
+        <td><%= index_in_paginate(index+1) %></td>
+        <td><%= district.name%></td>
+        <td><%= district.province.name%></td>
+        <td>
+          <%=link_to 'Edit', edit_admin_district_path(district) %> | 
+          <%=link_to 'Destroy', admin_district_path(district), method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @districts %>

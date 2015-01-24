@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
   root 'dashboards#index'
-  
+
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'sign_in' => 'sessions#new'
@@ -15,7 +15,24 @@ Rails.application.routes.draw do
   get 'sign_up_fb' => 'registrations#create_with_fb'
   get 'sign_up_fb_m' => 'registrations#create_with_fb_m'
 
+  resources :properties
 
+  namespace :member do
+    resources :properties
+  end
+
+  namespace :admin do
+    root 'provinces#index'
+
+    #Place
+    resources :provinces
+    resources :districts
+    resources :communes
+
+    resources :properties
+
+
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

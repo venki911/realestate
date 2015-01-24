@@ -25,6 +25,7 @@ class RegistrationsController < ApplicationController
 
   def create_with_fb
     user = User.create_from_fb_token(params[:fb_access_token])
+    # check email if current user exist
     redirect_to sign_in_and_redirect_for(user), notice: 'You have been registered successfully'
   end
 

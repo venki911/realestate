@@ -1,0 +1,6 @@
+<%= simple_form_for [:admin, @commune] do |f| %>
+  <%= f.input :name %>
+  <%= f.select :province_id, options_for_select(Province.all.map{|p| [p.name, p.id]}) %>
+  <%= f.select :district_id, options_for_select(District.all.map{|d| [d.name, d.id]}) %>
+  <%= f.submit "Save", class: 'button radius' %>
+<% end %>

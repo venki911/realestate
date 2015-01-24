@@ -1,4 +1,4 @@
 class Commune < ActiveRecord::Base
   belongs_to :district
-  belongs_to :commune
+  belongs_to :province
 end

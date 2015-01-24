@@ -32,6 +32,8 @@ gem 'foundation-rails'
 gem 'email_validator'
 gem "koala", "~> 1.11.0rc"
 gem "simple_form"
+gem "kaminari"
+gem "carrierwave"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

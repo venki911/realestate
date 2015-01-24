@@ -1,0 +1,33 @@
+<%= page_title("Commune") %>
+<%= page_header "Commune" do %>
+  <%= link_to "New", new_admin_commune_path %>
+<% end %>
+
+<%= breadcrumb_admin %>
+<%= paginate @communes %>
+
+<table>
+  <thead>
+   <td>No</td>
+   <td>Name</td>
+   <td>District</td>
+   <td>Province</td>
+   <td></td>
+  </thead>
+
+  <tbody>
+    <% @communes.each_with_index do |commune, index| %>
+      <tr>
+        <td><%= index_in_paginate(index+1) %></td>
+        <td><%= commune.name%></td>
+        <td><%= commune.district.name%></td>
+        <td><%= commune.province.name%></td>
+        <td>
+          <%=link_to 'Edit', edit_admin_commune_path(commune) %> | 
+          <%=link_to 'Destroy', admin_commune_path(commune), method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @communes %>

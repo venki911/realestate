@@ -6,20 +6,26 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+def parse_file(file)
+  file_name = "#{Rails.root}/doc/#{file}"
+  file_content = File.open(file_name){|f| f.read}
+  file_content.lines
+end
+
 #Seed User
 user_attributes = { email: 'admin@cochero.com', first_name: "admin", last_name: "Admin", phone: "0975553553", password: "password" }
 user = User.where(email: user_attributes[:email]).first_or_initialize
 user.update_attributes(user_attributes.except(:email))
 user.save!
 
-places = ["province.txt", "district.txt", "commune.txt"]
 
-
-def parse_file(file)
-  file_name = "#{Rails.root}/doc/#{file}"
-  file_content = File.open(file_name){|f| f.read}
-  file_content.lines
+# Categories
+categories = ["Land", "Villa", "Hotel", "Department"]
+categories.each do |category_name|
+  category = Category.where(name: category_name).first_or_initialize
+  category.save! if category.new_record?
 end
+
 
 # Province
 ActiveRecord::Base.transaction do
@@ -50,6 +56,3 @@ ActiveRecord::Base.transaction do
     place.save!
   end
 end
-
-
-
