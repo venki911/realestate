@@ -1,23 +1,6 @@
 class User < ActiveRecord::Base
   has_secure_password(validations: false)
 
-  has_many :properties
-
-  validates :email, presence: true
-  validates :email, email: true
-  validates :email, uniqueness: true
-
-  validates :user_name, presence: true, if: ->(user) {user.sign_up_step > 1}
-  validates :user_name, uniqueness: true, if: ->(user) {user.sign_up_step > 1}
-
-  validates :phone, presence: true, if: ->(user) { user.sign_up_step > 1}
-
-  validates :password, presence: true, if: ->(user) { user.sign_up_step > 1 }
-  validates :password, length: { in: 6..72}, if: ->(user) { user.sign_up_step > 1}
-  validates :password, confirmation: true, if: ->(user) { user.sign_up_step > 1 }
-
-  attr_accessor :agree
-
   GENDER_MALE = "Male"
   GENDER_FEMALE = "Female"
   GENDER_OTHER  = "Other"
@@ -25,10 +8,39 @@ class User < ActiveRecord::Base
   SIGN_UP_STEP_FB = 1
   SIGN_UP_STEP_SITE = 2
 
-  GENDERS = [GENDER_MALE, GENDER_FEMALE, GENDER_OTHER]
+  ROLE_AGENT = "Agent"
+  ROLE_INDIVIDUAL = "Individual"
+  ROLE_ADMIN = "Admin"
 
-  def self.genders
-    [ [GENDER_MALE, GENDER_MALE], [GENDER_FEMALE, GENDER_FEMALE] ]
+  has_many :properties
+
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
+  validates :email, presence: true
+  validates :email, email: true
+  validates :email, uniqueness: true
+
+  validates :user_name, presence: true, if: ->(user) {user.sign_up_step != SIGN_UP_STEP_FB }
+  validates :user_name, uniqueness: true, if: ->(user) {user.sign_up_step != SIGN_UP_STEP_FB}
+
+  validates :phone, presence: true, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB }
+
+  validates :password, presence: true, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB }
+  validates :password, length: { in: 6..72}, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB}
+  validates :password, confirmation: true, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB }
+
+  validates :role, presence: true, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB }
+  validates :role, inclusion: { in: [ROLE_INDIVIDUAL, ROLE_AGENT] }, if: ->(user) { user.sign_up_step != User::SIGN_UP_STEP_FB }
+
+  attr_accessor :agree
+
+  def self.available_roles
+    [ROLE_AGENT, ROLE_INDIVIDUAL]
+  end
+
+  def self.available_genders
+    [GENDER_MALE, GENDER_FEMALE, GENDER_OTHER]
   end
 
   def self.authenticate(login, password)
@@ -75,5 +87,4 @@ class User < ActiveRecord::Base
     self.sign_up_step = User::SIGN_UP_STEP_SITE
     self
   end
-
 end

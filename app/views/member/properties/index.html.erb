@@ -1,12 +1,17 @@
 <%= page_title("Your Properties") %>
-<%= page_header "Your Properties" %>
 
 <%= breadcrumb_admin([ Properties: nil ]) %>
+
+<%= page_header "Your Properties" do %>
+  <%= link_to 'Create Property', new_member_property_path %>
+<% end %>
+
+
 <%= paginate @properties %>
+
 
 <% @properties.each do |property| %>
   <%= render 'shared/property', property: property %>
 <% end %>
-
 
 <%= paginate @properties %>

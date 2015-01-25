@@ -1,0 +1,9 @@
+.form-sign-up {
+  @include form-inline(10em);
+  .selectpicker {
+
+  }
+  #agree-term {
+    margin-right: 6px;
+  }
+}

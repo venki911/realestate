@@ -18,7 +18,11 @@ Rails.application.routes.draw do
   resources :properties
 
   namespace :member do
-    resources :properties
+    root 'properties#index'
+    resources :properties do
+      member do
+      end
+    end
   end
 
   namespace :admin do

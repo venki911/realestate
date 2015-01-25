@@ -2,53 +2,64 @@
 
 <div class='form-box'>
   
-  <%= simple_form_for @user, url: registrations_path, role: 'form', html: {class: 'form-center radius'} do |f| %>
+  <%= simple_form_for @user, url: registrations_path, role: 'form', html: {class: 'form-sign-up form-center form-inline'} do |f| %>
     <%= errors_for(@user) %>
-    <div class='form-control'>
-      <%= f.input :first_name, input_html: { class: 'form-control radius', placeholder: 'First name' } %>
-    </div>
 
-    <div class='form-control'>
-      <%= f.input :last_name, input_html: {class: 'form-control radius', placeholder: 'Last name' } %>
-    </div>
+    <%= input_row do %>
+      <%= f.input :first_name, input_html: { class: 'form-control', placeholder: 'First name' } %>
+    <%end%>
 
-    <div class='form-control'>
-      <%= f.input :phone, input_html: { class: 'form-control radius', placeholder: 'Phone' } %>
-    </div>
+    <%= input_row do %>
+      <%= f.input :last_name, input_html: {class: 'form-control', placeholder: 'Last name' } %>
+    <%end%>
 
-    <div class='form-control'>
-      <%= f.input :user_name, required: true, input_html: { class: 'form-control radius', placeholder: 'User name' } %>
-    </div>
+    <%= input_row do %>
+      <%= f.input :phone, input_html: { class: 'form-control', placeholder: 'Phone' } %>
+    <%end%>
 
-    <div class='form-control'>
-      <%= f.input :email, input_html: { class: 'form-control radius', placeholder: 'Email' } %>
-    </div>
+    <%= input_row do %>
+      <%= f.input :user_name, required: true, input_html: { class: 'form-control', placeholder: 'User name' } %>
+    <%end%>
 
-    <div class='form-control'>
-      <%= f.select :gender, options_for_select(User::GENDERS, User::GENDER_MALE), 
-                   input_html: { class: 'form-control radius', placeholder: 'Gender'} %>
-    </div>
+    <%= input_row do %>
+      <%= f.input :email, input_html: { class: 'form-control', placeholder: 'Email' } %>
+    <%end%>
 
-    <div class='form-control'>
-      <%= f.input :password, required: true, input_html: { class: 'form-control radius', placeholder: 'Password'} %>
-    </div>
+    <%= input_row do %>
+      <%= f.input :gender, collection: User.available_genders,
+                  include_blank: false,
+                  input_html: { class: 'selectpicker select form-control', placeholder: 'Gender'} %>
+    <%end%>
 
-    <div class='form-control'>
-      <%= f.input :password_confirmation, input_html: { class: 'form-control radius', placeholder: 'Confirm' } %>
-    </div>
+    <%= input_row do %>
+      <%= f.input :role, collection: User.available_roles, label: 'You are ?',
+                  include_blank: false,
+                  input_html: { class: 'selectpicker select form-control', placeholder: 'Gender'} %>
+    <%end%>
 
-    <div class=''>
-      <%= f.input :agree, as: :boolean, label: '' %>
-      Agree with our <%= link_to 'Terms and Policy', '' %>
-    </div>
+    <%= input_row do %>
+      <%= f.input :password, required: true, input_html: { class: 'form-control', placeholder: 'Password'} %>
+    <%end%>
 
-    <div class='div-row'>
-      <%= f.button :submit, "Create", class: 'button button-tny radius btn-block' %>
-    </div>
+    <%= input_row do %>
+      <%= f.input :password_confirmation, required: true, label: 'Password confirm', input_html: { class: 'form-control', placeholder: 'Confirm' } %>
+    <%end%>
+
+    <%= input_row do %>
+      <label> </label>
+      <%= f.check_box :agree, id: 'agree-term' %>
+      <label for='agree-term' class='inline' > Agree with our <%= link_to 'Terms and Policy', '' %> </label>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.button :submit, "Create", class: 'btn btn-primary btn-block' %>
+    <%end%>
     <hr/>
 
-    <%=link_to 'Create With Facebook', 'javascript:void(0)', class: 'fb-login button radius btn-block', data: { url: sign_up_fb_path } %>
-    <%=link_to 'Create With Facebook Mobile', @koala_auth.url_for_oauth_code(:callback => sign_up_fb_m_url), class: 'button radius btn-block'%>
+    <%=link_to 'Create With Facebook', 'javascript:void(0)', class: 'fb-login btn btn-primary btn-block', 
+               data: { url: sign_up_fb_path } %>
+    <%=link_to 'Create With Facebook Mobile', @koala_auth.url_for_oauth_code(:callback => sign_up_fb_m_url),
+               class: 'btn btn-primary btn-block'%>
   <% end %>
 
 </div>

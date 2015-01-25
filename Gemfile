@@ -28,12 +28,12 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'active_model_serializers'
 gem 'unicorn'
 
-gem 'foundation-rails'
 gem 'email_validator'
 gem "koala", "~> 1.11.0rc"
 gem "simple_form"
 gem "kaminari"
 gem "carrierwave"
+gem 'bootstrap-sass', '~> 3.3.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

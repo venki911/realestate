@@ -1,19 +1,58 @@
-<%= simple_form_for [:member, @property], html: {class: 'form'} do |f| %>
-  <%= f.input :code_ref %>
+<div class='form-box'>
+  <%= simple_form_for [:member, @property], html: {class: 'form form-inline'} do |f| %>
+    <%= input_row do %>
+      <%= f.input :code_ref, input_html: {class: 'form-control'} %>
+    <% end %>
 
-  <%= f.input :borey_name, collection: Property.available_boreys %>
-  <%= f.association :category, collection: Category.all.map{|c| [c.name, c.id]} %>
-  <%= f.input :type_of, collection: Property.available_types %>
+    <%= input_row do %>
+      <%= f.input :borey_name, collection: Property.available_boreys,
+                             input_html: {class: 'selectpicker select'} %>
+    <% end %>
 
-  <%= f.input :width, input_html: { css: 'radius'} %>
-  <%= f.input :height, input_html: { css: 'radius'} %>
-  <%= f.input :area, input_html: { css: 'radius'} %>
+    <%= input_row do %>
+      <%= f.association :category, collection: Category.all.map{|c| [c.name, c.id]},
+                                 input_html: {class: 'selectpicker'} %>
+    <% end %>
 
-  <%= f.input :unit, collection: Property.available_units %>
+    <%= input_row do %>
+      <%= f.input :type_of, collection: Property.available_types,
+                          input_html: {class: 'selectpicker'} %>
+    <% end %>
 
-  <%= f.association :province, collection: Province.all.map{|p| [p.name, p.id]} %>
-  <%= f.association :district, collection: District.all.map{|d| [d.name, d.id]} %>
-  <%= f.association :commune, collection: Commune.all.map{|d| [d.name, d.id]} %>
+    <%= input_row do %>
+      <%= f.input :width, as: :string, input_html: {class: 'form-control'} %>
+    <% end %>
 
-  <%= f.submit "Save", class: 'button radius' %>
-<% end %>
+    <%= input_row do %>
+      <%= f.input :height, as: :string, input_html: {class: 'form-control'} %>
+    <% end %>
+
+    <%= input_row do %>
+      <%= f.input :area, as: :string, input_html: {class: 'form-control'} %>
+    <% end %>
+
+    <%= input_row do %>
+      <%= f.input :unit, collection: Property.available_units,
+                       input_html: {class: 'selectpicker'} %>
+    <% end %>
+
+    <%= input_row do %>
+      <%= f.association :province, collection: Province.all.map{|p| [p.name, p.id]},
+                                 input_html: {class: 'selectpicker'} %>
+    <% end %>
+
+    <%= input_row do %>
+      <%= f.association :district, collection: District.all.map{|d| [d.name, d.id]},
+                                 input_html: {class: 'selectpicker'} %>
+    <% end %>
+
+    <%= input_row do %>
+      <%= f.association :commune, collection: Commune.all.map{|d| [d.name, d.id]},
+                                input_html: {class: 'selectpicker'} %>
+    <% end %>
+    <%= input_row do %>
+      <label></label>
+      <%= f.submit "Save", class: 'btn btn-primary radius' %>
+    <% end %>
+  <% end %>
+</div>

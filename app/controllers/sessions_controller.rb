@@ -7,13 +7,14 @@ class SessionsController < ApplicationController
     if user_signed_in?
       redirect_to after_signed_in_path_for(current_user), notice: "You already signed in"
     end
-    @koala_auth = Koala::Facebook::OAuth.new(ENV['FB_ID'], ENV['FB_SECRET'])
+    set_koala_auth
   end
 
   def create
     if user = User.authenticate(params[:email], params[:password])
       redirect_to sign_in_and_redirect_for(user), notice: "Signed in successfully"
     else
+      set_koala_auth
       flash.now[:alert] = "Invalid email/password"
       render :new
     end

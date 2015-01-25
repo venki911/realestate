@@ -45,6 +45,6 @@ class RegistrationsController < ApplicationController
   end
 
   def filter_params
-    params.require(:user).permit(:first_name, :last_name, :phone, :email, :user_name, :gender, :password, :password_confirmation)
+    params.require(:user).permit(:first_name, :last_name, :phone, :email, :user_name, :gender, :role, :password, :password_confirmation)
   end
 end

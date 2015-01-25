@@ -1,11 +1,9 @@
 .alert-animate {
   position: absolute;
   left: 50%;
-  top: -80px;
   z-index: 9999;
   .alert-body{
     position: relative;
-    left: -50%;
     box-shadow: $box-shadow;
     background: #eee;
     min-width: 300px;
@@ -25,4 +23,17 @@ label.required abbr{
 form {
   max-width: 600px;
   padding: 20px;
+}
+
+.input-row {
+  margin-bottom: 15px;
+}
+
+label.inline {
+  display: inline;
+  width: auto !important
+}
+
+.form {
+  @include form-inline(10em);
 }

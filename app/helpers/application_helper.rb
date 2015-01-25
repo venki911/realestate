@@ -25,8 +25,16 @@ module ApplicationHelper
      end
   end
 
+  def input_row &block
+    content_tag :div, with_output_buffer(&block), class: 'input-row'
+  end
+
   def breadcrumb_admin(options=nil)
     breadcrumb_create options, "Home", admin_root_url
+  end
+
+  def breadcrumb_member(options=nil)
+    breadcrumb_create options, "Home", member_root_url
   end
 
   def breadcrumb(options=nil)
@@ -73,6 +81,7 @@ module ApplicationHelper
   end
 
   def flash_messages
+
     trans = { 'alert' => 'alert-danger', 'notice' => 'alert alert-success' }
 
     content_tag :div, class: 'alert-animate' do
