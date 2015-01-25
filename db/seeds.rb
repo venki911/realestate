@@ -13,11 +13,17 @@ def parse_file(file)
 end
 
 #Seed User
-user_attributes = { email: 'admin@cochero.com', first_name: "admin", last_name: "Admin", phone: "0975553553", password: "password" }
-user = User.where(email: user_attributes[:email]).first_or_initialize
-user.update_attributes(user_attributes.except(:email))
-user.save!
+user_attributes = [ 
+    { user_name: 'admin', email: 'admin@cochero.com', first_name: "admin", last_name: "Ly", phone: "0975553553", password: "password", role: User::ROLE_ADMIN },
+    { user_name: 'agent', email: 'agent@cochero.com', first_name: "agent", last_name: "Ly", phone: "0975553553", password: "password", role: User::ROLE_AGENT },
+    { user_name: 'individual', email: 'member@cochero.com', first_name: "individual", last_name: "Lee", phone: "0975553553", password: "password", role: User::ROLE_INDIVIDUAL} 
+]
 
+user_attributes.each do |attrs|
+  user = User.where(email: attrs[:email]).first_or_initialize
+  user.update_attributes(attrs.except(:email))
+  user.save!
+end
 
 # Categories
 categories = ["Land", "Villa", "Hotel", "Department"]

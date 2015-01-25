@@ -20,11 +20,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_signed_in_path_for(user)
-    root_path
+  def after_signed_in_path_for(user=nil)
+    return user.admin? ? admin_root_path : member_root_path if user
+    return root_path
   end
 
-  def after_signed_out_path_for(user)
+  def after_signed_out_path_for(user=nil)
     sign_in_path
   end
 

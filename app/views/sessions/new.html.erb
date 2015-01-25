@@ -3,7 +3,7 @@
 <div class='form-box'>
   <%= form_tag sessions_path, role: 'form', class: 'form-center' do %>
     <div class='row'>
-      <%= email_field_tag :email, params[:email], class: 'form-control', placeholder: 'Email address' %>
+      <%= text_field_tag :email, params[:email], class: 'form-control', placeholder: 'User name/ Email' %>
     </div>
     <br />
     <div class='row'>

@@ -30,8 +30,8 @@ class User < ActiveRecord::Base
   validates :password, length: { in: 6..72}, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB}
   validates :password, confirmation: true, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB }
 
-  validates :role, presence: true, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB }
-  validates :role, inclusion: { in: [ROLE_INDIVIDUAL, ROLE_AGENT] }, if: ->(user) { user.sign_up_step != User::SIGN_UP_STEP_FB }
+  validates :role, presence: true, if: ->(user) { user.sign_up_step == SIGN_UP_STEP_SITE }
+  validates :role, inclusion: { in: [ROLE_INDIVIDUAL, ROLE_AGENT] }, if: ->(user) { user.sign_up_step == SIGN_UP_STEP_SITE }
 
   attr_accessor :agree
 
@@ -86,5 +86,9 @@ class User < ActiveRecord::Base
   def with_site_sign_up_step
     self.sign_up_step = User::SIGN_UP_STEP_SITE
     self
+  end
+
+  def admin?
+    self.role == User::ROLE_ADMIN
   end
 end
