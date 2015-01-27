@@ -1,0 +1,45 @@
+.unit {
+  width: 3em;
+  .selectpicker {
+    width: 6em !important;
+  }
+}
+.wrapper-area-field, .wrapper-unit-field {
+  display: inline !important;
+}
+
+#property_area {
+  width: 6em !important;
+}
+
+#selected-images {
+  .media-body {
+    display: table-cell;
+    vertical-align: middle;
+  }
+}
+.media-sep {
+  border-bottom: 1px dashed #ccc;
+  padding: 10px;
+
+}
+
+.btn-img-removal {
+  background-color: #d1d1d1;
+  border-radius: 15px;
+  display: block;
+  height: 28px;
+  padding-left: 7px;
+  padding-top: 7px;
+  position: absolute;
+  right: 0;
+  top: -14px;
+  width: 28px;
+  text-decoration: none;
+  &:hover {
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
+

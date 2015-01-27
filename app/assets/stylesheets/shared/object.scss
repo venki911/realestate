@@ -1,20 +1,3 @@
-.alert-animate {
-  position: absolute;
-  left: 50%;
-  z-index: 9999;
-  .alert-body{
-    position: relative;
-    box-shadow: $box-shadow;
-    background: #eee;
-    min-width: 300px;
-    padding: 10px;
-    text-align: center;
-    font-weight: 600;
-    @include border-radius(5px);
-    border: 1px solid #fff;
-  }
-}
-
 label.required abbr{
   color: red;
   font-weight: bold;
@@ -22,7 +5,7 @@ label.required abbr{
 
 form {
   max-width: 600px;
-  padding: 20px;
+  // padding: 20px;
 }
 
 .input-row {
@@ -36,4 +19,49 @@ label.inline {
 
 .form {
   @include form-inline(10em);
+}
+
+.img-preview {
+  width: 60px;
+  height: 60px;
+}
+
+.section-header {
+  font-size: 120%;
+  // background: #eee;
+  // border-bottom: 2px solid #ccc;
+  margin: 15px -15px;
+  padding: 10px 15px;
+}
+
+.vertical-border-right{
+  border-right: 1px dashed #ccc;
+  margin-right: 10px;
+  padding: 0 10px;
+}
+
+.btn-form-action {
+  margin-left: -4px;
+}
+
+.vertical-center {
+  display: table-cell;
+  vertical-align: middle;
+}
+#notification {
+  right: 10px;
+  top: 10px;
+  border: 1px solid #eee;
+  position: fixed;
+  display: block;
+  z-index: 9999;
+  min-width: 320px;
+  @include border-radius(5px);
+}
+.error {
+  color: red;
+
+}
+small.error {
+  padding-left: 10px;
 }

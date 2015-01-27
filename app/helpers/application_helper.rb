@@ -80,11 +80,24 @@ module ApplicationHelper
     end
   end
 
+  def flash_config
+    config = {key: '', value: ''}
+    flash.map do |key, value|
+      config[:key] = key
+      config[:value] = value
+    end
+    config
+  end
+
+  def notification_box
+    content_tag :div, '', id: 'notification'
+  end
+
   def flash_messages
 
     trans = { 'alert' => 'alert-danger', 'notice' => 'alert alert-success' }
 
-    content_tag :div, class: 'alert-animate' do
+    content_tag :div, class: 'notification' do
       flash.map do |key, value|
         content_tag 'div', value, class: "alert #{trans[key]} alert-body"
       end.join('.').html_safe

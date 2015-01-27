@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
   delete 'sign_out' => 'sessions#destroy'
 
+  resources :districts, only: [:index]
+  resources :communes, only: [:index]
+
   resources :registrations, only: [:new, :create]
   get 'sign_up' => 'registrations#new'
   get 'sign_up_fb' => 'registrations#create_with_fb'
@@ -20,6 +23,7 @@ Rails.application.routes.draw do
   namespace :member do
     root 'properties#index'
     resources :properties do
+      resources :photos, only: [:index, :create, :destroy, :edit]
       member do
       end
     end

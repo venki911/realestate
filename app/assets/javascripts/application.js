@@ -1,11 +1,16 @@
 //= require jquery
 //= require jquery_ujs
 
+//= require jquery-fileupload/basic
+//= require jquery-fileupload/vendor/tmpl
+
 //= require bootstrap-sprockets
 
 //= require bootstrap-select
 
 //= require shared/fb_sdk
 //= require shared/fb_login
-//= require shared/alert-animate
+//= require shared/notification
 //= require shared/bootstrap-select
+
+//= require property/photo-file-upload

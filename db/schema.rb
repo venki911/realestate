@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150125081310) do
+ActiveRecord::Schema.define(version: 20150127134128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,17 @@ ActiveRecord::Schema.define(version: 20150125081310) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "photos", force: :cascade do |t|
+    t.string   "image_name"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
+    t.integer  "pos",            default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "photos", ["imageable_id"], name: "index_photos_on_imageable_id", using: :btree
+
   create_table "properties", force: :cascade do |t|
     t.string   "code_ref"
     t.string   "verification_status"
@@ -56,8 +67,15 @@ ActiveRecord::Schema.define(version: 20150125081310) do
     t.string   "unit"
     t.string   "main_photo"
     t.string   "reject_reason"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "photos_count",        default: 0
+    t.float    "total_price"
+    t.float    "price_per_unit"
+    t.string   "price_per_size"
+    t.string   "price_per_duration"
+    t.float    "lat"
+    t.float    "lon"
   end
 
   add_index "properties", ["category_id"], name: "index_properties_on_category_id", using: :btree

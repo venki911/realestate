@@ -1,7 +1,7 @@
 class Member::PropertiesController < MemberController
 
   def index
-    @properties = Property.order('created_at DESC').page(params[:page])
+    @properties = current_user.properties.order('created_at DESC').page(params[:page])
   end
 
   def new
@@ -36,7 +36,9 @@ class Member::PropertiesController < MemberController
   private
   def filter_params
     params.require(:property).permit( :code_ref, :borey_name, :category_id,
-           :type_of, :width, :height, :area, :unit, :province_id, :district_id, :commune_id
+           :type_of, :price_per_unit, :price_per_size, :price_per_duration,
+           :width, :height, :area, :unit,
+           :province_id, :district_id, :commune_id, :lat, :lon
     )
   end
 end

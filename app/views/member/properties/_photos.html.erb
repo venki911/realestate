@@ -1,0 +1,74 @@
+<h3 class='section-header'> Propery images </h3>
+<div id='empty-image' class='row'>
+    <% if @property.photos.count == 0 %>
+      <%= image_tag 'properties/default.png', class: 'img-responsive' %>
+    <% end %>
+</div>
+
+<div class='row' id='uploaded-images'>
+  <% @property.photos.each_with_index do |photo, index| %>
+      <div class='col-xs-6 col-md-6 c-form-img-thumb'>
+        <span class='thumbnail'>
+          <%=image_tag photo.image_name.medium.url, class: 'form-img-thumb' %>
+          <%= link_to '', member_property_photo_url(@property, photo), method: :delete, 
+                      class: 'glyphicon glyphicon-remove btn-img-removal' %>
+        </span>
+      </div>
+  <% end %>
+</div>
+
+<script id='template-uploaded-image' type="text/x-tmpl">
+  <div class='col-xs-6 col-md-6 c-form-img-thumb'>
+    <span class='thumbnail'>
+      <img src='{%=o.medium_url%}' class= 'form-img-thumb' />
+      <a href='{%=o.delete_url%}' data-method="delete" class= 'glyphicon glyphicon-remove btn-img-removal'> </a>
+    </span>
+  </div>
+</script>
+
+
+
+<script id='template-upload' type="text/x-tmpl">
+ <div class='row media-sep'>
+  <div  class="col-lg-10 col-md-8 ">
+    <div class="media">
+      <div class="media-left">
+        <a href="#">
+          <img class="media-object img-preview" src="" alt="preview">
+        </a>
+      </div>
+
+      <div class="media-body">
+        <h4 class="media-heading">{%= o.file.name %}</h4>
+        <div class="progress" style='display:none;'>
+           <div class="progress-bar" role="progressbar" 
+                aria-valuenow="0"
+                aria-valuemin="0"
+                aria-valuemax="100" style="width: 0%;">
+              0
+           </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class='col-lg-1 col-md-4 vertical-center'>
+    <button class='upload-image btn btn-success' style='margin-top: 15px;'> Upload </button>
+    </div>
+</div>
+
+</script>
+
+<div id='selected-images'></div>
+
+<div style='padding: 10px;'>
+<%= form_for [:member, @property, Photo.new], :html => { multipart: true, id: "property-photos"  } do |f| %>
+  <span class="btn btn-success btn-lg fileinput-button">
+    <i class="glyphicon glyphicon-plus"></i>
+    <span>Add images to my property...</span>
+    <%= f.file_field :image_name, name: 'photo[image_name]', multiple: true %>
+  </span>
+<% end %>
+</div>
+
