@@ -5,25 +5,25 @@
     <% end %>
 </div>
 
-<div class='row' id='uploaded-images'>
+<ul class='row sortable' id='uploaded-images' data-reposition-url='<%=reposition_member_property_photos_path(@property)%>'>
   <% @property.photos.each_with_index do |photo, index| %>
-      <div class='col-xs-6 col-md-6 c-form-img-thumb'>
+      <li class='col-xs-6 col-md-6 c-form-img-thumb' data-photo-id='<%=photo.id%>'>
         <span class='thumbnail'>
           <%=image_tag photo.image_name.medium.url, class: 'form-img-thumb' %>
           <%= link_to '', member_property_photo_url(@property, photo), method: :delete, 
                       class: 'glyphicon glyphicon-remove btn-img-removal' %>
         </span>
-      </div>
+      </li>
   <% end %>
-</div>
+</ul>
 
 <script id='template-uploaded-image' type="text/x-tmpl">
-  <div class='col-xs-6 col-md-6 c-form-img-thumb'>
+  <li class='col-xs-6 col-md-6 c-form-img-thumb' data-photo-id='{%=o.id%}'>
     <span class='thumbnail'>
       <img src='{%=o.medium_url%}' class= 'form-img-thumb' />
       <a href='{%=o.delete_url%}' data-method="delete" class= 'glyphicon glyphicon-remove btn-img-removal'> </a>
     </span>
-  </div>
+  </li>
 </script>
 
 

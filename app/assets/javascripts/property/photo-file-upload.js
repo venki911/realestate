@@ -7,7 +7,37 @@ $(function(){
   handleFileUpload()
   handleProvinceChange()
   handleDistrictChange()
+  initSortable()
 });
+
+function reloadSortable(){
+  $('.sortable').sortable('reload')
+}
+
+function initSortable(){
+  $(".sortable").sortable({
+    placeholder : "<span class='thumbnail'></span>"
+  }).bind('sortupdate', function() {
+
+     $sortableContainer = $("#uploaded-images")
+     var url = $sortableContainer.attr("data-reposition-url")
+     $sortables = $sortableContainer.find("li")
+
+     var photos = $.map($sortables, function(sortable){
+       return $(sortable).attr("data-photo-id")
+     })
+
+     $.ajax({
+      url: url,
+      data: {photos: photos},
+      dataType: 'json',
+      method: 'PUT',
+      success: function(){
+        setNotification("notice", "Property photo reordered")
+      }
+     })
+  });
+}
 
 function handleProvinceChange(){
   $("#property_province_id").on('change', function(){
@@ -106,6 +136,7 @@ function handleFileUpload(){
         data.context.remove()
       });
       addToUploadedImageList(data.result)
+
     }
   });
 }
@@ -118,6 +149,9 @@ function addToUploadedImageList(uploadImageData){
   $("#uploaded-images").append($uploadedImage)
   $uploadedImage.fadeIn(1000)
   $("#empty-image").remove()
+
+  //New image in sortable so it needs to reload
+  reloadSortable()
 }
 
 function handlePropertyTypeOfChange(){

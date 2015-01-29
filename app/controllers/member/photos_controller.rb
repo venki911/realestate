@@ -22,7 +22,17 @@ class Member::PhotosController < MemberController
     rescue
       redirect_to edit_member_property_path(@imageable), alert: 'Failed not removed the image, please retry'
     end
+  end
+
+  def reposition
+    imageables = @imageable.photos.find(params[:photos])
+    ActiveRecord::Base.transaction do
+      params[:photos].each_with_index do |imageable_id, index|
+        @imageable.photos.update(imageable_id, pos: index)
+      end
+    end
     
+    head :ok
   end
 
 

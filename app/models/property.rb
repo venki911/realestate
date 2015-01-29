@@ -28,7 +28,28 @@ class Property < ActiveRecord::Base
   PRICE_PER_DURATION_MONTH = "Month"
   PRICE_PER_DURATION_YEAR  = "Year"
 
+  validates :code_ref, uniqueness: true, if: ->(p){p.code_ref.present?}
   validates :price_per_unit, presence: true, numericality: {greater_than: 0}
+
+  validates :width, presence: true, numericality: {greater_than: 0}, unless: ->(p) { p.area.present? }
+  validates :height, presence: true, numericality: {greater_than: 0}, unless: ->(p) { p.area.present? }
+  validates :area, presence: true, numericality: {greater_than: 0}, if: ->(p) { !p.width.present?  && !p.height.present? }
+
+  before_create :generate_code_ref
+
+  def generate_code_ref
+    return false if self.code_ref.present?
+
+    self.code_ref = loop do
+      random_code = SecureRandom.urlsafe_base64(6)
+      if self.class.exists?(code_ref: code_ref)
+        warn "Possibly duplicate generated token"
+      else
+        break random_code
+      end
+    end
+  end
+
 
   def self.available_price_per_sizes
     [PRICE_PER_SIZE_TOTAL, PRICE_PER_SIZE_M2, PRICE_PER_SIZE_HECTAR]

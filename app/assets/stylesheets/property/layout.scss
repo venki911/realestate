@@ -42,4 +42,25 @@
   }
 }
 
+.property_area small.error {
+  display: none;
+}
+
+$sortable-height: 200px;
+.thumbnail{
+  height: $sortable-height;
+  overflow: hidden;
+}
+
+.sortable li {
+  cursor: move;
+  list-style-type: none;
+}
+
+.sortable-placeholder {
+  border: 1px dotted #ccc;
+  @include make-lg-column(6);
+  height: $sortable-height;
+}
+
 

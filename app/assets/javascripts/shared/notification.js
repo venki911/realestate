@@ -1,11 +1,19 @@
 $(function(){
-  alertNotification();
+  flashNotification();
 })
 
-function alertNotification(){
+function flashNotification(){
+  setNotification(Config.Flash.key, Config.Flash.value)
+}
+
+
+
+function setNotification(key, value) {
   $notification = $("#notification")
-  if(Config.Flash.key && Config.Flash.value){
-    var templateData = Config.Flash
+
+  if(key && value){
+    var templateData = {body: value}
+
     if(Config.Flash.key == 'notice'){
       templateData.title = "Success"
       templateData.type = 'info'
