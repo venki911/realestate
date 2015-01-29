@@ -12,6 +12,8 @@ class User < ActiveRecord::Base
   ROLE_INDIVIDUAL = "Individual"
   ROLE_ADMIN = "Admin"
 
+  MAX_NUMBER_OF_POST = 6
+
   has_many :properties
 
   validates :first_name, presence: true
@@ -90,5 +92,18 @@ class User < ActiveRecord::Base
 
   def admin?
     self.role == User::ROLE_ADMIN
+  end
+
+  def agent?
+    self.role == User::ROLE_AGENT
+  end
+
+  def individual?
+    self.role == User::ROLE_INDIVIDUAL
+  end
+
+  def over_quota?
+    return true if (agent? || individual?) && properties_count >= User::MAX_NUMBER_OF_POST
+    false
   end
 end

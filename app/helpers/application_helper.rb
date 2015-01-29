@@ -10,12 +10,12 @@ module ApplicationHelper
   def page_header title, options={},  &block
      content_tag :div,:class => "list-header clearfix" do
         if block_given? 
-            content_title = content_tag :div, :class => "left" do
+            content_title = content_tag :div, :class => "pull-left" do
               content_tag(:h3, title, :class => "header-title")
             end
 
             output = with_output_buffer(&block)
-            content_link = content_tag(:div, output, {:class => " right"})
+            content_link = content_tag(:div, output, {:class => "pull-right"})
             content_title + content_link
         else
             content_tag :div , :class => "row" do 

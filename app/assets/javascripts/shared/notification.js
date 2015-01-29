@@ -14,7 +14,7 @@ function setNotification(key, value) {
   if(key && value){
     var templateData = {body: value}
 
-    if(Config.Flash.key == 'notice'){
+    if(key == 'notice'){
       templateData.title = "Success"
       templateData.type = 'info'
       templateData.icon = 'ok'
@@ -24,7 +24,7 @@ function setNotification(key, value) {
       templateData.type = 'danger'
       templateData.icon = 'remove'
     }
-
+    $notification.show()
     var notificationHtml = tmpl('tmpl-notification', templateData)
     $notification.html(notificationHtml)
     $notification.fadeOut(5000)

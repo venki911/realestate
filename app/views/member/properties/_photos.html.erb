@@ -30,7 +30,7 @@
 
 <script id='template-upload' type="text/x-tmpl">
  <div class='row media-sep'>
-  <div  class="col-lg-10 col-md-8 ">
+  <div  class="col-lg-8 col-md-8 text-left edge-left ">
     <div class="media">
       <div class="media-left">
         <a href="#">
@@ -39,7 +39,7 @@
       </div>
 
       <div class="media-body">
-        <h4 class="media-heading">{%= o.file.name %}</h4>
+        <div class="media-heading">{%= o.file.name %}</div>
         <div class="progress" style='display:none;'>
            <div class="progress-bar" role="progressbar" 
                 aria-valuenow="0"
@@ -53,8 +53,9 @@
 
   </div>
 
-  <div class='col-lg-1 col-md-4 vertical-center'>
-    <button class='upload-image btn btn-success' style='margin-top: 15px;'> Upload </button>
+  <div class='col-lg-4 col-md-4 vertical-center text-right'>
+    <button class='cancel-image btn btn-danger' style='margin-top: 15px;'>Drop</button>
+    <button class='upload-image btn btn-success' style='margin-top: 15px;'>Upload</button>
     </div>
 </div>
 

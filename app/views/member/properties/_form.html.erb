@@ -6,7 +6,7 @@
     <% end %>
 
     <%= input_row do %>
-      <%= f.input :borey_name, collection: Property.available_boreys, prompt: 'Borey name ?',
+      <%= f.input :borey_name, collection: Borey.all, prompt: 'Borey name ?',
                              input_html: {class: 'selectpicker select'} %>
     <% end %>
 
@@ -52,7 +52,7 @@
     <% end %>
 
     <%= input_row do %>
-      <%= f.input :height, as: :string, label: 'Length (m)', input_html: {class: 'form-control'} %>
+      <%= f.input :length, as: :string, label: 'Length (m)', input_html: {class: 'form-control'} %>
     <% end %>
 
     <%= input_row do %>
@@ -85,6 +85,11 @@
 
     <%= input_row do %>
       <%= f.input :lon, as: :string, label: 'Longitud', input_html: {class: 'form-control'} %>
+    <% end %>
+
+    <%= input_row do %>
+      <label> </label>
+      <%= f.input :show_on_map, label_html: {class: 'label-checkbox'}, input_html: {class: 'form-control input-inline'} %>
     <% end %>
 
 

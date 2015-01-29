@@ -1,17 +1,21 @@
 <%= page_title("Your Properties") %>
 
-<%= breadcrumb_admin([ Properties: nil ]) %>
 
 <%= page_header "Your Properties" do %>
-  <%= link_to 'Create Property', new_member_property_path %>
+  <%= link_to 'Create Property', new_member_property_path, class: 'btn btn-info' %>
 <% end %>
 
 
 <%= paginate @properties %>
 
+<div class="row">
+  <div class='col-lg-6 col-md-8'>
+    <% @properties.each do |property| %>
+      <%= render 'shared/property', property: PropertyPresenter.new(property) %>
+    <% end %>
+  </div>
 
-<% @properties.each do |property| %>
-  <%= render 'shared/property', property: property %>
-<% end %>
+  <div class='col-lg-6 col-md-4'> </div>
+</div>
 
 <%= paginate @properties %>

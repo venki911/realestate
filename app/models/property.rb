@@ -3,16 +3,19 @@ class Property < ActiveRecord::Base
   belongs_to :province
   belongs_to :district
   belongs_to :commune
-  belongs_to :user
+  belongs_to :user, counter_cache: true
 
   has_many :photos, as: :imageable, dependent: :destroy
+
+  MAX_PHOTO_ALLOWED = 4
 
   UNIT_HECTAR = "Hectar"
   UNIT_M2     = "M2"
 
   VERIFICATION_STUTUS_PENDING = "Pending"
-  VERIFICATION_STATUS_OK = "Ok"
-  VERIFICATION_STATUS_REJECT = "Reject"
+  VERIFICATION_STATUS_OK = "Verified"
+  VERIFICATION_STATUS_REJECT = "Rejected"
+  VERIFICATION_STATUS_RESUBMITTED = "Resumitted"
 
   STATUS_NOT_AVAILABLE = "Not Available"
   STATUS_AVAILABLE = "Available"
@@ -32,8 +35,9 @@ class Property < ActiveRecord::Base
   validates :price_per_unit, presence: true, numericality: {greater_than: 0}
 
   validates :width, presence: true, numericality: {greater_than: 0}, unless: ->(p) { p.area.present? }
-  validates :height, presence: true, numericality: {greater_than: 0}, unless: ->(p) { p.area.present? }
-  validates :area, presence: true, numericality: {greater_than: 0}, if: ->(p) { !p.width.present?  && !p.height.present? }
+  validates :length, presence: true, numericality: {greater_than: 0}, unless: ->(p) { p.area.present? }
+  validates :area, presence: true, numericality: {greater_than: 0}, if: ->(p) { !p.width.present?  && !p.length.present? }
+  validates :province_id, presence: true
 
   before_create :generate_code_ref
 
@@ -47,6 +51,16 @@ class Property < ActiveRecord::Base
       else
         break random_code
       end
+    end
+  end
+
+  def over_quota?
+    photos_count >= Property::MAX_PHOTO_ALLOWED
+  end
+
+  def resume_rejected!
+    if verification_status == VERIFICATION_STATUS_REJECT
+      self.verification_status = VERIFICATION_STATUS_RESUBMITTED
     end
   end
 

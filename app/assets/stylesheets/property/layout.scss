@@ -1,3 +1,7 @@
+.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+  width: auto;
+}
+
 .unit {
   width: 3em;
   .selectpicker {
@@ -20,7 +24,7 @@
 }
 .media-sep {
   border-bottom: 1px dashed #ccc;
-  padding: 10px;
+  padding: 10px 0;
 
 }
 
@@ -63,4 +67,28 @@ $sortable-height: 200px;
   height: $sortable-height;
 }
 
+.p-item {
+  border: 1px solid #f7f7f7;
+  margin-bottom: 15px;
+  @include border-radius(5px);
+  background-color: #eee;
+  .media{
+    position: relative;
+  }
+  .media-body {
+    padding: 10px 0;
+  }
+}
+
+.p-item img.media-object{
+   width: 120px;
+   height: 120px;
+   border-radius: 5px 0 0 5px;
+}
+.verification{
+  padding: 5px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
 

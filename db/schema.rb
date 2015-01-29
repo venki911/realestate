@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150127134128) do
+ActiveRecord::Schema.define(version: 20150130154256) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150127134128) do
 
   create_table "properties", force: :cascade do |t|
     t.string   "code_ref"
-    t.string   "verification_status"
+    t.string   "verification_status", default: "Pending"
     t.string   "status"
     t.string   "swot"
     t.text     "note"
@@ -62,13 +62,13 @@ ActiveRecord::Schema.define(version: 20150127134128) do
     t.integer  "user_id"
     t.string   "type_of"
     t.float    "width"
-    t.float    "height"
+    t.float    "length"
     t.float    "area"
     t.string   "unit"
     t.string   "main_photo"
     t.string   "reject_reason"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "photos_count",        default: 0
     t.float    "total_price"
     t.float    "price_per_unit"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20150127134128) do
     t.string   "price_per_duration"
     t.float    "lat"
     t.float    "lon"
+    t.boolean  "show_on_map",         default: true
   end
 
   add_index "properties", ["category_id"], name: "index_properties_on_category_id", using: :btree
@@ -110,6 +111,7 @@ ActiveRecord::Schema.define(version: 20150127134128) do
     t.string   "avatar"
     t.integer  "sign_up_step",            default: 0
     t.string   "role"
+    t.integer  "properties_count",        default: 0
   end
 
   add_foreign_key "properties", "categories"

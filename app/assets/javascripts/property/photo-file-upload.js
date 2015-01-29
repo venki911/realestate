@@ -8,6 +8,7 @@ $(function(){
   handleProvinceChange()
   handleDistrictChange()
   initSortable()
+  handleDeleteUploadedPhoto()
 });
 
 function reloadSortable(){
@@ -112,6 +113,11 @@ function handleFileUpload(){
           data.context.find(".progress").css('display','block');
           data.submit();
         })
+        data.context.find(".cancel-image").on('click', function(){
+          data.context.fadeOut(1000, function(){
+            data.context.remove()
+          });
+        })
     
       }
       else {
@@ -127,16 +133,16 @@ function handleFileUpload(){
         $bar.css('width', uploaded + "%").attr("aria-valuenow", uploaded).text(uploaded)
       }
     },
-
-    progressall: function (e, data) {
-
-    },
     done: function (e, data) {
       data.context.fadeOut(1000, function(){
         data.context.remove()
       });
       addToUploadedImageList(data.result)
-
+      setNotification("notice", "Photo uploaded")
+    },
+    fail: function(e, data){
+      var error = data.jqXHR.responseJSON.error
+      setNotification("alert", error)
     }
   });
 }
@@ -179,10 +185,29 @@ function readImage(data){
 }
 
 function handleDeleteUploadedPhoto(){
-  $(".btn-img-removal").on('click', function(){
-    $this = $(this);
+  $(document.body).on('click', ".btn-img-removal" ,function(){
+
     if(!confirm('Are you sure to remove this'))
       return false
+
+    $this = $(this)
+    var url = $this.attr("href")
+
+    $.ajax({
+      url: url,
+      method: 'DELETE',
+      success: function(res){
+        $list = $this.parent().parent()
+        $list.fadeOut(1000, function(){
+          $list.remove()
+        })
+        setNotification("notice", "Photo has been removed")
+        reloadSortable()
+      },
+      error: function(){
+        setNotification("alert", "Failed to remove photo")
+      }
+    })
 
     return false
   })

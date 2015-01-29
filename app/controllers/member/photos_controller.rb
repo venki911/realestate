@@ -6,33 +6,31 @@ class Member::PhotosController < MemberController
   end
 
   def create
-    @photo = @imageable.photos.build(filter_params)
-    if @photo.save
-      render json: to_jq_upload(@photo)
+    if @imageable.over_quota?
+      render json: { error: 'You have reached the max number of photo'}, status: :bad_request
     else
-      render json: [ error: 'custom_failure'], status: 304
+      @photo = @imageable.photos.build(filter_params)
+      if @photo.save
+        render json: to_jq_upload(@photo)
+      else
+        render json: { error: 'Could not be saved the image' }, status: :bad_request
+      end
     end
   end
 
   def destroy
-    begin
-      @photo = @imageable.photos.find(params[:id])
-      @photo.destroy
-      redirect_to edit_member_property_path(@imageable), notice: 'Image has been removed'
-    rescue
-      redirect_to edit_member_property_path(@imageable), alert: 'Failed not removed the image, please retry'
-    end
+    @photo = @imageable.photos.find_by(id: params[:id])
+    @photo.destroy
+    head :ok
   end
 
   def reposition
-    imageables = @imageable.photos.find(params[:photos])
     ActiveRecord::Base.transaction do
-      params[:photos].each_with_index do |imageable_id, index|
-        @imageable.photos.update(imageable_id, pos: index)
+      params[:photos].each_with_index do |photo_id, index|
+        photo = Photo.update(photo_id, pos: index)
       end
     end
-    
-    head :ok
+    render json:  @imageable.photos.find(params[:photos]).map(&:id)
   end
 
 

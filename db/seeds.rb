@@ -26,10 +26,15 @@ user_attributes.each do |attrs|
 end
 
 # Categories
-categories = ["Land", "Villa", "Hotel", "Department"]
-categories.each do |category_name|
-  category = Category.where(name: category_name).first_or_initialize
-  category.save! if category.new_record?
+categories = [ '3 Star Hotel', '4 Star Hotel', '5 Star Hotel', 'Boutique Hotel', 'Budget Hotel', 'Bungalow', 'Casino', 'Condominium',
+     'Detached House', 'Factory', 'Flat', 'Guesthouse', 'Island', 'Land', 'Linkhouse', 'Office Building', 'Office Space',
+     'Restaurant', 'Room', 'Semi-Detached House', 'Serviced Apartment', 'Warehouse', 'Wooden House' ]
+     
+ActiveRecord::Base.transaction do
+  categories.each do |category_name|
+    category = Category.where(name: category_name).first_or_initialize
+    category.save! if category.new_record?
+  end
 end
 
 

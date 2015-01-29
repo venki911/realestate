@@ -1,6 +1,27 @@
-<ul>
-  <li>
-    <%= property.code_ref %>
-    <%= link_to 'Edit', edit_member_property_path(property) %>
-  </li>
-</ul>
+<div class='p-item'>
+  <div class="media">
+    <div class="media-left">
+      <%= link_to edit_member_property_path(property) do %>
+        <%image_tag property.main_thumb_photo, class: "media-object", alt: "" %>
+      <% end %>
+    </div>
+    <div class="media-body">
+      <div> <strong class="media-heading"><%= property.display_title %></strong> </div>
+      <strong> <%=property.display_description %>  </strong>
+      <div> Size <%=property.display_area%> </div>
+      <p>
+      </p>
+
+      <%=property.display_verification_status %>
+
+      <div style='bottom: 0px; padding-right: 10px; ' class='text-right'>
+        <div class='pull-left'> <%=property.display_user%> </div>
+        <div class='pull-right'>
+    
+          <span class='label label-info'> <i class='glyphicon glyphicon-camera'> </i> <%= property.photos_count %> </span>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
