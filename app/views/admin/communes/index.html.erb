@@ -1,12 +1,10 @@
 <%= page_title("Commune") %>
 <%= page_header "Commune" do %>
-  <%= link_to "New", new_admin_commune_path %>
+  <%= link_to "New", new_admin_commune_path, class: 'btn btn-info' %>
 <% end %>
-
-<%= breadcrumb_admin %>
 <%= paginate @communes %>
 
-<table>
+<table class='table'>
   <thead>
    <td>No</td>
    <td>Name</td>

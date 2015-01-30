@@ -1,6 +1,6 @@
 class Admin::ProvincesController < AdminController
   def index
-    @provinces = Province.order('created_at DESC').page(params[:page])
+    @provinces = Province.order('name').page(params[:page])
   end
 
   def new

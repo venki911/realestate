@@ -1,0 +1,28 @@
+<%= page_title("page_title") %>
+<%= page_header "Categories" do %>
+  <%= link_to "New", new_admin_category_path, class: 'btn btn-info' %>
+<% end %>
+
+<%= paginate @categories %>
+
+<table class='table'>
+  <thead>
+   <td>No</td>
+   <td>Name</td>
+   <td></td>
+  </thead>
+
+  <tbody>
+    <% @categories.each_with_index do |category, index| %>
+      <tr>
+        <td><%= index_in_paginate(index+1) %></td>
+        <td><%= category.name%></td>
+        <td>
+          <%=link_to 'Edit', edit_admin_category_path(category) %> | 
+          <%=link_to 'Destroy', admin_category_path(category), method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @categories %>

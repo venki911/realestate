@@ -1,5 +1,14 @@
-<%= simple_form_for [:admin, @district] do |f| %>
-  <%= f.input :name %>
-  <%= f.select :province, options_for_select(Province.all.map{|p| [p.name, p.id]}) %>
-  <%= f.submit "Save", class: 'button radius' %>
+<%= simple_form_for [:admin, @district], html: {class: 'form form-inline'} do |f| %>
+  <%= input_row do %>
+    <%= f.input :name, input_html: {class: 'form-control'} %>
+  <% end %>
+
+  <%= input_row do %>
+    <%= f.association :province, collection: Province.all.map{|p| [p.name, p.id]}, input_html: {class: 'form-control'} %>
+  <% end %>
+
+  <%= input_row do %>
+    <label></label>
+    <%= f.submit "Save", class: 'btn btn-primary' %>
+  <% end %>
 <% end %>

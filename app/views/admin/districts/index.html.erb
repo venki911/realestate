@@ -1,12 +1,11 @@
 <%= page_title("District") %>
 <%= page_header "Districts" do %>
-  <%= link_to "New", new_admin_district_path %>
+  <%= link_to "New", new_admin_district_path, class: 'btn btn-info' %>
 <% end %>
 
-<%= breadcrumb_admin %>
 <%= paginate @districts %>
 
-<table>
+<table class='table'>
   <thead>
    <td>No</td>
    <td>Name</td>

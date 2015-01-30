@@ -1,0 +1,34 @@
+<%= page_title("Property") %>
+<%= page_header "Property" %>
+
+<%= paginate @properties %>
+
+<table class='table'>
+  <thead>
+   <td>No</td>
+   <td>Code</td>
+   <td>Date</td>
+   <td>Verify</td>
+   <td>Status</td>
+   <td>Type</td>
+
+   <td></td>
+  </thead>
+
+  <tbody>
+    <% @properties.each_with_index do |property, index| %>
+      <tr>
+        <td><%= index_in_paginate(index+1) %></td>
+        <td><%= property.code_ref%></td>
+        <td><%= property.updated_at%></td>
+        <td><%= property.verification_status%></td>
+        <td><%= property.status%></td>
+        <td><%= property.type_of%></td>
+        <td>
+          <%=link_to 'Edit', '' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @properties %>

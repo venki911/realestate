@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150130154256) do
+ActiveRecord::Schema.define(version: 20150130170332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,7 @@ ActiveRecord::Schema.define(version: 20150130154256) do
   create_table "properties", force: :cascade do |t|
     t.string   "code_ref"
     t.string   "verification_status", default: "Pending"
-    t.string   "status"
+    t.string   "status",              default: "Available"
     t.string   "swot"
     t.text     "note"
     t.string   "borey_name"
@@ -67,8 +67,8 @@ ActiveRecord::Schema.define(version: 20150130154256) do
     t.string   "unit"
     t.string   "main_photo"
     t.string   "reject_reason"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "photos_count",        default: 0
     t.float    "total_price"
     t.float    "price_per_unit"
