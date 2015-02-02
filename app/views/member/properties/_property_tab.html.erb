@@ -1,0 +1,14 @@
+<div class="btn-group " role="group" style='margin-top: 10px;'>
+  <%= link_to edit_member_property_path(property), class: "btn btn-default #{active_index(current_index == 0)}" do %>
+    <i class='glyphicon glyphicon-shopping-cart'> </i> Property
+  <% end %>
+
+  <%= link_to show_map_member_property_path(property), class: "btn btn-default #{active_index(current_index == 1)}" do %>
+    <i class='glyphicon glyphicon-map-marker'> </i> Location
+  <% end %>
+
+  <%= link_to show_photos_member_property_path(property), class: "btn btn-default #{active_index(current_index == 2)}" do %>
+    <i class='glyphicon glyphicon-camera'> </i> Photos
+  <% end %>
+
+</div>

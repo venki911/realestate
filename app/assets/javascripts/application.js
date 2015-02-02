@@ -15,3 +15,4 @@
 //= require shared/bootstrap-select
 
 //= require property/photo-file-upload
+//= require property/map

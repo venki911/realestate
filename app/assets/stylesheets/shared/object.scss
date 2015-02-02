@@ -8,6 +8,10 @@ form {
   // padding: 20px;
 }
 
+.form-lg {
+  min-width: $screen-lg-min;
+}
+
 .input-row {
   margin-bottom: 15px;
 }
@@ -73,14 +77,16 @@ small.error {
   margin-right: -15px;
 }
 .navbar-brand{
-  margin-top: -15px;
-}
-.navbar-brand:hover{
-  margin-top: -13px;
+  margin-top: -6px;
+  color: #fff;
+  &:hover {
+    
+  }
 }
 
 .label-checkbox {
   padding-left: 15px;
+  width: auto !important;
   .input-inline {
     margin-right: 10px;
   }

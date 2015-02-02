@@ -63,7 +63,8 @@ $sortable-height: 200px;
 
 .sortable-placeholder {
   border: 1px dotted #ccc;
-  @include make-lg-column(6);
+  @include make-lg-column(3);
+  @include make-md-column(4);
   height: $sortable-height;
 }
 
@@ -90,5 +91,10 @@ $sortable-height: 200px;
   position: absolute;
   right: 10px;
   top: 10px;
+}
+
+#p-map {
+  min-height: 350px;
+  background-color: #eee;
 }
 

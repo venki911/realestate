@@ -14,11 +14,33 @@ class Member::PropertiesController < MemberController
   def create
     @property = current_user.properties.build(filter_params)
     if @property.save
-      redirect_to member_properties_path, notice: 'You property has been created'
+      redirect_to show_map_member_property_path(@property, next: true), notice: 'You property has been created'
     else
       flash.now[:alert] = "Failed to create property"
       render :new
     end
+  end
+
+  def show_map
+    @property = Property.find(params[:id])
+  end
+
+  def update_map
+    @property = Property.find(params[:id])
+    if @property.update_attributes(filter_map_params)
+      if params[:next].present?
+        redirect_to show_photos_member_property_path(@property, next: true), notice: 'Property map has been saved'
+      else
+        redirect_to show_map_member_property_path(@property), notice: 'Property map has been saved'
+      end
+    else
+      flash.now[:alert] = @property.errors.full_messages.first
+      render :show_map
+    end
+  end
+
+  def show_photos
+    @property = Property.find(params[:id])
   end
 
   def edit
@@ -30,7 +52,7 @@ class Member::PropertiesController < MemberController
     @property.resume_rejected!
     
     if(@property.update_attributes(filter_params))
-      redirect_to member_properties_path, notice: 'Property has been updated'
+      redirect_to edit_member_property_path(@property), notice: 'Property has been updated'
     else
       flash.now[:alert] = "Failed to update property"
       render :edit
@@ -38,6 +60,11 @@ class Member::PropertiesController < MemberController
   end
 
   private
+
+  def filter_map_params
+    params.require(:property).permit( :lat, :lon, :show_on_map)
+  end
+
   def filter_params
     params.require(:property).permit( :code_ref, :borey_name, :category_id, :note,
            :type_of, :price_per_unit, :price_per_size, :price_per_duration,

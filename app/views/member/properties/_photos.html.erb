@@ -1,24 +1,40 @@
-<h3 class='section-header'> Propery images </h3>
-<div id='empty-image' class='row'>
-    <% if @property.photos.count == 0 %>
-      <%= image_tag 'properties/default.png', class: 'img-responsive' %>
+<div class='row'>
+  <div id='empty-image'>
+      <% if @property.photos.count == 0 %>
+        <blockquote>
+          You don't have any photos for your valuable property, please click the button below to start uploading them.
+        </blockquote>
+      <% end %>
+  </div>
+
+  <ul class='row sortable' id='uploaded-images' data-reposition-url='<%=reposition_member_property_photos_path(@property)%>'>
+    <% @property.photos.each_with_index do |photo, index| %>
+        <li class='col-xs-6 col-md-4 col-lg-3 c-form-img-thumb' data-photo-id='<%=photo.id%>'>
+          <span class='thumbnail'>
+            <%=image_tag photo.image_name.medium.url, class: 'form-img-thumb' %>
+            <%= link_to '', member_property_photo_url(@property, photo), method: :delete, 
+                        class: 'glyphicon glyphicon-remove btn-img-removal' %>
+          </span>
+        </li>
     <% end %>
+  </ul>
+
+  <div id='selected-images'></div>
+
+  <div style='padding: 10px;'>
+    <%= form_for [:member, @property, Photo.new], :html => { multipart: true, id: "property-photos"  } do |f| %>
+      <span class="btn btn-success fileinput-button">
+        <i class="glyphicon glyphicon-plus"></i> 
+        <span>Add Photos</span>
+        <%= f.file_field :image_name, name: 'photo[image_name]', multiple: true %>
+      </span>
+    <% end %>
+  </div>
+
 </div>
 
-<ul class='row sortable' id='uploaded-images' data-reposition-url='<%=reposition_member_property_photos_path(@property)%>'>
-  <% @property.photos.each_with_index do |photo, index| %>
-      <li class='col-xs-6 col-md-6 c-form-img-thumb' data-photo-id='<%=photo.id%>'>
-        <span class='thumbnail'>
-          <%=image_tag photo.image_name.medium.url, class: 'form-img-thumb' %>
-          <%= link_to '', member_property_photo_url(@property, photo), method: :delete, 
-                      class: 'glyphicon glyphicon-remove btn-img-removal' %>
-        </span>
-      </li>
-  <% end %>
-</ul>
-
 <script id='template-uploaded-image' type="text/x-tmpl">
-  <li class='col-xs-6 col-md-6 c-form-img-thumb' data-photo-id='{%=o.id%}'>
+  <li class='col-xs-6 col-md-4 col-lg-3 c-form-img-thumb' data-photo-id='{%=o.id%}'>
     <span class='thumbnail'>
       <img src='{%=o.medium_url%}' class= 'form-img-thumb' />
       <a href='{%=o.delete_url%}' data-method="delete" class= 'glyphicon glyphicon-remove btn-img-removal'> </a>
@@ -29,47 +45,34 @@
 
 
 <script id='template-upload' type="text/x-tmpl">
- <div class='row media-sep'>
-  <div  class="col-lg-8 col-md-8 text-left edge-left ">
-    <div class="media">
-      <div class="media-left">
-        <a href="#">
-          <img class="media-object img-preview" src="" alt="preview">
-        </a>
-      </div>
+  <div class='media-sep clearfix'>
+    <div  class="col-lg-8 col-md-8 text-left edge-left ">
+      
+      <div class="media">
+        <div class="media-left">
+          <a href="#"><img class="media-object img-preview" src="" alt="preview"> </a>
+        </div>
 
-      <div class="media-body">
-        <div class="media-heading">{%= o.file.name %}</div>
-        <div class="progress" style='display:none;'>
-           <div class="progress-bar" role="progressbar" 
-                aria-valuenow="0"
-                aria-valuemin="0"
-                aria-valuemax="100" style="width: 0%;">
-              0
-           </div>
+        <div class="media-body">
+          <div class="media-heading">{%= o.file.name %}</div>
+          <div class="progress" style='display:none;'>
+             <div class="progress-bar" role="progressbar" 
+                  aria-valuenow="0"
+                  aria-valuemin="0"
+                  aria-valuemax="100" style="width: 0%;">
+                0
+             </div>
+          </div>
         </div>
       </div>
+
+    </div>
+
+    <div class='col-lg-4 col-md-4 vertical-center text-right'>
+      <button class='cancel-image btn btn-danger' style='margin-top: 15px;'>Cancel</button>
+      <button class='upload-image btn btn-success' style='margin-top: 15px;'>Upload</button>
     </div>
 
   </div>
-
-  <div class='col-lg-4 col-md-4 vertical-center text-right'>
-    <button class='cancel-image btn btn-danger' style='margin-top: 15px;'>Drop</button>
-    <button class='upload-image btn btn-success' style='margin-top: 15px;'>Upload</button>
-    </div>
-</div>
-
 </script>
-
-<div id='selected-images'></div>
-
-<div style='padding: 10px;'>
-<%= form_for [:member, @property, Photo.new], :html => { multipart: true, id: "property-photos"  } do |f| %>
-  <span class="btn btn-success btn-lg fileinput-button">
-    <i class="glyphicon glyphicon-plus"></i>
-    <span>Add images to my property...</span>
-    <%= f.file_field :image_name, name: 'photo[image_name]', multiple: true %>
-  </span>
-<% end %>
-</div>
 

@@ -9,7 +9,7 @@
 
     <%= stylesheet_link_tag    "application" %>
     <%= csrf_meta_tags %>
-    <%= render 'layouts/config' %>
+    <%= render 'layouts/shared/config' %>
 
     
 
@@ -21,11 +21,11 @@
     <![endif]-->
   </head>
   <body>
-    <%= render "layouts/top_nav" %>
+    <%= render "layouts/member/top_nav" %>
     <div class="container">
       <%= yield %>
     </div>
-    <%= render 'layouts/notification' %>
+    <%= render 'layouts/shared/notification' %>
     <%= javascript_include_tag "application" %>
   </body>
 </html>

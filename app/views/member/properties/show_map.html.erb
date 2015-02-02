@@ -1,0 +1,62 @@
+<%= page_title "Mapping property" %>
+
+<%= page_header "Mapping property" do %>
+  <%= render "property_tab", property: @property, current_index: 1 %>
+<% end %>
+
+<%= simple_form_for [:member, @property], url: update_map_member_property_path(@property, params.slice(:next) ),
+                                          method: 'PUT',
+                                          html: {class: 'form form-lg form-inline'} do |f| %>
+  <!-- Map -->
+<div class='row'>
+
+  <div class="col-lg-6">
+    <blockquote>
+      Please drag and drop the pushpin to your property location
+    </blockquote>
+
+    <%= input_row do %>
+      <label> </label>
+      <div id='p-formatted-address' style='display:none;'> 
+         <i class='glyphicon glyphicon-map-marker'> </i>
+         <span id='address'>  </span>
+      </div>
+    <% end %>
+
+    <%= input_row do %>
+      <%= f.input :lat, as: :string, label: 'Latitude', input_html: {class: 'form-control'} %>
+    <% end %>
+
+    <%= input_row do %>
+      <%= f.input :lon, as: :string, label: 'Longitud', input_html: {class: 'form-control'} %>
+    <% end %>
+
+    <%= input_row do %>
+      <label> </label>
+      <%= f.input :show_on_map, label: 'Show on map for public', label_html: {class: 'label-checkbox'}, input_html: {class: 'form-control input-inline'} %>
+    <% end %>
+
+
+    <%= input_row do %>
+      <label></label>
+
+      <% if params[:next].present? %>
+        <button class='btn btn-info btn-form-action' > Create Map </button>
+        <span> </span>
+        <%= link_to " Skip ", show_photos_member_property_path(@property, next: true), class: 'btn btn-info' %>
+      <% else %>
+        <button class='btn btn-info btn-form-action' > Update Map </button>
+      <% end %>
+    <% end %>
+
+  </div>
+
+  <div class='col-lg-6'>
+    <% content_for(:head) do %>
+       <%= render "layouts/shared/google_map" %>
+    <% end %>
+    <div id='p-map'></div>
+  </div>
+
+</div>
+<% end %>

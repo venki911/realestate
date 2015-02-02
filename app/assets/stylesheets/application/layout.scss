@@ -1,5 +1,30 @@
 .top-nav{
-  background-color: whiteSmoke;
-  border-bottom: 1px solid #ddd;
-  border-top: 1px solid white;
+  background-color: #5bc0de;
+  border-bottom: medium none #46b8da;
+}
+
+.nav > li > a {
+  color: #fff;
+  &:hover, &:focus {
+    background-color: #46b8da;
+  }
+}
+
+.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: #46b8da;
+}
+
+.dropdown-menu {
+  background-color: #5bc0de;
+}
+.dropdown-menu .divider {
+  background-color: #46b8da;
+}
+
+.dropdown-menu > li > a {
+  color: #fff;
+  &:hover, &:focus {
+    background-color: #46b8da;
+    color: #fff;
+  }
 }

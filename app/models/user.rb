@@ -62,9 +62,9 @@ class User < ActiveRecord::Base
     User.find_by(fb_id: profile['id'])
   end
 
-  def self.create_from_fb_token!(fb_token)
+  def self.create_from_fb_token(fb_token)
     profile = profile_from_fb_token(fb_token)
-    create_from_fb_profile!(profile)
+    create_from_fb_profile(profile)
   end
 
   def self.create_from_fb_profile profile

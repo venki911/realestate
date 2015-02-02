@@ -1,22 +1,13 @@
 <%= page_title("Edit Property") %>
-<%= page_header "Edit Property" %>
+<%= page_header "Edit Property" do %>
+  <%= render "property_tab", property: @property, current_index: 0 %>
+<% end %>
 
-<div class='row'>
-  <div class='col-lg-6 col-md-12'>
-    <div class='vertical-border-right'> 
-
-      <% if @property.verification_status == Property::VERIFICATION_STATUS_REJECT %>
-        <div class='alert alert-info' >
-           <strong> This was rejected </strong> : <i> <%= @property.reject_reason %>.</i>
-           We are happy to review it again once you edit it.
-        </div>
-      <% end %>
-
-      <%= render 'form' %>
-    </div>
+<% if @property.verification_status == Property::VERIFICATION_STATUS_REJECT %>
+  <div class='alert alert-info' >
+     <strong> This was rejected </strong> : <i> <%= @property.reject_reason %>.</i>
+     We are happy to review it again once you edit it.
   </div>
-  
-  <div class='col-lg-6 col-md-12'> 
-      <%= render 'photos' %>
-  </div>
-</div>
+<% end %>
+
+<%= render 'form' %>

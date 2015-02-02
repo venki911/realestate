@@ -23,6 +23,12 @@ Rails.application.routes.draw do
   namespace :member do
     root 'properties#index'
     resources :properties do
+      member do
+        get 'show_map'
+        get 'show_photos'
+        put 'update_map'
+      end
+
       resources :photos, only: [:index, :create, :destroy, :edit] do
         collection do
           put 'reposition'

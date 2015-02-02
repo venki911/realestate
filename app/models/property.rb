@@ -7,10 +7,10 @@ class Property < ActiveRecord::Base
 
   has_many :photos, as: :imageable, dependent: :destroy
 
-  MAX_PHOTO_ALLOWED = 4
+  MAX_PHOTO_ALLOWED = 6
 
   UNIT_HECTAR = "Hectar"
-  UNIT_M2     = "M2"
+  UNIT_M2     = "Meter2"
 
   VERIFICATION_STUTUS_PENDING = "Pending"
   VERIFICATION_STATUS_OK = "Verified"
@@ -25,11 +25,12 @@ class Property < ActiveRecord::Base
   TYPE_PAWN = "Pawn"
 
   PRICE_PER_SIZE_TOTAL = "Total"
-  PRICE_PER_SIZE_M2    = "M2"
+  PRICE_PER_SIZE_M2    = "Meter2"
   PRICE_PER_SIZE_HECTAR = "Hectar"
 
   PRICE_PER_DURATION_MONTH = "Month"
   PRICE_PER_DURATION_YEAR  = "Year"
+
 
   validates :code_ref, uniqueness: true, if: ->(p){p.code_ref.present?}
   validates :price_per_unit, presence: true, numericality: {greater_than: 0}
@@ -38,6 +39,9 @@ class Property < ActiveRecord::Base
   validates :length, presence: true, numericality: {greater_than: 0}, unless: ->(p) { p.area.present? }
   validates :area, presence: true, numericality: {greater_than: 0}, if: ->(p) { !p.width.present?  && !p.length.present? }
   validates :province_id, presence: true
+  validates :district_id, presence: true
+  validates :lat, numericality: true, if: ->(p) { p.lat.present? }
+  validates :lon, numericality: true, if: ->(p) { p.lon.present? }
 
   before_create :generate_code_ref
 
