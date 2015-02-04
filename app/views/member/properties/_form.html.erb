@@ -77,7 +77,7 @@
         <% end %>
 
         <%= input_row do %>
-          <%= f.input :area, as: :string, wrapper_html: {class: 'wrapper-area-field'}, input_html: {class: 'form-control'} %>
+          <%= f.input :area, as: :string, required: true, wrapper_html: {class: 'wrapper-area-field'}, input_html: {class: 'form-control'} %>
           <%= f.input :unit, label: false, collection: Property.available_units,include_blank: false,
                             wrapper_html: { class: 'wrapper-unit-field'}, input_html: {class: 'selectpicker unit'} %>
         <% end %>
@@ -88,7 +88,7 @@
     <%= input_row do %>
       <label></label>
       <button class='btn btn-info btn-form-action'>
-        <i class='glyphicon glyphicon-shopping-cart'> </i>
+        <i class=''> </i>
         <%= @property.new_record? ? "Next" : "Save" %>
       </button>
     <% end %>

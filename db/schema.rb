@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150130170332) do
+ActiveRecord::Schema.define(version: 20150204055208) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "categories", force: :cascade do |t|
     t.string   "name"
@@ -77,6 +78,9 @@ ActiveRecord::Schema.define(version: 20150130170332) do
     t.float    "lat"
     t.float    "lon"
     t.boolean  "show_on_map",         default: true
+    t.hstore   "config_features"
+    t.hstore   "config_equipments"
+    t.hstore   "config_services"
   end
 
   add_index "properties", ["category_id"], name: "index_properties_on_category_id", using: :btree

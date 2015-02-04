@@ -1,0 +1,40 @@
+<%= page_title "Property Features" %>
+
+<%= page_header "Property Features" do %>
+  <%= render "property_tab", property: @property, current_index: 1 %>
+<% end %>
+
+<%= simple_form_for [:member, @property], url: update_config_member_property_path(@property, params.slice(:next) ),
+                                          method: 'PUT',
+                                          html: {class: 'form form-lg form-inline'} do |f| %>
+  <!-- Map -->
+<div>
+    <h3 class='section-header'> Features </h3>
+    <% Property.stored_attributes[:config_features].each do |feature| %>
+      <%= f.input feature, as: :boolean, input_html: {class: 'checkbox-grid'} %>
+    <% end %>
+
+    <h3 class='section-header'> Equipments </h3>
+    <% Property.stored_attributes[:config_equipments].each do |equipment| %>
+      <%= f.input equipment, as: :boolean, input_html: {class: 'checkbox-grid'} %>
+    <% end %>
+
+    <h3 class='section-header'> Services </h3>
+    <% Property.stored_attributes[:config_services].each do |service| %>
+      <%= f.input service, as: :boolean,input_html: {class: 'checkbox-grid'} %>
+    <% end %>
+    <p></p>
+
+    <%= input_row class: 'text-center clearfix' do %>
+      <% if params[:next].present? %>
+        <button class='btn btn-info btn-form-action' > Create Features </button>
+        <span> </span>
+        <%= link_to " Skip ", show_map_member_property_path(@property, next: true), class: 'btn btn-info' %>
+      <% else %>
+        <button class='btn btn-info btn-form-action' > Update Features </button>
+      <% end %>
+    <% end %>
+
+  </div>
+</div>
+<% end %>

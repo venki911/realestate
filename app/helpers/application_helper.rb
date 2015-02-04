@@ -8,7 +8,7 @@ module ApplicationHelper
   end
 
   def page_header title, options={},  &block
-     content_tag :div,:class => "list-header clearfix" do
+     content_tag :div,:class => "action-header clearfix" do
         if block_given? 
             content_title = content_tag :div, :class => "pull-left" do
               content_tag(:h3, title, :class => "header-title")
@@ -25,8 +25,9 @@ module ApplicationHelper
      end
   end
 
-  def input_row &block
-    content_tag :div, with_output_buffer(&block), class: 'input-row'
+  def input_row options={}, &block
+    options[:class] = "#{options[:class]} input-row"
+    content_tag :div, with_output_buffer(&block), options
   end
 
   def breadcrumb_admin(options=nil)

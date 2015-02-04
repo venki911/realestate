@@ -9,10 +9,27 @@ $(function(){
   handleDistrictChange()
   initSortable()
   handleDeleteUploadedPhoto()
+  handleAutoCalArea()
 });
 
 function reloadSortable(){
   $('.sortable').sortable('reload')
+}
+
+function handleAutoCalArea() {
+  $("#property_width, #property_length").on('change', function(){
+    updatePropertyArea()
+  }).on('keypress', function(){
+    updatePropertyArea()
+  })
+}
+
+function updatePropertyArea(){
+  var w = parseFloat($("#property_width").val())
+  var l = parseFloat($("#property_length").val())
+  var area = w * l
+  area = isNaN(area) ? '' : area
+  $("#property_area").val(area)
 }
 
 function initSortable(){

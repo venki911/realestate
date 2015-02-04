@@ -1,4 +1,14 @@
 class Property < ActiveRecord::Base
+  store_accessor :config_features, :story, :floor, :bedroom, :bath_room, :living_room, :dinning_room, :kitchen,
+                                   :balcany, :terrace, :garden, :parking
+
+  store_accessor :config_equipments, :bed, :mattress, :cloth, :dressingtable, :cupboard, :dinningtable, :chair,
+                                     :sofa, :cabinet, :aircon, :gasstove, :microwave, :refrigerator, :tv, :fanstandingfan,
+                                     :satellitedish, :fax, :generator
+
+  store_accessor :config_services, :electricity, :water, :garbage, :security, :pestcontrol, :cabletv, :laundry, :swimmingpool,
+                                   :idd, :fax, :newspaper, :credit, :internet
+
   belongs_to :category
   belongs_to :province
   belongs_to :district
@@ -45,6 +55,9 @@ class Property < ActiveRecord::Base
 
   before_create :generate_code_ref
 
+  def display_id
+    "PRT-#{id}"
+  end
   def generate_code_ref
     return false if self.code_ref.present?
 

@@ -30,6 +30,10 @@ label.inline {
   height: 60px;
 }
 
+.action-header {
+  margin-bottom: 10px;
+}
+
 .section-header {
   font-size: 120%;
   // background: #eee;
@@ -90,4 +94,8 @@ small.error {
   .input-inline {
     margin-right: 10px;
   }
+}
+
+.checkbox-grid {
+  margin: 10px !important;
 }

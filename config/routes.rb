@@ -27,6 +27,9 @@ Rails.application.routes.draw do
         get 'show_map'
         get 'show_photos'
         put 'update_map'
+
+        get 'show_config'
+        put 'update_config'
       end
 
       resources :photos, only: [:index, :create, :destroy, :edit] do
