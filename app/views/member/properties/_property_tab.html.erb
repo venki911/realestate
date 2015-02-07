@@ -1,11 +1,11 @@
 <div style='margin-top: 10px;'>
   <div class="btn-group " role="group">
     <%= link_to edit_member_property_path(property), class: "btn btn-default #{active_index(current_index == 0)}" do %>
-      <i class='glyphicon glyphicon-shopping-cart'> </i> Property
+      <i class='glyphicon glyphicon-shopping-cart'> </i> Attributes
     <% end %>
 
       <%= link_to show_config_member_property_path(property), class: "btn btn-default #{active_index(current_index == 1)}" do %>
-      <i class='glyphicon glyphicon-road'> </i> Features/Services
+      <i class='glyphicon glyphicon-road'> </i> Facilities
     <% end %>
 
     <%= link_to show_map_member_property_path(property), class: "btn btn-default #{active_index(current_index == 2)}" do %>

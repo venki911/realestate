@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   SIGN_UP_STEP_SITE = 2
 
   ROLE_AGENT = "Agent"
-  ROLE_INDIVIDUAL = "Individual"
+  ROLE_INDIVIDUAL = "Owner"
   ROLE_ADMIN = "Admin"
 
   MAX_NUMBER_OF_POST = 6

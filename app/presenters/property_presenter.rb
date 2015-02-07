@@ -22,7 +22,7 @@ class PropertyPresenter < SimpleDelegator
     result << commune.name if commune
     result << district.name if district
     result << province.name if province
-    code_ref + " - " + result.join(", ")
+    display_id + " - " + result.join(", ")
 
   end
 

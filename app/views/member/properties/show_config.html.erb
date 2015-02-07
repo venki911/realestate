@@ -1,6 +1,6 @@
-<%= page_title "Property Features" %>
+<%= page_title "Property Facilities" %>
 
-<%= page_header "Property Features" do %>
+<%= page_header "Property Facilities" do %>
   <%= render "property_tab", property: @property, current_index: 1 %>
 <% end %>
 
@@ -27,11 +27,11 @@
 
     <%= input_row class: 'text-center clearfix' do %>
       <% if params[:next].present? %>
-        <button class='btn btn-info btn-form-action' > Create Features </button>
+        <button class='btn btn-info btn-form-action' > Create Facilities</button>
         <span> </span>
         <%= link_to " Skip ", show_map_member_property_path(@property, next: true), class: 'btn btn-info' %>
       <% else %>
-        <button class='btn btn-info btn-form-action' > Update Features </button>
+        <button class='btn btn-info btn-form-action' > Update Facilities </button>
       <% end %>
     <% end %>
 

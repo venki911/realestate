@@ -48,8 +48,15 @@ Rails.application.routes.draw do
     resources :districts
     resources :communes
 
-    resources :properties, only: [:index]
+    resources :properties do
+      member do
+        get 'review'
+        put 'update_review'
+      end
+    end
     resources :categories
+    resources :companies
+    resources :users
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

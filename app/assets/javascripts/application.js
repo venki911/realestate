@@ -4,6 +4,7 @@
 //= require jquery-fileupload/basic
 //= require jquery-fileupload/vendor/tmpl
 //= require jquery-sortable
+//= require rails-timeago
 
 //= require bootstrap-sprockets
 
@@ -14,5 +15,7 @@
 //= require shared/notification
 //= require shared/bootstrap-select
 
-//= require property/photo-file-upload
-//= require property/map
+//= require property/member-photo-file-upload
+//= require property/member-map
+//= require property/admin_property
+

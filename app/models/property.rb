@@ -81,6 +81,9 @@ class Property < ActiveRecord::Base
     end
   end
 
+  def self.avalable_status
+    [ STATUS_NOT_AVAILABLE, STATUS_AVAILABLE ]
+  end
 
   def self.available_price_per_sizes
     [PRICE_PER_SIZE_TOTAL, PRICE_PER_SIZE_M2, PRICE_PER_SIZE_HECTAR]
@@ -94,12 +97,12 @@ class Property < ActiveRecord::Base
     [UNIT_M2, UNIT_HECTAR]
   end
 
-  def self.available_boreys
-    ["New world", "Penghourt"]
-  end
-
   def self.available_types
     [TYPE_SALE, TYPE_RENT, TYPE_PAWN]
+  end
+
+  def self.admin_verfication_status
+    [ VERIFICATION_STUTUS_PENDING, VERIFICATION_STATUS_OK, VERIFICATION_STATUS_REJECT ]
   end
 
 end

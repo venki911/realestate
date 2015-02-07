@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module StreamAlert
+module Cochero
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -22,5 +22,7 @@ module StreamAlert
     config.autoload_paths += %W( #{config.root}/app/models/presenters )
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    Rails::Timeago.default_options limit: proc { 25.days.ago }
   end
 end

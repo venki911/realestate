@@ -6,26 +6,33 @@
 <table class='table'>
   <thead>
    <td>No</td>
+   <td>ID</td>
    <td>Code</td>
-   <td>Date</td>
+   <td>Update at</td>
    <td>Verify</td>
    <td>Status</td>
    <td>Type</td>
-
-   <td></td>
+   <td>Photo</td>
+   <td>User</td>
   </thead>
 
   <tbody>
     <% @properties.each_with_index do |property, index| %>
       <tr>
         <td><%= index_in_paginate(index+1) %></td>
-        <td><%= property.code_ref%></td>
-        <td><%= property.updated_at%></td>
-        <td><%= property.verification_status%></td>
+        <td><%= property.display_id %></td>
+        <td><%= property.code_ref %></td>
+        <td><%= timeago_tag(property.updated_at) %></td>
+        <td>
+          <%= property.verification_status%> <br/>
+          <%= property.reject_reason%>
+        </td>
         <td><%= property.status%></td>
         <td><%= property.type_of%></td>
+        <td><%= property.photos_count%></td>
+        <td><%= property.user.first_name%></td>
         <td>
-          <%=link_to 'Edit', '' %>
+          <%=link_to 'Edit', review_admin_property_path(property) %>
         </td>
       </tr>
     <% end %>

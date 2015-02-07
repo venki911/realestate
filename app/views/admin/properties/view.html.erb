@@ -1,0 +1,80 @@
+<%= page_title("View Property") %>
+<%= page_header "View Property" %>
+
+<% content_for(:breadcrumb) do %>
+  <%=breadcrumb_admin([{Property: admin_properties_path}, { View: false}]) %>
+<% end %>
+
+<% property = PropertyPresenter.new(@property) %>
+<div class="row">
+  <div class='col-lg-6'>
+    <%= simple_form_for [:admin, @property], url: admin_property_path(@property),
+                                            method: 'PUT',
+                                            html: {class: 'form form-lg form-inline'} do |f| %>
+
+      <div> <strong class="media-heading"><%= property.display_title %></strong> </div>
+      <strong> <%=property.display_description %>  </strong>
+      <div> Size <%=property.display_area%> </div>
+      
+      <table>
+        <tr>
+          <td>Verification Status</td>
+          <td><%= property.verification_status%></td>
+        </tr>
+
+        <tr>
+          <td>Availability</td>
+          <td><%= property.status %></td>
+        </tr>
+
+        <tr>
+          <td>Photo counts</td>
+          <td><%= property.photos_count%></td>
+        </tr>
+
+
+        <tr>
+          <td>Posted by </td>
+          <td><%= property.user.first_name %></td>
+        </tr>
+
+      </table>
+
+      <%= input_row do %>
+          <%= f.input :status, label: 'Availability', collection: Property.avalable_status, include_blank: false,
+                                  input_html: {class: 'selectpicker'} %>
+      <% end %>
+
+      <%= input_row do %>
+          <%= f.input :verification_status, collection: Property.admin_verfication_status, include_blank: false,
+                                  input_html: {class: 'selectpicker'} %>
+      <% end %>
+
+      <%= input_row do %>
+        <%= f.input :reject_reason, as: :text, input_html: {class: 'form-control'} %>
+      <% end %>
+
+      <%= input_row do %>
+        <label></label>
+        <button class='btn btn-info btn-form-action'>
+          <i class=''> </i> Save
+        </button>
+      <% end %>
+
+
+    <% end %>
+
+  </div>
+  
+  <div class='col-lg-6'>
+    <div class='row'>
+      <% @property.photos.each do |photo| %>
+        <div class='col-lg-6 col-md-6'>
+          <%= image_tag photo.image_name.thumb.url, style: 'width: 200px; height: auto;' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+

@@ -10,18 +10,16 @@ module ApplicationHelper
   def page_header title, options={},  &block
      content_tag :div,:class => "action-header clearfix" do
         if block_given? 
-            content_title = content_tag :div, :class => "pull-left" do
-              content_tag(:h3, title, :class => "header-title")
-            end
+          content_title = content_tag :div, :class => "pull-left" do
+            content_tag(:h3, title, :class => "header-title")
+          end
 
-            output = with_output_buffer(&block)
-            content_link = content_tag(:div, output, {:class => "pull-right"})
-            content_title + content_link
+          output = with_output_buffer(&block)
+          content_link = content_tag(:div, output, {:class => "pull-right"})
+          content_title + content_link
         else
-            content_tag :div , :class => "row" do 
-               content_tag(:h3, title, :class => "header-title")
-            end
-        end 
+          content_tag(:h3, title, :class => "header-title")
+        end
      end
   end
 
@@ -48,7 +46,7 @@ module ApplicationHelper
 
   def breadcrumb_str options, home_text, home_url
     items = []
-    char_sep = "&raquo;".html_safe
+    char_sep = " ".html_safe
     if( !options.nil?  && options.size != 0)
       items <<  content_tag(:li , :class => "active") do
         link_to(home_text, home_url ) + content_tag(:span, char_sep, :class => "divider")
@@ -103,5 +101,9 @@ module ApplicationHelper
         content_tag 'div', value, class: "alert #{trans[key]} alert-body"
       end.join('.').html_safe
     end
+  end
+
+  def active_index active
+    active ? ' active ' : ''
   end
 end
