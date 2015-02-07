@@ -14,8 +14,11 @@
 //= require shared/fb_login
 //= require shared/notification
 //= require shared/bootstrap-select
+//= require shared/resource_location_map
 
-//= require property/member-photo-file-upload
-//= require property/member-map
-//= require property/admin_property
+//= require member/photo_file_upload
+//= require member/property_map
+
+//= require admin/property
+//= require admin/company_map
 

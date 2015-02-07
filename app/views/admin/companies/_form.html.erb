@@ -39,20 +39,30 @@
         <%= input_row do %>
           <label></label>
           <button class='btn btn-info btn-form-action'>
-            <i class=''> </i>
-            <%= @company.new_record? ? "Next" : "Save" %>
+            <i class=''> </i> Save
           </button>
         <% end %>
       </div>
 
       <div class="col-lg-6">
+        <% content_for(:head) do %>
+           <%= render "layouts/shared/google_map" %>
+        <% end %>
+        <div id='p-map'></div>
+
         <%= input_row do %>
-          <%= f.input :lat, as: :string, input_html: {class: 'form-control'} %>
+          <label> </label>
+          <%= decoded_address %>
         <% end %>
 
         <%= input_row do %>
-          <%= f.input :lng, as: :string, input_html: {class: 'form-control'} %>
+          <%= f.input :lat, as: :string, label: 'Latitude', input_html: {class: 'form-control'} %>
         <% end %>
+
+        <%= input_row do %>
+          <%= f.input :lng, as: :string, label: 'Longitud', input_html: {class: 'form-control'} %>
+        <% end %>
+
       </div>
     </div>
   <% end %>

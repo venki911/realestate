@@ -89,7 +89,7 @@ class Member::PropertiesController < MemberController
   end
 
   def filter_map_params
-    params.require(:property).permit( :lat, :lon, :show_on_map)
+    params.require(:property).permit( :lat, :lng, :show_on_map)
   end
 
   def filter_params

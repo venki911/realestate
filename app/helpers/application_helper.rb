@@ -106,4 +106,9 @@ module ApplicationHelper
   def active_index active
     active ? ' active ' : ''
   end
+
+  def decoded_address
+    content_tag :div, '<i class="glyphicon glyphicon-map-marker"> </i> <span id="address"> </span>'.html_safe,
+                style: "display:none;", id: "p-formatted-address"
+  end
 end

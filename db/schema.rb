@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150204140120) do
+ActiveRecord::Schema.define(version: 20150207061253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 20150204140120) do
     t.string   "price_per_size"
     t.string   "price_per_duration"
     t.float    "lat"
-    t.float    "lon"
+    t.float    "lng"
     t.boolean  "show_on_map",         default: true
     t.hstore   "config_features"
     t.hstore   "config_equipments"
