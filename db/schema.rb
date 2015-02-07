@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150207061253) do
+ActiveRecord::Schema.define(version: 20150207073003) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -96,6 +96,8 @@ ActiveRecord::Schema.define(version: 20150207061253) do
     t.hstore   "config_features"
     t.hstore   "config_equipments"
     t.hstore   "config_services"
+    t.boolean  "mark_as_urgent",      default: false
+    t.boolean  "mark_as_exclusive",   default: false
   end
 
   add_index "properties", ["category_id"], name: "index_properties_on_category_id", using: :btree

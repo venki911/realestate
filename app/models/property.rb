@@ -51,7 +51,7 @@ class Property < ActiveRecord::Base
   validates :province_id, presence: true
   validates :district_id, presence: true
   validates :lat, numericality: true, if: ->(p) { p.lat.present? }
-  validates :lon, numericality: true, if: ->(p) { p.lon.present? }
+  validates :lng, numericality: true, if: ->(p) { p.lng.present? }
 
   before_create :generate_code_ref
 
@@ -103,6 +103,14 @@ class Property < ActiveRecord::Base
 
   def self.admin_verfication_status
     [ VERIFICATION_STUTUS_PENDING, VERIFICATION_STATUS_OK, VERIFICATION_STATUS_REJECT ]
+  end
+
+  def logo
+    photos_count > 0 ? photos.first.image_name.thumb.url : default_thumb_url
+  end
+
+  def default_thumb_url
+    'logo/realestate.png'
   end
 
 end

@@ -16,7 +16,7 @@ end
 user_attributes = [ 
     { user_name: 'admin', email: 'admin@cochero.com', first_name: "admin", last_name: "Ly", phone: "0975553553", password: "password", role: User::ROLE_ADMIN },
     { user_name: 'agent', email: 'agent@cochero.com', first_name: "agent", last_name: "Ly", phone: "0975553553", password: "password", role: User::ROLE_AGENT },
-    { user_name: 'individual', email: 'member@cochero.com', first_name: "individual", last_name: "Lee", phone: "0975553553", password: "password", role: User::ROLE_INDIVIDUAL} 
+    { user_name: 'owner', email: 'member@cochero.com', first_name: "individual", last_name: "Lee", phone: "0975553553", password: "password", role: User::ROLE_INDIVIDUAL} 
 ]
 
 user_attributes.each do |attrs|
@@ -27,8 +27,8 @@ end
 
 # Categories
 categories = [ '3 Star Hotel', '4 Star Hotel', '5 Star Hotel', 'Boutique Hotel', 'Budget Hotel', 'Bungalow', 'Casino', 'Condominium',
-     'Detached House', 'Factory', 'Flat', 'Guesthouse', 'Island', 'Land', 'Linkhouse', 'Office Building', 'Office Space',
-     'Restaurant', 'Room', 'Semi-Detached House', 'Serviced Apartment', 'Warehouse', 'Wooden House' ]
+     'Villa/Detached House', 'Factory', 'Flat', 'Guesthouse', 'Island', 'Land', 'Linkhouse', 'Office Building', 'Office Space',
+     'Restaurant', 'Room', 'Semi-Detached House', 'Serviced Apartment', 'Warehouse', 'Wooden House' ].sort
      
 ActiveRecord::Base.transaction do
   categories.each do |category_name|

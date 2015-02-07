@@ -41,6 +41,16 @@
       </table>
       <br />
 
+      <div>
+        <label> </label>
+        <%= f.input :mark_as_urgent, label: 'Urgent', label_html: {class: 'label-checkbox'}, input_html: {class: 'form-control input-inline'} %>
+      </div>
+
+      <div>
+        <label> </label>
+        <%= f.input :mark_as_exclusive, label: 'Exclusive', label_html: {class: 'label-checkbox'}, input_html: {class: 'form-control input-inline'} %>
+      </div>
+
       <%= input_row do %>
           <%= f.input :status, label: 'Availability', collection: Property.avalable_status, include_blank: false,
                                   input_html: {class: 'selectpicker'} %>

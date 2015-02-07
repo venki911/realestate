@@ -20,7 +20,7 @@ class Admin::PropertiesController < AdminController
   private
 
   def filter_review_params
-    params.require(:property).permit(:status, :verification_status, :reject_reason)
+    params.require(:property).permit(:status, :verification_status, :reject_reason, :mark_as_urgent, :mark_as_exclusive)
   end
 
 end
