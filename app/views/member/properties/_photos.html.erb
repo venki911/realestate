@@ -28,7 +28,15 @@
         <span>Add Photos</span>
         <%= f.file_field :image_name, name: 'photo[image_name]', multiple: true %>
       </span>
+
+      <% if params[:next].present? %>
+        <%= link_to member_properties_path, class: 'btn btn-info' do %>
+          <i class="glyphicon glyphicon-ok"></i> Finish
+        <% end %>
+      <% end %>
     <% end %>
+
+    
   <% end %>
 
 </div>
