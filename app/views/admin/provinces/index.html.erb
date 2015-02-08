@@ -1,9 +1,9 @@
 <%= page_title("page_title") %>
+<%= breadcrumb_admin ([{Province:nil}])%>
 <%= page_header "Provinces" do %>
   <%= link_to "New", new_admin_province_path, class: 'btn btn-info' %>
 <% end %>
 
-<%= breadcrumb_admin %>
 <%= paginate @provinces %>
 
 <table class='table'>

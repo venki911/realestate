@@ -1,5 +1,6 @@
 <%= page_title("Edit province") %>
+<%= breadcrumb_admin([ {Province: admin_provinces_path }, {Edit: nil }]) %>
 <%= page_header "Edit Province" %>
 
-<%= breadcrumb_admin([ New: nil ]) %>
+
 <%= render 'form' %>

@@ -1,5 +1,6 @@
 <%= page_title("Create Province") %>
+<%= breadcrumb_admin([ { District: admin_districts_path }, { New: nil } ]) %>
 <%= page_header "Provinces" %>
 
-<%= breadcrumb_admin([ New: nil ]) %>
+
 <%= render 'form' %>

@@ -22,6 +22,9 @@ Rails.application.routes.draw do
 
   namespace :member do
     root 'properties#index'
+
+    get 'layout-property' => 'layouts#property'
+
     resources :properties do
       member do
         get 'show_map'
