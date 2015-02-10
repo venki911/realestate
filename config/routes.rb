@@ -10,6 +10,10 @@ Rails.application.routes.draw do
 
   delete 'sign_out' => 'sessions#destroy'
 
+
+  get '/forgot-password' => 'passwords#new', as: :forgot_password
+  resources :passwords
+
   resources :districts, only: [:index]
   resources :communes, only: [:index]
 

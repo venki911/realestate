@@ -29,14 +29,14 @@ class User < ActiveRecord::Base
 
   validates :phone, presence: true, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB }
 
-  validates :password, presence: true, if: ->(user) { user.password.present? && user.sign_up_step != SIGN_UP_STEP_FB }
-  validates :password, length: { in: 6..72}, if: ->(user) { user.password.present? && user.sign_up_step != SIGN_UP_STEP_FB }
-  validates :password, confirmation: true, if: ->(user) { user.password.present? && user.sign_up_step != SIGN_UP_STEP_FB }
+  validates :password, presence: true, if: ->(user) { !user.password.nil? && user.sign_up_step != SIGN_UP_STEP_FB }
+  validates :password, length: { in: 6..72}, if: ->(user) { !user.password.nil? && user.sign_up_step != SIGN_UP_STEP_FB }
+  validates :password, confirmation: true, if: ->(user) { !user.password.nil? && user.sign_up_step != SIGN_UP_STEP_FB }
 
   validates :role, presence: true, if: ->(user) { user.sign_up_step == SIGN_UP_STEP_SITE }
   validates :role, inclusion: { in: [ROLE_INDIVIDUAL, ROLE_AGENT] }, if: ->(user) { user.sign_up_step == SIGN_UP_STEP_SITE }
 
-  attr_accessor :agree, :old_password
+  attr_accessor :agree, :old_password, :password
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
   mount_uploader :avatar, AvatarUploader
@@ -65,7 +65,10 @@ class User < ActiveRecord::Base
 
   def check_password test_password
     if !authenticate(test_password)
-      self.errors.add(:old_password, 'You password is not correct')
+      errors.add(:old_password, 'You password is not correct')
+      false
+    else
+      true
     end
   end
 
@@ -122,5 +125,29 @@ class User < ActiveRecord::Base
   def over_quota?
     return true if (agent? || individual?) && properties_count >= User::MAX_NUMBER_OF_POST
     false
+  end
+
+  def generate_token(column_name)
+    begin
+      self[column_name] = SecureRandom.urlsafe_base64
+    end while User.exists?(column_name => self[column_name])
+  end
+
+  def send_password_reset
+    generate_token(:reset_password_token)
+    self.reset_password_token_at = Time.zone.now
+    save!
+    UserMailer.forgot_password(self).deliver
+  end
+
+  def update_password_and_send_alert options
+    if self.update_attributes(options)
+      self.reset_password_token = nil
+      self.save!
+      UserMailer.password_changed(self).deliver
+      true
+    else
+      false
+    end
   end
 end

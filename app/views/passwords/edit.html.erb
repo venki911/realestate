@@ -1,0 +1,25 @@
+<%= page_title "Reset Password" %>
+<%= page_header "Reset password" %>
+
+<blockquote>
+  Please fill in the password and password confirmation and hit the Reset password button to reset your password
+</blockquote>
+
+<%= simple_form_for(@user, url: password_path(@user.reset_password_token), html: { class: 'form form-inline', method: 'PUT'}) do |f| %>
+  
+  <%= hidden_field_tag 'token', params[:token] %>
+
+  <%= input_row do %>
+    <%=f.input :password, as: :password, label: 'New Password',
+               input_html: {class: 'form-control', autocomplete: :off} %>
+  <% end %>
+
+  <%= input_row do %>
+    <%=f.input :password_confirmation, as: :password, label: 'Confirm Password',
+               input_html: {class: 'form-control', autocomplete: :off} %>
+  <% end %>
+
+  <%= input_row do %>
+    <button class='btn btn-info btn-block'> Reset Password</button>
+  <% end %>
+<% end %>
