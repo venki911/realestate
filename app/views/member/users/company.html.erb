@@ -1,0 +1,18 @@
+<%= page_title("Edit Company") %>
+<%= page_header "Edit Company" %>
+
+<%= render 'shared/users/profile_tab', current_index: 1 %>
+<%= simple_form_for([:member, current_user], url: member_update_company_path, html: { class: 'form form-lg form-inline'} ) do |f| %>
+
+    <%= input_row do %>
+      <%= f.association :company, collection: Company.all.map{|c| [c.name, c.id]}, include_blank: false,
+                                 prompt: 'Select a company',
+                                 input_html: {class: 'selectpicker'} %>
+    <% end %>
+
+    <%= input_row do %>
+      <label> </label>
+      <%= f.button :submit, "Update", class: 'btn btn-primary' %>
+    <%end%>
+
+<% end %>
