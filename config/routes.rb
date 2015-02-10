@@ -25,6 +25,21 @@ Rails.application.routes.draw do
 
     get 'layout-property' => 'layouts#property'
 
+    get 'profile' => 'users#profile'
+    patch 'update_profile' => 'users#update_profile'
+
+    get 'company' => 'users#company'
+    patch 'update_company' => 'users#update_company'
+
+    get 'photo' => 'users#photo'
+    patch 'update_photo' => 'users#update_photo'
+
+    get 'change_password' => 'users#change_password'
+    patch 'update_password' => 'users#update_password'
+
+    get 'crop' => 'users#crop'
+    patch 'update_crop' => 'users#update_crop'
+
     resources :properties do
       member do
         get 'show_map'

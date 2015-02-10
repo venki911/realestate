@@ -1,0 +1,39 @@
+
+<%= simple_form_for([:member, current_user], url: member_update_profile_path, html: { class: 'form form-lg form-inline'} ) do |f| %>
+    <%= input_row do %>
+      <%= f.input :first_name, input_html: { class: 'form-control', placeholder: 'First name' } %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :last_name, input_html: {class: 'form-control', placeholder: 'Last name' } %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :phone, input_html: { class: 'form-control', placeholder: 'Phone' } %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :user_name, required: true, input_html: { class: 'form-control', placeholder: 'User name' } %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :email, input_html: { class: 'form-control', placeholder: 'Email' } %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :gender, collection: User.available_genders,
+                  include_blank: false,
+                  input_html: { class: 'selectpicker select form-control', placeholder: 'Gender'} %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :role, collection: User.available_roles, label: 'Register as',
+                  include_blank: false,
+                  input_html: { class: 'selectpicker select form-control', placeholder: 'Gender'} %>
+    <%end%>
+
+    <%= input_row do %>
+      <label> </label>
+      <%= f.button :submit, "Update", class: 'btn btn-primary' %>
+    <%end%>
+<% end %>

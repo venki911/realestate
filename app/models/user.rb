@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   MAX_NUMBER_OF_POST = 6
 
   has_many :properties
+  belongs_to :company
 
   validates :first_name, presence: true
   validates :last_name, presence: true
@@ -28,14 +29,24 @@ class User < ActiveRecord::Base
 
   validates :phone, presence: true, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB }
 
-  validates :password, presence: true, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB }
-  validates :password, length: { in: 6..72}, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB}
-  validates :password, confirmation: true, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB }
+  validates :password, presence: true, if: ->(user) { user.password.present? && user.sign_up_step != SIGN_UP_STEP_FB }
+  validates :password, length: { in: 6..72}, if: ->(user) { user.password.present? && user.sign_up_step != SIGN_UP_STEP_FB }
+  validates :password, confirmation: true, if: ->(user) { user.password.present? && user.sign_up_step != SIGN_UP_STEP_FB }
 
   validates :role, presence: true, if: ->(user) { user.sign_up_step == SIGN_UP_STEP_SITE }
   validates :role, inclusion: { in: [ROLE_INDIVIDUAL, ROLE_AGENT] }, if: ->(user) { user.sign_up_step == SIGN_UP_STEP_SITE }
 
-  attr_accessor :agree
+  attr_accessor :agree, :old_password
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+
+  mount_uploader :avatar, AvatarUploader
+
+  after_update :crop_image
+
+
+  def crop_image
+    avatar.recreate_versions! if self.crop_x.present?
+  end
 
   def self.available_roles
     [ROLE_AGENT, ROLE_INDIVIDUAL]
@@ -50,6 +61,12 @@ class User < ActiveRecord::Base
     user.authenticate(password)
   rescue =>e
     false
+  end
+
+  def check_password test_password
+    if !authenticate(test_password)
+      self.errors.add(:old_password, 'You password is not correct')
+    end
   end
 
   def self.profile_from_fb_token fb_token

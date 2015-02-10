@@ -108,9 +108,6 @@ function handleDistrictChange(){
   })
 }
 
-
-
-
 function handleFileUpload(){
   $("#property-photos").fileupload({
     dataType: 'json',
@@ -138,7 +135,7 @@ function handleFileUpload(){
     
       }
       else {
-        alert(file.name + " is not an image file ")
+        setNotification("alert", file.name + " is not an image file ")
       }
     },
     progress: function(e,data){
