@@ -100,6 +100,18 @@ class User < ActiveRecord::Base
     user.save ? user : nil
   end
 
+  def avatar_fb
+    fb_id.present? ? "http://graph.facebook.com/#{fb_id}/picture" : ""
+  end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def blocked_status
+    blocked ? "blocked" : "unblocked"
+  end
+
   def with_fb_sign_up_step
     self.sign_up_step = User::SIGN_UP_STEP_FB
     self
@@ -131,6 +143,15 @@ class User < ActiveRecord::Base
     begin
       self[column_name] = SecureRandom.urlsafe_base64
     end while User.exists?(column_name => self[column_name])
+  end
+
+  def toggle_blocked_status
+     self.blocked = !self.blocked
+     result = self.save
+     if(result)
+       UserMailer.notify_blocked_status(self).deliver_later
+     end
+     result
   end
 
   def send_password_reset

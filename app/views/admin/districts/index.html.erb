@@ -1,5 +1,8 @@
 <%= page_title("District") %>
-<%= breadcrumb_admin([ District: nil ])%>
+
+<%= breadcrumb_admin([ Districts: nil ])%>
+<% admin_nav_menu_item(:place) %>
+
 <%= page_header "Districts" do %>
   <%= link_to "New", new_admin_district_path, class: 'btn btn-info' %>
 <% end %>

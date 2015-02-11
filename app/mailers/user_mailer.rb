@@ -14,4 +14,9 @@ class UserMailer < ApplicationMailer
     @user = user
     mail to: @user.email
   end
+
+  def notify_blocked_status(user)
+    @user = user
+    mail to: @user.email
+  end
 end

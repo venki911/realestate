@@ -1,6 +1,9 @@
 <%= page_title("Review Property") %>
-<%= page_header "Review Property" %>
 
+<%= breadcrumb_admin([ Properties: nil ])%>
+<% admin_nav_menu_item(:property) %>
+
+<%= page_header "Review Property" %>
 <% content_for(:breadcrumb) do %>
   <%=breadcrumb_admin([{Property: admin_properties_path}, { View: false}]) %>
 <% end %>

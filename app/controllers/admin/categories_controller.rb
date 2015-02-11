@@ -41,5 +41,4 @@ class Admin::CategoriesController < AdminController
   def filter_params
     params.require(:category).permit(:name)
   end
-
 end

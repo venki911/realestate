@@ -4,7 +4,9 @@ module ApplicationHelper
   end
 
   def index_in_paginate(index)
-    index + Kaminari.config.default_per_page * params[:page].to_i
+    page = params[:page].to_i
+    offset_page = page > 1 ? page - 1 : 0
+    index + Kaminari.config.default_per_page * offset_page
   end
 
   def page_header title, options={},  &block
@@ -110,5 +112,15 @@ module ApplicationHelper
   def decoded_address
     content_tag :div, '<i class="glyphicon glyphicon-map-marker"> </i> <span id="address"> </span>'.html_safe,
                 style: "display:none;", id: "p-formatted-address"
+  end
+
+  def fb_profile_for user
+    if user.fb_id
+      link_to "http://graph.facebook.com/#{user.fb_id}", class: '' do
+        image_tag "http://graph.facebook.com/#{fb_id}/picture", class: 'img-round small-thumb'
+      end
+    else
+      ""
+    end
   end
 end

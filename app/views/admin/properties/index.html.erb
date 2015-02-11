@@ -1,6 +1,9 @@
 <%= page_title("Property") %>
-<%= page_header "Property" %>
 
+<%= breadcrumb_admin([ {Properties: false} ])%>
+<% admin_nav_menu_item(:property) %>
+
+<%= page_header "Property" %>
 <%= paginate @properties %>
 
 <table class='table'>

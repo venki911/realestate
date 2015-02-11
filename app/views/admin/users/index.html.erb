@@ -1,0 +1,43 @@
+<%= page_title("Users list") %>
+
+<%= breadcrumb_admin([ Users: nil ])%>
+<% admin_nav_menu_item(:user) %>
+
+<%= page_header "List of user" %>
+
+<%= paginate @users %>
+
+<table class='table'>
+  <thead>
+   <td>No</td>
+   <td>Photo</td>
+   <td>Name</td>
+   <td>Email</td>
+   <td>Phone</td>
+   <td>Role</td>
+   <td>Gender</td>
+   <td>Properties</td>
+   <td>Logged in at</td>
+   <td>Facebook</td>
+   <td></td>
+  </thead>
+
+  <tbody>
+    <% @users.each_with_index do |user, index| %>
+      <tr>
+        <td><%= index_in_paginate(index+1) %></td>
+        <td><%= image_tag user.avatar.thumb.url, class: 'img-circle small-thumb' %></td>
+        <td><%= user.full_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone %></td>
+        <td><%= user.role %></td>
+        <td><%= user.gender %></td>
+        <td><%= user.properties_count %></td>
+        <td><%= timeago_tag user.last_signed_in_at %></td>
+        <td><%= fb_profile_for(user) %></td>
+        <td><%= link_to (user.blocked ? "Unblock" : "Block"), toggle_block_admin_user_path(user), method: :PUT %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @users %>

@@ -1,9 +1,11 @@
 <%= page_title("page_title") %>
-<%= breadcrumb_admin([ Category: nil ])%>
+
+<%= breadcrumb_admin([ Categories: nil ])%>
+<% admin_nav_menu_item(:category) %>
+
 <%= page_header "Categories" do %>
   <%= link_to "New", new_admin_category_path, class: 'btn btn-info' %>
 <% end %>
-
 <%= paginate @categories %>
 
 <table class='table'>

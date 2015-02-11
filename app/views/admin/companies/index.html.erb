@@ -1,6 +1,9 @@
-<%= page_title("Company") %>
-<%= breadcrumb_admin([ {Company: nil }]) %>
-<%= page_header "Company" do %>
+<%= page_title("Companies") %>
+
+<%= breadcrumb_admin([ Companies: nil ])%>
+<% admin_nav_menu_item(:company) %>
+
+<%= page_header "Companies" do %>
   <%= link_to "New", new_admin_company_path, class: 'btn btn-info' %>
 <% end %>
 

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get 'sign_in' => 'sessions#new'
   get 'sign_in_fb' => 'sessions#create_with_fb'
   get 'sign_in_fb_m' => 'sessions#create_with_fb_m'
+  get 'blocked' => 'dashboards#blocked'
 
   delete 'sign_out' => 'sessions#destroy'
 
@@ -82,7 +83,11 @@ Rails.application.routes.draw do
     end
     resources :categories
     resources :companies
-    resources :users
+    resources :users, only: [:index] do
+      member do
+        put 'toggle_block'
+      end
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

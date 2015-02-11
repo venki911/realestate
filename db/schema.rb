@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150209061229) do
+ActiveRecord::Schema.define(version: 20150211171221) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -118,8 +118,8 @@ ActiveRecord::Schema.define(version: 20150209061229) do
     t.string   "email"
     t.string   "phone"
     t.string   "password_digest"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.string   "user_name"
     t.string   "fb_id"
     t.float    "lat"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20150209061229) do
     t.string   "role"
     t.integer  "properties_count",        default: 0
     t.integer  "company_id"
+    t.boolean  "blocked",                 default: false
   end
 
   add_foreign_key "properties", "categories"

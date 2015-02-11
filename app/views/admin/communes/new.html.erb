@@ -1,6 +1,7 @@
 <%= page_title("Create Commune") %>
-<%= breadcrumb_admin([ { Commune: admin_communes_path },{ New: nil } ]) %>
+
+<%= breadcrumb_admin([ { Communes: admin_communes_path },{ New: nil } ]) %>
+<% admin_nav_menu_item(:place) %>
+
 <%= page_header "Create Commune" %>
-
-
 <%= render 'form' %>
