@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  require 'sidekiq/web'
+  require 'admin_constraint'
+  mount Sidekiq::Web => '/sidekiq',constraints: AdminConstraint.new
+
   root 'dashboards#index'
 
   resources :sessions, only: [:new, :create, :destroy]
@@ -9,6 +13,10 @@ Rails.application.routes.draw do
   get 'sign_in_fb_m' => 'sessions#create_with_fb_m'
 
   delete 'sign_out' => 'sessions#destroy'
+
+
+  get '/forgot-password' => 'passwords#new', as: :forgot_password
+  resources :passwords
 
   resources :districts, only: [:index]
   resources :communes, only: [:index]

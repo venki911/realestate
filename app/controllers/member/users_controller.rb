@@ -61,11 +61,9 @@ class Member::UsersController < MemberController
 
   def update_password
     old_password = params[:user][:old_password]
-    if current_user.check_password(old_password) &&  current_user.update_attributes(filter_change_password_params)
+    if current_user.check_password(old_password) && current_user.update_password_and_send_alert(filter_change_password_params)
       redirect_to member_change_password_path, notice: 'Your password has been updated'
-      # success password email alert
     else
-      # failed password email alert
       flash.now[:alert] = 'Failed to update your company'
       render :change_password
     end
@@ -81,7 +79,7 @@ class Member::UsersController < MemberController
   end
 
   def filter_change_password_params
-    params.require(:user).permit(:password, :password_confirmation)
+    params.require(:user).permit(:password, :password_confirmation, :old_password)
   end
 
   def filter_photo_params

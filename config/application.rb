@@ -19,10 +19,16 @@ module Cochero
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    config.autoload_paths += %W( #{config.root}/app/models/presenters )
+    config.autoload_paths += %W( #{config.root}/app/models/presenters #{config.root}/app/models/forms)
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 
     Rails::Timeago.default_options limit: proc { 25.days.ago }
+    
+    config.active_job.queue_name_prefix = Rails.env
+    config.active_job.queue_adapter = :sidekiq
+
+    config.web_console.whitelisted_ips = %w( 127.0.0.1 192.168.1.100 )
+
   end
 end

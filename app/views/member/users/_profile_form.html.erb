@@ -1,5 +1,6 @@
 
 <%= simple_form_for([:member, current_user], url: member_update_profile_path, html: { class: 'form form-lg form-inline'} ) do |f| %>
+    <%=errors_for(current_user) %>
     <%= input_row do %>
       <%= f.input :first_name, input_html: { class: 'form-control', placeholder: 'First name' } %>
     <%end%>

@@ -11,7 +11,11 @@
     </div>
     <br />
     <div class='row' >
-      <p> Don't have an account!, <%= link_to 'Sign up', sign_up_path %> <br /> </p>
+      <p> 
+        Don't have an account!, <%= link_to 'Sign up', sign_up_path %>, or 
+        <%= link_to 'Forgot Password', forgot_password_path %>
+      </p>
+      <br />
       <%= button_tag "Login", class: 'btn btn-primary btn-block', style: 'display: block; width: 100%;' %>
 
       <%=link_to 'Sign in With Facebook', 'javascript:void(0)',
