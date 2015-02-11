@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  require 'sidekiq/web'
+  require 'admin_constraint'
+  mount Sidekiq::Web => '/sidekiq',constraints: AdminConstraint.new
+
   root 'dashboards#index'
 
   resources :sessions, only: [:new, :create, :destroy]

@@ -137,14 +137,14 @@ class User < ActiveRecord::Base
     generate_token(:reset_password_token)
     self.reset_password_token_at = Time.zone.now
     save!
-    UserMailer.forgot_password(self).deliver
+    UserMailer.forgot_password(self).deliver_later
   end
 
   def update_password_and_send_alert options
     if self.update_attributes(options)
       self.reset_password_token = nil
       self.save!
-      UserMailer.password_changed(self).deliver
+      UserMailer.password_changed(self).deliver_later
       true
     else
       false

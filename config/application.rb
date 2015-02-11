@@ -24,5 +24,11 @@ module Cochero
     config.active_record.raise_in_transactional_callbacks = true
 
     Rails::Timeago.default_options limit: proc { 25.days.ago }
+    
+    config.active_job.queue_name_prefix = Rails.env
+    config.active_job.queue_adapter = :sidekiq
+
+    config.web_console.whitelisted_ips = %w( 127.0.0.1 192.168.1.100 )
+
   end
 end
