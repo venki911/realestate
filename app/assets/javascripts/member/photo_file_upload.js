@@ -76,8 +76,6 @@ function handleProvinceChange(){
           var $option = $("<option value='" + district.id + "'>" + district.name + "</option>")
           $district.append($option)
         })
-        $district.selectpicker('refresh')
-        $commune.selectpicker('refresh')
       }
     })
 
@@ -101,7 +99,6 @@ function handleDistrictChange(){
           var $option = $("<option value='" + commune.id + "'>" + commune.name + "</option>")
           $commune.append($option)
         })
-        $commune.selectpicker('refresh')
       }
     })
 

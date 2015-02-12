@@ -1,0 +1,54 @@
+  <%= simple_form_for @user, url: registrations_path, role: 'form', html: {class: 'form-inline'} do |f| %>
+    <%= errors_for(@user) %>
+
+    <%= input_row do %>
+      <%= f.input :first_name, input_html: { class: 'form-control', placeholder: 'First name' } %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :last_name, input_html: {class: 'form-control', placeholder: 'Last name' } %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :phone, required: true, input_html: { class: 'form-control', placeholder: 'Phone' } %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :user_name, required: true, input_html: { class: 'form-control', placeholder: 'User name' } %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :email, input_html: { class: 'form-control', placeholder: 'Email' } %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :gender, collection: User.available_genders,
+                  include_blank: false,
+                  input_html: { class: 'form-control', placeholder: 'Gender'} %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :role, collection: User.available_roles, label: 'You are ?',
+                  include_blank: false,
+                  input_html: { class: 'form-control', placeholder: 'Gender'} %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :password, required: true, input_html: { class: 'form-control', placeholder: 'Password'} %>
+    <%end%>
+
+    <%= input_row do %>
+      <%= f.input :password_confirmation, required: true, label: 'Password confirm', input_html: { class: 'form-control', placeholder: 'Confirm' } %>
+    <%end%>
+
+    <%= input_row do %>
+      <label> </label>
+      <%= f.check_box :agree, id: 'agree-term' %>
+      <label for='agree-term' class='inline' > Agree with our <%= link_to 'Terms and Policy', '' %> </label>
+    <%end%>
+
+    <%= input_row do %>
+      <label> </label>
+      <%= f.button :submit, "Create Account", class: 'btn btn-primary btn-lg btn-single', id: 'btn-registration' %>
+    <%end%>
+  <% end %>

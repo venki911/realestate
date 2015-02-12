@@ -3,11 +3,6 @@ label.required abbr{
   font-weight: bold;
 }
 
-form {
-  max-width: 600px;
-  // padding: 20px;
-}
-
 .form-lg {
   min-width: $screen-lg-min;
 }
@@ -59,7 +54,7 @@ label.inline {
 #notification {
   right: 25px;
   top: 65px;
-  border: 1px solid #eee;
+
   position: fixed;
   display: block;
   z-index: 9999;

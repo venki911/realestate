@@ -1,6 +1,8 @@
 class Admin::PropertiesController < AdminController
   def index
-    @properties = Property.order('created_at DESC').page(params[:page])
+    @properties = Property.order('created_at DESC')
+    @properties = @properties.where(["user_id = ? ", params[:user_id] ]) if params[:user_id].present?
+    @properties = @properties.page(params[:page])
   end
 
   def review
@@ -10,6 +12,9 @@ class Admin::PropertiesController < AdminController
   def update_review
     @property = Property.find(params[:id])
     if @property.update_attributes(filter_review_params)
+      if @property.rejected?
+
+      end
       redirect_to admin_properties_path, notice: 'Property have been updated the property'
     else
       flash.now[:alert] = "Failed to update the property"

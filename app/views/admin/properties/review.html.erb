@@ -1,11 +1,10 @@
 <%= page_title("Review Property") %>
 
-<%= breadcrumb_admin([ Properties: nil ])%>
 <% admin_nav_menu_item(:property) %>
 
 <%= page_header "Review Property" %>
 <% content_for(:breadcrumb) do %>
-  <%=breadcrumb_admin([{Property: admin_properties_path}, { View: false}]) %>
+  <%=breadcrumb_admin([{Properties: admin_properties_path}, { Review: false}]) %>
 <% end %>
 
 <% property = PropertyPresenter.new(@property) %>
@@ -43,25 +42,26 @@
 
       </table>
       <br />
+      <%= input_row do %>
+        <div>
+          <label> </label>
+          <%= f.input :mark_as_urgent, label: 'Urgent', label_html: {class: 'label-checkbox'}, input_html: {class: 'input-inline'} %>
+        </div>
 
-      <div>
-        <label> </label>
-        <%= f.input :mark_as_urgent, label: 'Urgent', label_html: {class: 'label-checkbox'}, input_html: {class: 'form-control input-inline'} %>
-      </div>
-
-      <div>
-        <label> </label>
-        <%= f.input :mark_as_exclusive, label: 'Exclusive', label_html: {class: 'label-checkbox'}, input_html: {class: 'form-control input-inline'} %>
-      </div>
+        <div>
+          <label> </label>
+          <%= f.input :mark_as_exclusive, label: 'Exclusive', label_html: {class: 'label-checkbox'}, input_html: {class: 'input-inline'} %>
+        </div>
+      <% end %>
 
       <%= input_row do %>
           <%= f.input :status, label: 'Availability', collection: Property.avalable_status, include_blank: false,
-                                  input_html: {class: 'selectpicker'} %>
+                                  input_html: {class: 'form-control'} %>
       <% end %>
 
       <%= input_row do %>
           <%= f.input :verification_status, collection: Property.admin_verfication_status, include_blank: false,
-                                  input_html: {class: 'selectpicker'} %>
+                                  input_html: {class: 'form-control'} %>
       <% end %>
 
       <%= input_row id: 'c_reject_reason' do %>

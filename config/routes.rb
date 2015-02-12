@@ -43,6 +43,9 @@ Rails.application.routes.draw do
     get 'photo' => 'users#photo'
     patch 'update_photo' => 'users#update_photo'
 
+    get 'new_password' => 'users#new_password'
+    post 'create_password' => 'users#create_password'
+
     get 'change_password' => 'users#change_password'
     patch 'update_password' => 'users#update_password'
 

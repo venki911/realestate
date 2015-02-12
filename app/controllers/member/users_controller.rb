@@ -55,16 +55,31 @@ class Member::UsersController < MemberController
     end
   end
 
+  def new_password
+
+  end
+
+  def create_password
+    current_user.with_site_sign_up_step
+    if current_user.update_password_and_send_alert(filter_password_params)
+      redirect_to member_change_password_path, notice: 'Your password has been created'
+    else
+      current_user.with_fb_sign_up_step
+      flash.now[:alert] = 'Could not create your password'
+      render :new_password
+    end
+  end
+
   def change_password
 
   end
 
   def update_password
     old_password = params[:user][:old_password]
-    if current_user.check_password(old_password) && current_user.update_password_and_send_alert(filter_change_password_params)
+    if current_user.check_password(old_password) && current_user.update_password_and_send_alert(filter_password_params)
       redirect_to member_change_password_path, notice: 'Your password has been updated'
     else
-      flash.now[:alert] = 'Failed to update your company'
+      flash.now[:alert] = 'Failed to update your password'
       render :change_password
     end
   end
@@ -78,7 +93,7 @@ class Member::UsersController < MemberController
     params.require(:user).permit(:company_id)
   end
 
-  def filter_change_password_params
+  def filter_password_params
     params.require(:user).permit(:password, :password_confirmation, :old_password)
   end
 

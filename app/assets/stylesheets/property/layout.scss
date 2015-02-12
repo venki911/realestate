@@ -1,6 +1,6 @@
-.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
-  width: auto;
-}
+// .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+//   width: auto;
+// }
 
 #uploaded-images{
   padding: 0px;
@@ -8,17 +8,14 @@
 }
 
 .unit {
-  width: 3em;
-  .selectpicker {
-    width: 6em !important;
-  }
+  width: 7em !important;
 }
 .wrapper-area-field, .wrapper-unit-field {
   display: inline !important;
 }
 
 #property_area {
-  width: 6em !important;
+  width: 8em !important;
 }
 
 #selected-images {

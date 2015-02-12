@@ -10,9 +10,9 @@ function initJcrop(){
     aspectRatio: 1,
     allowResize: false,
     allowSelect: false,
-    setSelect: [0,0,100,100],
-    minSize: [100,100],
-    maxSize: [100,100],
+    setSelect: [125,125,150,150],
+    minSize: [150,150],
+    maxSize: [150,150],
     onSelect: function(coords){
       update(coords)
     },
@@ -29,11 +29,11 @@ function update(coords){
 
 function updatePreview(coords){
   var $cropbox = $("#cropbox")
+  var $thumbPreview = $(".thumb-preview")
+  var rx = $thumbPreview.width() / coords.w;
+  var ry = $thumbPreview.height() / coords.h;
 
-  var rx = 100 / coords.w;
-  var ry = 100 / coords.h;
-
-  $("#thumb-img-preview").css({
+  $(".thumb-img-preview").css({
     width: Math.round(rx * $cropbox.width() ) + 'px',
     height: Math.round(ry * $cropbox.height() ) + 'px',
     marginLeft: '-' + Math.round(rx * coords.x) + 'px',

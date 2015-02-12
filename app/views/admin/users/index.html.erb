@@ -32,7 +32,13 @@
         <td><%= user.phone %></td>
         <td><%= user.role %></td>
         <td><%= user.gender %></td>
-        <td><%= user.properties_count %></td>
+        <td>
+          <% if user.properties_count >0  %>
+            <%= link_to user.properties_count, admin_properties_path(user_id: user.id), class: 'badge badge-info' %>
+          <% else %>
+            <%= user.properties_count %>
+          <% end %>
+        </td>
         <td><%= timeago_tag user.last_signed_in_at %></td>
         <td><%= fb_profile_for(user) %></td>
         <td><%= link_to (user.blocked ? "Unblock" : "Block"), toggle_block_admin_user_path(user), method: :PUT %></td>

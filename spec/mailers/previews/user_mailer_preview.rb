@@ -18,7 +18,23 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.notify_blocked_status(user)
   end
 
+  def property_rejected
+    Struct.new("User", :email, :full_name)
+    user = Struct::User.new("channa.info@gmail.com", "Channa Ly")
+    Struct.new("Property", :display_id,:reject_reason, :user)
+    property = Struct::Property.new("CPT5670", "Invalid photo dimension" ,user)
+    UserMailer.property_rejected(property)
+  end
+
+
+
+
+
+
+  private
   def define_user_class
     Struct.new("User", :email, :first_name, :last_name, :reset_password_token, :blocked_status)
   end
+
+
 end

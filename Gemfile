@@ -38,6 +38,7 @@ gem 'bootstrap-sass', '~> 3.3.3'
 gem "fog"
 gem "jquery-fileupload-rails"
 gem "rails-timeago"
+gem "font-awesome-rails"
 
 gem 'sidekiq'
 gem 'sinatra', :require => nil
