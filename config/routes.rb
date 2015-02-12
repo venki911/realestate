@@ -68,7 +68,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    root 'provinces#index'
+    root 'users#index'
 
     #Place
     resources :provinces

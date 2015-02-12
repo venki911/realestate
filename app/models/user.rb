@@ -96,6 +96,8 @@ class User < ActiveRecord::Base
     #attrs[:user_name] = profile['email']
     attrs[:fb_id] = profile['id']
     attrs[:avatar] = "http://graph.facebook.com/#{profile['id']}/picture"
+    attrs[:role] = User::ROLE_INDIVIDUAL
+
     user = User.new(attrs).with_fb_sign_up_step
     user.save ? user : nil
   end
