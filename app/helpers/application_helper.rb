@@ -117,7 +117,7 @@ module ApplicationHelper
   def fb_profile_for user
     if user.fb_id
       link_to "http://graph.facebook.com/#{user.fb_id}", class: '' do
-        image_tag "http://graph.facebook.com/#{fb_id}/picture", class: 'img-round small-thumb'
+        image_tag "http://graph.facebook.com/#{user.fb_id}/picture", class: 'img-circle small-thumb'
       end
     else
       ""
