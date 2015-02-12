@@ -27,7 +27,7 @@
     <% @properties.each_with_index do |property, index| %>
       <tr>
         <td><%= index_in_paginate(index+1) %></td>
-        <td><%= image_tag property.logo %></td>
+        <td><%= image_tag property.logo, alt: nil, width: 50, height: 50 %></td>
         <td><%= property.display_id %></td>
         <td><%= property.code_ref %></td>
         <td><%= timeago_tag(property.updated_at) %></td>
@@ -38,11 +38,11 @@
         <td><%= property.status%></td>
         <td><%= property.type_of%></td>
         <td><%= property.photos_count%></td>
-        <td><%= property.user.first_name%></td>
+        <td><%= property.user.full_name%></td>
         <td><%= property.mark_as_urgent%></td>
         <td><%= property.mark_as_exclusive%></td>
         <td>
-          <%=link_to 'Edit', review_admin_property_path(property) %>
+          <%=link_to 'Review', review_admin_property_path(property) %>
         </td>
       </tr>
     <% end %>

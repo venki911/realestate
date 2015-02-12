@@ -4,24 +4,38 @@
 <%= render 'shared/users/profile_tab', current_index: 2 %>
 
 <%= simple_form_for([:member, current_user], url: member_update_crop_path, html: {class: 'form form-inline', multipart: true}) do |f| %>
+  <div class='row'>
+    <div class='col-lg-6'>
+      <p> Original image </p>
+      <div class='standard'>
+        <%= image_tag current_user.avatar.standard.url, id: 'cropbox', width: 400, height: 400 %>
+      </div>
+    </div>
 
-  <div class='thumb-preview' style='width: 100px; height: 100px; overflow: hidden; background: #eee;'>
-    <%= image_tag current_user.avatar.standard.url,
-                  id: 'thumb-img-preview' %>
-  </div>
+    <div class='col-lg-6'>
+      <p>Preview</p>
+      <div class='thumb-preview pull-left' style='width: 150px; height: 150px; overflow: hidden; background: #eee;'>
+        <%= image_tag current_user.avatar.standard.url,
+                      class: 'thumb-img-preview' %>
+      </div>
 
-  <div class='standard'>
-    <%= image_tag current_user.avatar.standard.url, id: 'cropbox' %>
+      <div class='thumb-preview img-circle pull-left' 
+           style='width: 150px; height: 150px; overflow: hidden; background: #eee; margin-left: 10px;'>
+        <%= image_tag current_user.avatar.standard.url,
+                      class: 'thumb-img-preview' %>
+      </div>
+
+      <br style='clear:both;'>
+
+      <%= input_row style: 'margin-top: 15px;' do %>
+        <%= f.button :submit, "Update", class: 'btn btn-primary' %>
+      <%end%>
+    </div>
+
   </div>
 
   <% %w(x y h w).each do |field| %>
    <%= f.input "crop_#{field}", as: :hidden %>
   <% end %>
-
-
-  <br />
-  <%= input_row do %>
-    <%= f.button :submit, "Update", class: 'btn btn-primary' %>
-  <%end%>
 
 <% end %>

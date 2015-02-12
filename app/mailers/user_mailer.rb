@@ -19,4 +19,9 @@ class UserMailer < ApplicationMailer
     @user = user
     mail to: @user.email
   end
+
+  def property_rejected(property)
+    @property = property
+    mail to: @property.user.email
+  end
 end

@@ -25,3 +25,5 @@ en:
       subject: 'Reset Password Instruction'
     password_change:
       subject: 'Password Changed'
+    property_rejected:
+      subject: 'Correct your property data'

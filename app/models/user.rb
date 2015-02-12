@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   validates :role, presence: true, if: ->(user) { user.sign_up_step == SIGN_UP_STEP_SITE }
   validates :role, inclusion: { in: [ROLE_INDIVIDUAL, ROLE_AGENT] }, if: ->(user) { user.sign_up_step == SIGN_UP_STEP_SITE }
 
-  attr_accessor :agree, :old_password, :password
+  attr_accessor :agree, :old_password
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
   mount_uploader :avatar, AvatarUploader
@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   end
 
   def check_password test_password
-    if !authenticate(test_password)
+    if !self.authenticate(test_password)
       errors.add(:old_password, 'You password is not correct')
       false
     else

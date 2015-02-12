@@ -46,7 +46,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
 
   def crop(width, height)
     if model.crop_x.present?
-      resize_to_fit(600, 600)
+      resize_to_fit(400, 400)
       x = model.crop_x
       y = model.crop_y
       w = model.crop_w

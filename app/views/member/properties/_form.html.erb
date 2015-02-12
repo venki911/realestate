@@ -10,12 +10,12 @@
 
           <%= input_row do %>
             <%= f.input :borey_name, collection: Borey.all, prompt: 'Borey name ?',
-                                   input_html: {class: 'selectpicker select'} %>
+                                   input_html: {class: 'form-control select'} %>
           <% end %>
 
           <%= input_row do %>
             <%= f.association :category, collection: Category.all.map{|c| [c.name, c.id]}, include_blank: false,
-                                       input_html: {class: 'selectpicker'} %>
+                                       input_html: {class: 'form-control'} %>
           <% end %>
       </div>
 
@@ -24,7 +24,7 @@
 
         <%= input_row do %>
           <%= f.input :type_of, collection: Property.available_types, include_blank: false,
-                              input_html: {class: 'selectpicker'} %>
+                              input_html: {class: 'form-control'} %>
         <% end %>
 
 
@@ -34,14 +34,14 @@
 
         <%= input_row do %>
           <%= f.input :price_per_size, label: 'Per', collection: Property.available_price_per_sizes, include_blank: false,
-                              input_html: {class: 'selectpicker'} %>
+                              input_html: {class: 'form-control'} %>
         <% end %>
 
 
         <%= input_row do %>
           <%= f.input :price_per_duration, label: 'Price per', collection: Property.available_price_per_durations, include_blank: false,
                               wrapper_html: {id: 'property_price_per_duration_wrapper'},
-                              input_html: {class: 'selectpicker'} %>
+                              input_html: {class: 'form-control'} %>
         <% end %>
       </div>
 
@@ -50,17 +50,17 @@
 
         <%= input_row do %>
           <%= f.association :province, collection: Province.order('name').map{|p| [p.name, p.id]}, include_blank: false,
-                            prompt: 'Province', input_html: {class: 'selectpicker'} %>
+                            prompt: 'Province', input_html: {class: 'form-control'} %>
         <% end %>
 
         <%= input_row do %>
           <%= f.association :district, collection: District.order('name').where(province_id: @property.province_id).map{|d| [d.name, d.id]},
-                            prompt: 'District/Khan ?', input_html: {class: 'selectpicker'} %>
+                            prompt: 'District/Khan ?', input_html: {class: 'form-control'} %>
         <% end %>
 
         <%= input_row do %>
           <%= f.association :commune, collection: Commune.order('name').where(district_id: @property.district_id).map{|d| [d.name, d.id]},
-                            prompt: 'Commune/Sangkat ?', input_html: {class: 'selectpicker'} %>
+                            prompt: 'Commune/Sangkat ?', input_html: {class: 'form-control'} %>
         <% end %>
       </div>
 
@@ -79,7 +79,7 @@
         <%= input_row do %>
           <%= f.input :area, as: :string, required: true, wrapper_html: {class: 'wrapper-area-field'}, input_html: {class: 'form-control'} %>
           <%= f.input :unit, label: false, collection: Property.available_units,include_blank: false,
-                            wrapper_html: { class: 'wrapper-unit-field'}, input_html: {class: 'selectpicker unit'} %>
+                            wrapper_html: { class: 'wrapper-unit-field'}, input_html: {class: 'form-control unit'} %>
         <% end %>
       </div>
 

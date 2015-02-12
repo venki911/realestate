@@ -7,7 +7,7 @@
     <%= input_row do %>
       <%= f.association :company, collection: Company.all.map{|c| [c.name, c.id]}, include_blank: false,
                                  prompt: 'Select a company',
-                                 input_html: {class: 'selectpicker'} %>
+                                 input_html: {class: 'form-control'} %>
     <% end %>
 
     <%= input_row do %>

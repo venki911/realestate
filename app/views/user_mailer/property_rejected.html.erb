@@ -1,0 +1,24 @@
+<h1> Hi <%= @property.user.full_name %> </h1>
+
+<p>
+  We are so sorry to inform you that your property with id <strong> <%=@property.display_id %></strong> was not accepted to be listing in our platform with the reason:
+
+</p>
+
+<blockquote style='margin-left: 20px; font-size: 110%;'>
+  <%= @property.reject_reason %>
+</blockquote>
+
+<p>
+  Please correct the above mistake and resumit it again. we are happy to help you and our user to make quality/clean data in our platform.
+</p>
+
+
+<p>
+  if there is anything wrong please contact us: <%= ENV['SUPPORT_EMAIL'] %>
+</p>
+
+
+<p>
+  The Property team
+</p>

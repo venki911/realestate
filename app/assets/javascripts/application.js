@@ -9,14 +9,13 @@
 
 //= require bootstrap-sprockets
 
-//= require bootstrap-select
-
 //= require shared/fb_sdk
 //= require shared/fb_login
 //= require shared/notification
-//= require shared/bootstrap_select
 //= require shared/resource_location_map
 //= require shared/jcrop_init
+
+//= require registration/page
 
 //= require member/photo_file_upload
 //= require member/property_map

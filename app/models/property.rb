@@ -71,6 +71,10 @@ class Property < ActiveRecord::Base
     end
   end
 
+  def rejected?
+    verification_status == Property::VERIFICATION_STATUS_REJECT
+  end
+
   def over_quota?
     photos_count >= Property::MAX_PHOTO_ALLOWED
   end
