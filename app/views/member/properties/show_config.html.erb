@@ -14,14 +14,14 @@
       <%= f.input feature, as: :boolean, input_html: {class: 'checkbox-grid'} %>
     <% end %>
 
-    <h3 class='section-header'> Equipments </h3>
+    <h3 class='section-header'> Facilities </h3>
     <% Property.stored_attributes[:config_equipments].each do |equipment| %>
-      <%= f.input equipment, as: :boolean, input_html: {class: 'checkbox-grid'} %>
+      <%= f.input equipment, as: :boolean, label: equipment, input_html: {class: 'checkbox-grid'} %>
     <% end %>
 
     <h3 class='section-header'> Services </h3>
     <% Property.stored_attributes[:config_services].each do |service| %>
-      <%= f.input service, as: :boolean,input_html: {class: 'checkbox-grid'} %>
+      <%= f.input service, as: :boolean, label: service, input_html: {class: 'checkbox-grid'} %>
     <% end %>
     <p></p>
 

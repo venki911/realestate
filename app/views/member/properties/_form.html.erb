@@ -1,93 +1,149 @@
 <div class='form-box'>
   <%= simple_form_for [:member, @property], html: {class: 'form form-lg form-inline'} do |f| %>
     <div class='row'>
+      <div class='col-lg-6'>
+        <!-- Property Info -->
+        <div class=''>
+            <h3 class='section-header'>General Info</h3>
+            <%= input_row do %>
+              <%= f.input :code_ref, input_html: {class: 'form-control'} %>
+            <% end %>
+
+            <%= input_row do %>
+              <%= f.input :borey_name, collection: Borey.all, prompt: 'Borey name ?',
+                                     input_html: {class: 'form-control select'} %>
+            <% end %>
+
+            <%= input_row do %>
+              <%= f.association :category, collection: Category.all.map{|c| [c.name, c.id]}, include_blank: false,
+                                         input_html: {class: 'form-control'} %>
+            <% end %>
+        </div>
+
+        <!-- Property Price -->
+        <div class=''>
+          <h3 class='section-header'>Rental/Sale</h3>
+
+          <%= input_row do %>
+            <%= f.input :type_of, collection: Property.available_types, include_blank: false,
+                                input_html: {class: 'form-control'} %>
+          <% end %>
+
+          <!-- Price first -->
+          <h3 class='for-sale-rent section-header'> Rent with </h3>
+          <div class='for-rent'>
+            <%= input_row do %>
+              <%= f.input :price_per_unit_rent, as: :string, required: true, label: 'Price ($)', input_html: {class: 'form-control'} %>
+            <% end %>
+
+            <%= input_row do %>
+              <%= f.input :price_per_size_rent, label: 'Per', collection: Property.available_price_per_sizes, include_blank: false,
+                                  input_html: {class: 'form-control'} %>
+            <% end %>
+
+
+            <%= input_row do %>
+              <%= f.input :price_per_duration_rent, label: 'Price per',
+                                  collection: Property.available_price_per_durations, include_blank: false,
+                                  wrapper_html: {id: 'property_price_per_duration_wrapper'},
+                                  input_html: {class: 'form-control'} %>
+            <% end %>
+          </div>
+
+
+          <!-- Price option -->
+          <h3 class='for-sale-rent section-header'> Sale with </h3>
+          <div class='for-sale' >
+            <%= input_row do %>
+              <%= f.input :price_per_unit_sale, as: :string, required: true, label: 'Price ($)', input_html: {class: 'form-control'} %>
+            <% end %>
+
+            <%= input_row do %>
+              <%= f.input :price_per_size_sale, label: 'Per', collection: Property.available_price_per_sizes, include_blank: false,
+                                  input_html: {class: 'form-control'} %>
+            <% end %>
+          </div>
+
+        </div>
+
+      </div>
 
       <div class='col-lg-6'>
-          <h3 class='section-header'>General Info</h3>
+        <!-- Property Location -->
+        <div class=''>
+          <h3 class='section-header'> Property location</h3>
+
           <%= input_row do %>
-            <%= f.input :code_ref, input_html: {class: 'form-control'} %>
+            <%= f.association :province, collection: Province.order('name').map{|p| [p.name, p.id]}, include_blank: false,
+                              prompt: 'Province', input_html: {class: 'form-control'} %>
           <% end %>
 
           <%= input_row do %>
-            <%= f.input :borey_name, collection: Borey.all, prompt: 'Borey name ?',
-                                   input_html: {class: 'form-control select'} %>
+            <%= f.association :district, collection: District.order('name').where(province_id: @property.province_id).map{|d| [d.name, d.id]},
+                              prompt: 'District/Khan ?', input_html: {class: 'form-control'} %>
           <% end %>
 
           <%= input_row do %>
-            <%= f.association :category, collection: Category.all.map{|c| [c.name, c.id]}, include_blank: false,
-                                       input_html: {class: 'form-control'} %>
+            <%= f.association :commune, collection: Commune.order('name').where(district_id: @property.district_id).map{|d| [d.name, d.id]},
+                              prompt: 'Commune/Sangkat ?', input_html: {class: 'form-control'} %>
           <% end %>
+
+        </div>
+
+        
+
+        <!-- Property Size -->
+        <div class=''>
+          <h3 class='section-header'> Property size </h3>
+
+          <%= input_row do %>
+            <%= f.input :width, as: :string, label: 'Width (m)',  input_html: {class: 'form-control', autocomplete: :off} %>
+          <% end %>
+
+          <%= input_row do %>
+            <%= f.input :length, as: :string, label: 'Length (m)', input_html: {class: 'form-control', autocomplete: :off} %>
+          <% end %>
+
+          <%= input_row do %>
+            <%= f.input :area, as: :string, required: true, label: 'Land Area',
+                              wrapper_html: {class: ' wrapper-area-field'},
+                              input_html: {class: 'form-control property_area'} %>
+
+            <%= f.input :unit, label: false, collection: Property.available_units,include_blank: false,
+                              wrapper_html: { class: 'wrapper-unit-field'}, input_html: {class: 'form-control unit'} %>
+          <% end %>
+        </div>
+
+        <!-- Building Size -->
+        <div class=''>
+          <h3 class='section-header'> Building size </h3>
+
+          <%= input_row do %>
+            <%= f.input :building_width, as: :string, label: 'Width (m)',  input_html: {class: 'form-control'} %>
+          <% end %>
+
+          <%= input_row do %>
+            <%= f.input :building_length, as: :string, label: 'Length (m)', input_html: {class: 'form-control'} %>
+          <% end %>
+
+          <%= input_row do %>
+            <%= f.input :building_area, as: :string,
+                                        wrapper_html: {class: 'wrapper-area-field'},
+                                        input_html: {class: 'form-control property_area'} %>
+
+            <%= f.input :building_unit, label: false, collection: Property.available_units,
+                                        include_blank: false,
+                                        wrapper_html: { class: 'wrapper-unit-field'},
+                                        input_html: {class: 'form-control unit'} %>
+          <% end %>
+        </div>
       </div>
 
-      <div class='col-lg-6'>
-        <h3 class='section-header'>Rental/Sale</h3>
-
-        <%= input_row do %>
-          <%= f.input :type_of, collection: Property.available_types, include_blank: false,
-                              input_html: {class: 'form-control'} %>
-        <% end %>
-
-
-        <%= input_row do %>
-          <%= f.input :price_per_unit, as: :string, required: true, label: 'Price ($)', input_html: {class: 'form-control'} %>
-        <% end %>
-
-        <%= input_row do %>
-          <%= f.input :price_per_size, label: 'Per', collection: Property.available_price_per_sizes, include_blank: false,
-                              input_html: {class: 'form-control'} %>
-        <% end %>
-
-
-        <%= input_row do %>
-          <%= f.input :price_per_duration, label: 'Price per', collection: Property.available_price_per_durations, include_blank: false,
-                              wrapper_html: {id: 'property_price_per_duration_wrapper'},
-                              input_html: {class: 'form-control'} %>
-        <% end %>
-      </div>
-
-      <div class='col-lg-6'>
-        <h3 class='section-header'> Property location</h3>
-
-        <%= input_row do %>
-          <%= f.association :province, collection: Province.order('name').map{|p| [p.name, p.id]}, include_blank: false,
-                            prompt: 'Province', input_html: {class: 'form-control'} %>
-        <% end %>
-
-        <%= input_row do %>
-          <%= f.association :district, collection: District.order('name').where(province_id: @property.province_id).map{|d| [d.name, d.id]},
-                            prompt: 'District/Khan ?', input_html: {class: 'form-control'} %>
-        <% end %>
-
-        <%= input_row do %>
-          <%= f.association :commune, collection: Commune.order('name').where(district_id: @property.district_id).map{|d| [d.name, d.id]},
-                            prompt: 'Commune/Sangkat ?', input_html: {class: 'form-control'} %>
-        <% end %>
-      </div>
-
-
-      <div class='col-lg-6'>
-        <h3 class='section-header'> Property size </h3>
-
-        <%= input_row do %>
-          <%= f.input :width, as: :string, label: 'Width (m)',  input_html: {class: 'form-control'} %>
-        <% end %>
-
-        <%= input_row do %>
-          <%= f.input :length, as: :string, label: 'Length (m)', input_html: {class: 'form-control'} %>
-        <% end %>
-
-        <%= input_row do %>
-          <%= f.input :area, as: :string, required: true, wrapper_html: {class: 'wrapper-area-field'}, input_html: {class: 'form-control'} %>
-          <%= f.input :unit, label: false, collection: Property.available_units,include_blank: false,
-                            wrapper_html: { class: 'wrapper-unit-field'}, input_html: {class: 'form-control unit'} %>
-        <% end %>
-      </div>
 
     </div>
-
     <%= input_row do %>
       <label></label>
-      <button class='btn btn-info btn-form-action'>
+      <button class='btn btn-primary btn-lg btn-form-action'>
         <i class=''> </i>
         <%= @property.new_record? ? "Next" : "Save" %>
       </button>

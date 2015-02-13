@@ -8,7 +8,7 @@ label.required abbr{
 }
 
 .input-row {
-  margin-bottom: 15px;
+  margin-bottom: 6px;
 }
 
 label.inline {
@@ -26,15 +26,12 @@ label.inline {
 }
 
 .action-header {
-  margin-bottom: 10px;
 }
 
 .section-header {
   font-size: 120%;
-  // background: #eee;
-  // border-bottom: 2px solid #ccc;
-  margin: 15px -15px;
-  padding: 10px 15px;
+  margin: 15px -15px 5px;
+  padding: 5px 15px;
 }
 
 .vertical-border-right{
@@ -100,4 +97,11 @@ small.error {
   margin-bottom: -10px;
   margin-top: -10px;
   width: 24px;
+}
+.exp-step {
+  padding: 0 0 0 10px;
+  li {
+    list-style-type: ideograph-numeric;
+    padding: 5px 0px;
+  }
 }

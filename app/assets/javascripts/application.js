@@ -17,8 +17,9 @@
 
 //= require registration/page
 
-//= require member/photo_file_upload
+//= require member/property_form
 //= require member/property_map
+//= require member/property_photo
 
 //= require admin/property
 //= require admin/company_map

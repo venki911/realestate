@@ -1,5 +1,12 @@
-.form-control{
+input.form-control, select.form-control{
   width: 15em !important;
+}
+
+.sub {
+  margin-left: 2em;
+  .form-control{
+    width: 13em !important;
+  }
 }
 
 .btn-single {

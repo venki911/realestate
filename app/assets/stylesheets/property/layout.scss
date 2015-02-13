@@ -14,7 +14,7 @@
   display: inline !important;
 }
 
-#property_area {
+.property_area {
   width: 8em !important;
 }
 
@@ -98,5 +98,10 @@ $sortable-height: 200px;
 #p-map {
   min-height: 350px;
   background-color: #eee;
+}
+
+.sale-rent {
+  font-size: 120%;
+  margin-top: 20px;
 }
 

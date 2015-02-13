@@ -32,6 +32,7 @@ class Property < ActiveRecord::Base
 
   TYPE_SALE = "Sale"
   TYPE_RENT = "Rent"
+  TYPE_SALE_RENT = "Sale+Rent"
   TYPE_PAWN = "Pawn"
 
   PRICE_PER_SIZE_TOTAL = "Total"
@@ -43,15 +44,18 @@ class Property < ActiveRecord::Base
 
 
   validates :code_ref, uniqueness: true, if: ->(p){p.code_ref.present?}
-  validates :price_per_unit, presence: true, numericality: {greater_than: 0}
 
   validates :width, presence: true, numericality: {greater_than: 0}, unless: ->(p) { p.area.present? }
   validates :length, presence: true, numericality: {greater_than: 0}, unless: ->(p) { p.area.present? }
   validates :area, presence: true, numericality: {greater_than: 0}, if: ->(p) { !p.width.present?  && !p.length.present? }
+
   validates :province_id, presence: true
   validates :district_id, presence: true
   validates :lat, numericality: true, if: ->(p) { p.lat.present? }
   validates :lng, numericality: true, if: ->(p) { p.lng.present? }
+
+  validates :price_per_unit_sale, presence: true, numericality: {greater_than: 0 }, if: ->(p) { p.type_of != Property::TYPE_RENT }
+  validates :price_per_unit_rent, presence: true, numericality: {greater_than: 0 }, if: ->(p) { p.type_of != Property::TYPE_SALE && p.type_of != Property::TYPE_PAWN}
 
   before_create :generate_code_ref
 
@@ -102,7 +106,7 @@ class Property < ActiveRecord::Base
   end
 
   def self.available_types
-    [TYPE_SALE, TYPE_RENT, TYPE_PAWN]
+    [TYPE_RENT, TYPE_SALE_RENT, TYPE_SALE, TYPE_PAWN]
   end
 
   def self.admin_verfication_status

@@ -2,34 +2,15 @@
   data.bitrate
 */
 $(function(){
-  togglePricePerDuration()
-  handlePropertyTypeOfChange()
   handleFileUpload()
-  handleProvinceChange()
-  handleDistrictChange()
   initSortable()
   handleDeleteUploadedPhoto()
-  handleAutoCalArea()
 });
+
+
 
 function reloadSortable(){
   $('.sortable').sortable('reload')
-}
-
-function handleAutoCalArea() {
-  $("#property_width, #property_length").on('change', function(){
-    updatePropertyArea()
-  }).on('keypress', function(){
-    updatePropertyArea()
-  })
-}
-
-function updatePropertyArea(){
-  var w = parseFloat($("#property_width").val())
-  var l = parseFloat($("#property_length").val())
-  var area = w * l
-  area = isNaN(area) ? '' : area
-  $("#property_area").val(area)
 }
 
 function initSortable(){
@@ -55,54 +36,6 @@ function initSortable(){
       }
      })
   });
-}
-
-function handleProvinceChange(){
-  $("#property_province_id").on('change', function(){
-    $this = $(this)
-    var provinceId = $this.val()
-    var $district = $("#property_district_id")
-    $district.find("option[value!='']").remove()
-
-    var $commune = $("#property_commune_id")
-    $commune.find("option[value!='']").remove()
-
-    $.ajax({
-      url: '/districts.json',
-      data: { province_id: provinceId },
-      method: 'GET',
-      success: function(districts){
-        $.each(districts, function(index, district){
-          var $option = $("<option value='" + district.id + "'>" + district.name + "</option>")
-          $district.append($option)
-        })
-      }
-    })
-
-  })
-}
-
-function handleDistrictChange(){
-  $("#property_district_id").on('change', function(){
-    $this = $(this)
-    var districtId = $this.val()
-    console.log("district changed : ", districtId)
-    var $commune = $("#property_commune_id")
-    $commune.find("option[value!='']").remove()
-
-    $.ajax({
-      url: '/communes.json',
-      data: { district_id: districtId },
-      method: 'GET',
-      success: function(communes){
-        $.each(communes, function(index, commune){
-          var $option = $("<option value='" + commune.id + "'>" + commune.name + "</option>")
-          $commune.append($option)
-        })
-      }
-    })
-
-  })
 }
 
 function handleFileUpload(){
@@ -169,22 +102,6 @@ function addToUploadedImageList(uploadImageData){
 
   //New image in sortable so it needs to reload
   reloadSortable()
-}
-
-function handlePropertyTypeOfChange(){
-  $("#property_type_of").on('change', function(){
-    $this = $(this);
-    togglePricePerDuration()
-  })
-}
-
-function togglePricePerDuration(){
-  $wrapper = $("#property_price_per_duration_wrapper")
-  
-  if($("#property_type_of").val() == "Sale")
-    $wrapper.hide()
-  else
-    $wrapper.show();
 }
 
 function readImage(data){

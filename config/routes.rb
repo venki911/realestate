@@ -60,6 +60,9 @@ Rails.application.routes.draw do
 
         get 'show_config'
         put 'update_config'
+
+        get 'show_note'
+        put 'update_note'
       end
 
       resources :photos, only: [:index, :create, :destroy, :edit] do

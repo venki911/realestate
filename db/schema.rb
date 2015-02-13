@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150211171221) do
+ActiveRecord::Schema.define(version: 20150212171856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,8 +66,8 @@ ActiveRecord::Schema.define(version: 20150211171221) do
 
   create_table "properties", force: :cascade do |t|
     t.string   "code_ref"
-    t.string   "verification_status", default: "Pending"
-    t.string   "status",              default: "Available"
+    t.string   "verification_status",     default: "Pending"
+    t.string   "status",                  default: "Available"
     t.string   "swot"
     t.text     "note"
     t.string   "borey_name"
@@ -83,21 +83,28 @@ ActiveRecord::Schema.define(version: 20150211171221) do
     t.string   "unit"
     t.string   "main_photo"
     t.string   "reject_reason"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.integer  "photos_count",        default: 0
-    t.float    "total_price"
-    t.float    "price_per_unit"
-    t.string   "price_per_size"
-    t.string   "price_per_duration"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.integer  "photos_count",            default: 0
+    t.float    "total_price_rent"
+    t.float    "price_per_unit_rent"
+    t.string   "price_per_size_rent"
+    t.string   "price_per_duration_rent"
     t.float    "lat"
     t.float    "lng"
-    t.boolean  "show_on_map",         default: true
+    t.boolean  "show_on_map",             default: true
     t.hstore   "config_features"
     t.hstore   "config_equipments"
     t.hstore   "config_services"
-    t.boolean  "mark_as_urgent",      default: false
-    t.boolean  "mark_as_exclusive",   default: false
+    t.boolean  "mark_as_urgent",          default: false
+    t.boolean  "mark_as_exclusive",       default: false
+    t.float    "total_price_sale"
+    t.float    "price_per_unit_sale"
+    t.string   "price_per_size_sale"
+    t.float    "building_width"
+    t.float    "building_length"
+    t.float    "building_area"
+    t.string   "building_unit"
   end
 
   add_index "properties", ["category_id"], name: "index_properties_on_category_id", using: :btree

@@ -31,24 +31,24 @@ class PropertyPresenter < SimpleDelegator
   end
 
   def display_description
-    result = "#{category.name} for #{type_of} #{price_per_unit}$ "
-    if price_per_size != Property::PRICE_PER_SIZE_TOTAL
-      result += "per #{price_per_size}"
-    end
-    result
+    # result = "#{category.name} for #{type_of} #{price_per_unit}$ "
+    # if price_per_size != Property::PRICE_PER_SIZE_TOTAL
+    #   result += "per #{price_per_size}"
+    # end
+    # result
   end
 
   def price_value
-    result = price_per_unit
+    # result = price_per_unit
 
-    case price_per_size
-    when Property::PRICE_PER_SIZE_HECTAR
-      price_per_unit * area_value/10000
-    when Property::PRICE_PER_SIZE_M2
-      price_per_unit * area_value
-    else
-      price_per_unit
-    end
+    # case price_per_size
+    # when Property::PRICE_PER_SIZE_HECTAR
+    #   price_per_unit * area_value/10000
+    # when Property::PRICE_PER_SIZE_M2
+    #   price_per_unit * area_value
+    # else
+    #   price_per_unit
+    # end
   end
 
   def display_area
