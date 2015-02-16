@@ -7,42 +7,20 @@
   <%=breadcrumb_admin([{Properties: admin_properties_path}, { Review: false}]) %>
 <% end %>
 
-<% property = PropertyPresenter.new(@property) %>
-<div class='row'>
+<ul class="no-space"><%= render "shared/properties/property", property: @property %></ul>
+<br/>
+<div class='row' style='margin-top: 20px;'>
   <div class='col-lg-6'>
     <%= simple_form_for [:admin, @property], url: update_review_admin_property_path(@property),
                                             method: 'PUT',
                                             html: {class: 'form form-lg form-inline'} do |f| %>
-
-      <div> <strong class="media-heading"><%= property.display_title %></strong> </div>
-      <strong> <%=property.display_description %>  </strong>
-      <div> Size <%=property.display_area%> </div>
-      
-      <table>
-        <tr>
-          <td>Verification Status</td>
-          <td><%= property.verification_status%></td>
-        </tr>
-
-        <tr>
-          <td>Availability</td>
-          <td><%= property.status %></td>
-        </tr>
-
-        <tr>
-          <td>Photo counts</td>
-          <td><%= property.photos_count%></td>
-        </tr>
-
-
-        <tr>
-          <td>Posted by </td>
-          <td><%= property.user.first_name %></td>
-        </tr>
-
-      </table>
       <br />
       <%= input_row do %>
+        <div>
+          <label> </label>
+          <%= f.input :mark_as_blocked, label: 'Blocked', label_html: {class: 'label-checkbox'}, input_html: {class: 'input-inline'} %>
+        </div>
+
         <div>
           <label> </label>
           <%= f.input :mark_as_urgent, label: 'Urgent', label_html: {class: 'label-checkbox'}, input_html: {class: 'input-inline'} %>

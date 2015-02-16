@@ -3,12 +3,12 @@
     <div class="media-left">
 
       <!-- Image -->
-      <%= link_to edit_member_property_path(property) do %>
+      <%= link_to property_path(property) do %>
         <%image_tag property.logo, class: "media-object", alt: "" %>
       <% end %>
 
       <div style='padding-top: 5px;'>
-        <%= link_to show_photos_member_property_path(property) do %>
+        <%= link_to property_path(property) do %>
           <span class='label label-primary space-right'>
             <%= property.photos_count %>
             <i class='glyphicon glyphicon-camera'> </i>
@@ -16,7 +16,7 @@
         <% end %>
 
         <% if property.show_on_map? && property.lat.present? %>
-          <%=link_to show_map_member_property_path(property) do %>
+          <%=link_to property_path(property) do %>
             <span class='label label-primary space-right'> <i class='glyphicon glyphicon-map-marker'> </i> </span>
           <% end %>
         <% end %>
@@ -28,12 +28,12 @@
 
       <div class='pull-right' style='width: 200px;'>
         <!-- Poster profile -->
-        <%= render 'shared/users/poster', user: property.user %>
+        <%= render 'poster', user: property.user %>
       </div>
 
       <p class='pull-left overflow-hidden'>
         <h4 class="media-heading ">
-         <%= link_to "#{property.title} - #{property.display_id}", edit_member_property_path(property) %>
+         <%= link_to "#{property.title} , #{property.display_id}", property_path(property) %>
         </h4>
 
         <p class='underline tagline'> <%=property.location %> </p>
@@ -54,7 +54,7 @@
               ~ <%= property.building_area %> <%= property.building_unit %>
           </p>
         <% end %>
-
+        
         <% if !property.feature.blank? %>
          <p class='line'> Features : <%= property.feature.html_safe %> </p>
         <% end %>
@@ -77,7 +77,13 @@
       </p>
       
       <div class='text-right' style='position: absolute; right: 0px; bottom: 2px;'>
-        <span class='label label-warning'> <%= property.verification_status %> </span>
+        <% if property.mark_as_urgent %>
+          <span class='label label-info'> Urgent</span>
+        <% end %>
+
+        <% if property.mark_as_exclusive %>
+          <span class='label label-info'> Exclusive</span>
+        <% end %>
       </div>
     </div>
   </div>

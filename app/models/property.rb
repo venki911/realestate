@@ -1,13 +1,12 @@
 class Property < ActiveRecord::Base
-  store_accessor :config_features, :story, :floor, :bedroom, :bath_room, :living_room, :dinning_room, :kitchen,
-                                   :balcany, :terrace, :garden, :parking
+  store_accessor :config_features, :bedroom, :bathroom, :parking, :livingroom, :dinning_room,:story, :floor,
+                                   :kitchen, :balcony, :terrace, :garden, :pool
 
-  store_accessor :config_equipments, :bed, :mattress, :cloth, :dressingtable, :cupboard, :dinningtable, :chair,
-                                     :sofa, :cabinet, :aircon, :gasstove, :microwave, :refrigerator, :tv, :fanstandingfan,
-                                     :satellitedish, :fax, :generator
+  store_accessor :config_equipments, :bed, :mattress, :cloth, :dressing_table, :cupboard, :dinning_table, :chair,
+                                     :sofa, :cabinet, :aircon, :gas_stove, :microwave, :refrigerator, :tv, :fan, :standing_fan,
+                                     :satellite_dish, :fax, :generator, :playground, :water_heater
 
-  store_accessor :config_services, :electricity, :water, :garbage, :security, :pestcontrol, :cabletv, :laundry, :swimmingpool,
-                                   :idd, :fax, :newspaper, :credit, :internet
+  store_accessor :config_services, :electricity, :water, :garbage, :security, :pest_control, :cable_tv, :laundry, :gym
 
   belongs_to :category
   belongs_to :province
@@ -32,7 +31,7 @@ class Property < ActiveRecord::Base
 
   TYPE_SALE = "Sale"
   TYPE_RENT = "Rent"
-  TYPE_SALE_RENT = "Sale+Rent"
+  TYPE_SALE_RENT = "Sale/Rent"
   TYPE_PAWN = "Pawn"
 
   PRICE_PER_SIZE_TOTAL = "Total"
@@ -47,7 +46,7 @@ class Property < ActiveRecord::Base
 
   validates :width, presence: true, numericality: {greater_than: 0}, unless: ->(p) { p.area.present? }
   validates :length, presence: true, numericality: {greater_than: 0}, unless: ->(p) { p.area.present? }
-  validates :area, presence: true, numericality: {greater_than: 0}, if: ->(p) { !p.width.present?  && !p.length.present? }
+  validates :area, presence: true, numericality: {greater_than: 0}
 
   validates :province_id, presence: true
   validates :district_id, presence: true
@@ -58,12 +57,31 @@ class Property < ActiveRecord::Base
   validates :price_per_unit_rent, presence: true, numericality: {greater_than: 0 }, if: ->(p) { p.type_of != Property::TYPE_SALE && p.type_of != Property::TYPE_PAWN}
 
   before_create :generate_code_ref
+  before_save :calculate_total_price
+
+  def self.config_attr_type attr
+    quantity_types = [:bedroom, :bathroom, :parking, :livingroom, :dinning_room,:story, :floor,
+     :bed, :mattress, :cloth, :dressing_table, :cupboard, :dinning_table, :chair, :sofa, :cabinet,
+     :aircon, :gas_stove, :microwave, :refrigerator, :tv, :fan,
+     :standing_fan, :electricity, :water, :garbage, :security, :pest_control, :cable_tv, :laundry, :gym]
+    quantity_types.include?(attr) ? :numeric : :boolean
+  end
+
+  def calculate_total_price
+    calculate_and_set_total_price_sale
+    calculate_and_set_total_price_rent
+  end
 
   def display_id
     "PRT-#{id}"
   end
+
+  def self.listing
+    where(['verification_status = ? AND mark_as_blocked = ?', Property::VERIFICATION_STATUS_OK, false])
+  end
+
   def generate_code_ref
-    return false if self.code_ref.present?
+    return true if self.code_ref.present?
 
     self.code_ref = loop do
       random_code = SecureRandom.urlsafe_base64(6)
@@ -117,8 +135,87 @@ class Property < ActiveRecord::Base
     photos_count > 0 ? photos.first.image_name.thumb.url : default_thumb_url
   end
 
+  def building_size?
+    building_width.present? && building_length.present? && building_area.present?
+  end
+
+  def title
+    result = borey_name.present? ? "#{borey_name} - #{category.name} " : category.name
+    "#{result} for #{type_of}"
+  end
+
+  def feature
+    @feature_list ||= calc_feature
+  end
+
+  def location
+    result = [] 
+    result << commune.name if commune
+    result << district.name if district
+    result << province.name if province
+    result.join(", ")
+  end
+
+  private
+
+  def calc_feature
+    boolean_attr = [ :kitchen, :balcony, :terrace, :garden, :pool, :satellite_dish, :fax, :generator, :playground, :water_heater,
+                     :electricity, :water, :garbage, :security, :pest_control, :cable_tv, :laundry, :gym ]
+
+    config_attrs = Property.stored_attributes[:config_features] + Property.stored_attributes[:config_equipments] + Property.stored_attributes[:config_services]
+    results = []
+    config_attrs.each do |attr|
+      value = self.send(attr)
+      if value.to_i != 0
+        if boolean_attr.include?(attr)
+          results << "&#10003 #{attr.to_s.titleize}"
+        else
+          results << "#{value} #{attr.to_s.titleize}"
+        end
+      end
+
+      if results.size > 10
+        results << "..."
+        break
+      end
+    end
+    results.join(", ")
+  end
+
   def default_thumb_url
     'logo/realestate.png'
+  end
+
+    def area_in_m2
+    self.unit == Property::UNIT_M2 ? self.area : (self.area * 10000)
+  end
+
+  def area_in_hectar
+    self.unit == Property::UNIT_M2 ? (self.area/10000) : self.area
+  end
+
+  def calculate_and_set_total_price_rent
+    if self.type_of == Property::TYPE_RENT || self.type_of == Property::TYPE_SALE_RENT
+      if self.price_per_size_rent == Property::PRICE_PER_SIZE_TOTAL
+        self.total_price_rent = self.price_per_unit_rent
+      elsif self.price_per_size_rent == Property::PRICE_PER_SIZE_M2
+        self.total_price_rent = self.price_per_unit_rent * area_in_m2
+      elsif self.price_per_size_rent == Property::PRICE_PER_SIZE_HECTAR
+        self.total_price_rent = self.price_per_unit_rent * area_in_hectar
+      end
+    end
+  end
+
+  def calculate_and_set_total_price_sale
+    if self.type_of != Property::TYPE_RENT
+      if self.price_per_size_sale == Property::PRICE_PER_SIZE_TOTAL
+        self.total_price_sale = self.price_per_unit_sale
+      elsif self.price_per_size_sale == Property::PRICE_PER_SIZE_M2
+        self.total_price_sale = self.price_per_unit_sale * area_in_m2
+      elsif self.price_per_size_sale == Property::PRICE_PER_SIZE_HECTAR
+        self.total_price_sale = self.price_per_unit_sale * area_in_hectar
+      end
+    end
   end
 
 end

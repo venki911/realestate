@@ -149,11 +149,17 @@ class User < ActiveRecord::Base
 
   def toggle_blocked_status
      self.blocked = !self.blocked
-     result = self.save
-     if(result)
-       UserMailer.notify_blocked_status(self).deliver_later
-     end
-     result
+     ActiveRecord::Base.transaction do
+       result = self.save
+       if(result)
+         UserMailer.notify_blocked_status(self).deliver_later
+       end
+       self.properties.each do |property|
+          property.mark_as_blocked = self.blocked
+          property.save
+       end
+       result
+    end
   end
 
   def send_password_reset

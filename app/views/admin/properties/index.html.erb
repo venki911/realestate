@@ -20,6 +20,7 @@
    <td>User</td>
    <td>Urgent</td>
    <td>Exclusive</td>
+   <td>Blocked</td>
 
   </thead>
 
@@ -39,8 +40,9 @@
         <td><%= property.type_of%></td>
         <td><%= property.photos_count%></td>
         <td><%= property.user.full_name%></td>
-        <td><%= property.mark_as_urgent%></td>
-        <td><%= property.mark_as_exclusive%></td>
+        <td><%= boolean_word(property.mark_as_urgent)%></td>
+        <td><%= boolean_word(property.mark_as_exclusive)%></td>
+        <td><%= boolean_word(property.mark_as_blocked)%></td>
         <td>
           <%=link_to 'Review', review_admin_property_path(property) %>
         </td>

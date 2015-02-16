@@ -89,7 +89,7 @@ small.error {
 }
 
 .checkbox-grid {
-  margin: 10px !important;
+  margin: 10px 10px 10px 0px !important;
 }
 
 .small-thumb {
@@ -98,10 +98,36 @@ small.error {
   margin-top: -10px;
   width: 24px;
 }
+
+.medium-thumb {
+  height: 64px;
+  width: 64px;
+}
+
 .exp-step {
   padding: 0 0 0 10px;
   li {
     list-style-type: ideograph-numeric;
     padding: 5px 0px;
   }
+}
+.space-right {
+  margin-right: 5px;
+}
+.img-frame {
+  background: #fff;
+  @include border-radius(5px);
+  padding: 6px;
+}
+.no-space {
+  padding: 0;
+  margin: 0;
+}
+.highlighter {
+  &:hover {
+    background: #ffe;
+  }
+}
+.overflow-hidden {
+  overflow: hidden;
 }

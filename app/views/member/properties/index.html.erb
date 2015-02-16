@@ -8,14 +8,10 @@
 
 <%= paginate @properties %>
 
-<div class="row">
-  <div class='col-lg-6 col-md-8'>
-    <% @properties.each do |property| %>
-      <%= render 'shared/properties/property', property: PropertyPresenter.new(property) %>
-    <% end %>
-  </div>
-
-  <div class='col-lg-6 col-md-4'> </div>
-</div>
+<ul class='no-space'>
+  <% @properties.each do |property| %>
+    <%= render 'shared/properties/property', property: property %>
+  <% end %>
+</ul>
 
 <%= paginate @properties %>

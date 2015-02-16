@@ -109,6 +109,10 @@ module ApplicationHelper
     active ? ' active ' : ''
   end
 
+  def boolean_word bool_value
+    bool_value ? "Yes": "No"
+  end
+
   def decoded_address
     content_tag :div, '<i class="glyphicon glyphicon-map-marker"> </i> <span id="address"> </span>'.html_safe,
                 style: "display:none;", id: "p-formatted-address"

@@ -4,9 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- No Index -->
-    <meta name="robots" content="noindex" />
-    <meta name="googlebot" content="noindex" />
     
     <title><%= content_for?(:title) ? yield(:title) : "Realestate" %></title>
 
@@ -14,6 +11,8 @@
     <%= csrf_meta_tags %>
     <%= render 'layouts/shared/config' %>
     <%= yield(:head) if content_for?(:head) %>
+
+    
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -23,10 +22,8 @@
     <![endif]-->
   </head>
   <body>
-    <%= render "layouts/admin/top_nav" %>
+    <%= render "layouts/top_nav" %>
     <div class="container">
-      <br />
-      <%= yield(:breadcrumb) if content_for?(:breadcrumb) %>
       <%= yield %>
     </div>
     <%= render 'layouts/shared/notification' %>

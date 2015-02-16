@@ -45,27 +45,37 @@ var MemberPropertyForm = {
     }
   },
 
-  handleAutoCalArea: function() {
+  handleUpdatableArea: function(selector) {
     var _self = this
-    $("#property_width").on('change', function(){
+    $(selector).on('change', function(){
       _self.updatePropertyArea()
     }).on('keyup', function(){
       _self.updatePropertyArea()
     })
+  },
 
-    $("#property_length").on('change', function(){
-      _self.updatePropertyArea()
-    }).on('keyup',function(){
-      _self.updatePropertyArea()
-    } )
+  handleAutoCalArea: function() {
+    var _self = this
+    var selectors = ["#property_width","#property_length","#property_building_width","#property_building_length"]
+    $.each(selectors, function(i, selector){
+      _self.handleUpdatableArea(selector)
+    })
   },
 
   updatePropertyArea: function(){
-    var w = parseFloat($("#property_width").val())
-    var l = parseFloat($("#property_length").val())
-    var area = w * l
-    area = isNaN(area) ? '' : area
-    $("#property_area").val(area)
+    var landWidth = parseFloat($("#property_width").val())
+    var landLength = parseFloat($("#property_length").val())
+
+    var buildingWidth  = parseFloat($("#property_building_width").val())
+    var buildingLength = parseFloat($("#property_building_length").val())
+
+    var landArea = landWidth * landLength
+    landArea = isNaN(landArea) ? '' : landArea
+    $("#property_area").val(landArea)
+
+    var buildingArea = buildingWidth * buildingLength
+    buildingArea = isNaN(buildingArea) ? '' : buildingArea
+    $("#property_building_area").val(buildingArea)
   },
 
   handleProvinceChange: function(){

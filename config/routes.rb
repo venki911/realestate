@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   require 'admin_constraint'
   mount Sidekiq::Web => '/sidekiq',constraints: AdminConstraint.new
 
-  root 'dashboards#index'
+  root 'properties#index'
+  resources :properties
 
   resources :sessions, only: [:new, :create, :destroy]
 
@@ -14,7 +15,6 @@ Rails.application.routes.draw do
   get 'blocked' => 'dashboards#blocked'
 
   delete 'sign_out' => 'sessions#destroy'
-
 
   get '/forgot-password' => 'passwords#new', as: :forgot_password
   resources :passwords

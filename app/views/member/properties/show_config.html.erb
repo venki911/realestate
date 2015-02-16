@@ -6,25 +6,56 @@
 
 <%= simple_form_for [:member, @property], url: update_config_member_property_path(@property, params.slice(:next) ),
                                           method: 'PUT',
-                                          html: {class: 'form form-lg form-inline'} do |f| %>
-  <!-- Map -->
-<div>
-    <h3 class='section-header'> Features </h3>
-    <% Property.stored_attributes[:config_features].each do |feature| %>
-      <%= f.input feature, as: :boolean, input_html: {class: 'checkbox-grid'} %>
+                                          html: {class: 'form form-lg form-config form-inline'} do |f| %>
+  <!-- Feature -->
+  <h3 class='section-header'> Features </h3>
+  <% config_features = Property.stored_attributes[:config_features] %>
+  <div class='row highlighter'>
+    <% 7.times.each do |i| %>
+      <div class='col-lg-3 col-md-4 col-sm-6'>
+        <%= f.input config_features[i], as: :numeric, input_html: {class: 'form-control'}, wrapper_html: {class: 'config_numeric'} %>
+      </div>
     <% end %>
+  </div>
 
-    <h3 class='section-header'> Facilities </h3>
-    <% Property.stored_attributes[:config_equipments].each do |equipment| %>
-      <%= f.input equipment, as: :boolean, label: equipment, input_html: {class: 'checkbox-grid'} %>
+  <div class='row highlighter'>
+    <% (7..11).to_a.each do |i| %>
+      <div class='col-lg-2'>
+        <%= f.input config_features[i], as: :boolean, input_html: {class: 'checkbox-grid'}, wrapper_html: {class: 'config_boolean'} %>
+      </div>
     <% end %>
+  </div>
 
-    <h3 class='section-header'> Services </h3>
+  <!-- Equipment -->
+  <h3 class='section-header'> Equipments </h3>
+  <% config_equipments = Property.stored_attributes[:config_equipments] %>
+  <div class='row highlighter'>
+    <% 16.times.each do |i| %>
+      <div class='col-lg-3'>
+        <%= f.input config_equipments[i], as: :numeric, input_html: {class: 'form-control'}, wrapper_html: {class: 'config_numeric'} %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class='row highlighter'>
+    <% (16..20).to_a.each do |i| %>
+      <div class='col-lg-2'>
+        <%= f.input config_equipments[i], as: :boolean, input_html: {class: 'checkbox-grid'}, wrapper_html: {class: 'config_boolean'} %>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Service -->
+  <h3 class='section-header'> Services </h3>
+  <div class='row highlighter'>
     <% Property.stored_attributes[:config_services].each do |service| %>
-      <%= f.input service, as: :boolean, label: service, input_html: {class: 'checkbox-grid'} %>
+      <div class='col-lg-2'>
+        <%= f.input service, as: :boolean, input_html: {class: 'checkbox-grid'}, wrapper_html: {class: 'config_boolean'} %>
+      </div>
     <% end %>
-    <p></p>
+  </div>
 
+  <div>
     <%= input_row class: 'text-center clearfix' do %>
       <% if params[:next].present? %>
         <button class='btn btn-info btn-form-action' > Create Facilities</button>
@@ -34,7 +65,5 @@
         <button class='btn btn-info btn-form-action' > Update Facilities </button>
       <% end %>
     <% end %>
-
   </div>
-</div>
 <% end %>

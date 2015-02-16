@@ -1,0 +1,14 @@
+<%= paginate(@properties) %>
+
+<div class='row'>
+  <div class='col-lg-8'>
+    <ul class='no-space'>
+    <% @properties.each do |property| %>
+      <%= render "property", property: PropertyPresenter.new(property) %>
+    <% end %>
+    </ul>
+  </div>
+
+  <div class='col-lg-4'>
+  </div>
+</div>
