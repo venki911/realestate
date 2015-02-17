@@ -110,7 +110,11 @@ module ApplicationHelper
   end
 
   def boolean_word bool_value
-    bool_value ? "Yes": "No"
+    if bool_value
+      "<i style='color:green; font-size: 120%;' class='glyphicon glyphicon-remove-circle'> </i>".html_safe
+    else
+      "<i style='color:red; font-size: 120%;' class='glyphicon glyphicon-ok-circle'> </i>".html_safe
+    end
   end
 
   def decoded_address
@@ -126,5 +130,9 @@ module ApplicationHelper
     else
       ""
     end
+  end
+
+  def app_params
+    params.except(:action, :controller)
   end
 end

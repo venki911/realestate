@@ -4,7 +4,18 @@
 <% admin_nav_menu_item(:property) %>
 
 <%= page_header "Property" %>
-<%= paginate @properties %>
+<div class='clearfix'>
+  <div class='pull-left'>
+    <%= paginate @properties %>
+  </div>
+
+  <div class='pull-right'>
+    <%= form_tag admin_properties_path(), method: :get, class: 'form form-inline' do %>
+      <%= text_field_tag :ref, params[:ref], class: 'form-control', placeholder: 'ID/CodeRef' %>
+      <button class="btn btn-info"><i class='glyphicon glyphicon-search'> </i> Search</button>
+    <% end %>
+  </div>
+</div>
 
 <table class='table'>
   <thead>
@@ -17,10 +28,11 @@
    <td>Status</td>
    <td>Type</td>
    <td>Photo</td>
-   <td>User</td>
+   <td>Poster</td>
    <td>Urgent</td>
    <td>Exclusive</td>
    <td>Blocked</td>
+   <td>Featured</td>
 
   </thead>
 
@@ -29,22 +41,23 @@
       <tr>
         <td><%= index_in_paginate(index+1) %></td>
         <td><%= image_tag property.logo, alt: nil, width: 50, height: 50 %></td>
-        <td><%= property.display_id %></td>
+        <td><%= property.id_with_prefix %></td>
         <td><%= property.code_ref %></td>
         <td><%= timeago_tag(property.updated_at) %></td>
         <td>
-          <%= property.verification_status%> <br/>
-          <%= property.reject_reason%>
+          <%= property.verification_status%>
         </td>
         <td><%= property.status%></td>
         <td><%= property.type_of%></td>
         <td><%= property.photos_count%></td>
-        <td><%= property.user.full_name%></td>
-        <td><%= boolean_word(property.mark_as_urgent)%></td>
-        <td><%= boolean_word(property.mark_as_exclusive)%></td>
-        <td><%= boolean_word(property.mark_as_blocked)%></td>
+        <td><%= link_to property.user.full_name, admin_properties_path(app_params.merge(user_id: property.user_id))%></td>
+        <td><%= link_to boolean_word(property.mark_as_urgent), toggle_urgent_admin_property_path(property, app_params), method: :put%></td>
+        <td><%= link_to boolean_word(property.mark_as_exclusive), toggle_exclusive_admin_property_path(property, app_params), method: :put %></td>
+        <td><%= link_to boolean_word(property.mark_as_blocked), toggle_blocked_admin_property_path(property, app_params), method: :put %></td>
+        <td><%= link_to boolean_word(property.mark_as_featured), toggle_featured_admin_property_path(property, app_params), method: :put%></td>
+
         <td>
-          <%=link_to 'Review', review_admin_property_path(property) %>
+          <%=link_to 'Review', review_admin_property_path(property), class: 'btn btn-sm btn-info' %>
         </td>
       </tr>
     <% end %>

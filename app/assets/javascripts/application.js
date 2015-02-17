@@ -6,6 +6,7 @@
 //= require jquery-sortable
 //= require jquery.Jcrop
 //= require rails-timeago
+//= require pace.min
 
 //= require bootstrap-sprockets
 

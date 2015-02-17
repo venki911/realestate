@@ -31,17 +31,18 @@
 }
 
 .btn-img-removal {
-  background-color: #d1d1d1;
+  background-color: #eee;
   border-radius: 15px;
   display: block;
   height: 28px;
-  padding-left: 7px;
-  padding-top: 7px;
+  padding-left: 2px;
+  padding-top: 2px;
   position: absolute;
   right: 0;
   top: -14px;
   width: 28px;
   text-decoration: none;
+  font-size: 24px;
   &:hover {
     font-weight: bold;
     text-decoration: none;
@@ -126,4 +127,8 @@ $sortable-height: 200px;
 .line {
   margin-bottom: 5px;
 }
-
+.total-price {
+  font-weight: bold;
+  font-size: 120%;
+  color: $app-hl-color;
+}

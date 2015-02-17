@@ -13,7 +13,7 @@
           <span class='thumbnail'>
             <%=image_tag photo.image_name.medium.url, class: 'form-img-thumb' %>
             <%= link_to '', member_property_photo_url(@property, photo), method: :delete, 
-                        class: 'glyphicon glyphicon-remove btn-img-removal' %>
+                        class: 'glyphicon glyphicon-remove-circle btn-img-removal' %>
           </span>
         </li>
     <% end %>
@@ -35,8 +35,6 @@
         <% end %>
       <% end %>
     <% end %>
-
-    
   <% end %>
 
 </div>
@@ -45,7 +43,7 @@
   <li class='col-xs-6 col-md-4 col-lg-3 c-form-img-thumb' data-photo-id='{%=o.id%}'>
     <span class='thumbnail'>
       <img src='{%=o.medium_url%}' class= 'form-img-thumb' />
-      <a href='{%=o.delete_url%}' data-method="delete" class= 'glyphicon glyphicon-remove btn-img-removal'> </a>
+      <a href='{%=o.delete_url%}' data-method="delete" class= 'glyphicon glyphicon-remove-circle btn-img-removal'> </a>
     </span>
   </li>
 </script>

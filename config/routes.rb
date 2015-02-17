@@ -85,6 +85,10 @@ Rails.application.routes.draw do
       member do
         get 'review'
         put 'update_review'
+        put 'toggle_featured'
+        put 'toggle_urgent'
+        put 'toggle_exclusive'
+        put 'toggle_blocked'
       end
     end
     resources :categories

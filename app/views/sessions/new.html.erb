@@ -2,29 +2,25 @@
 
 <div class='form-box row'>
   <div class='col-lg-6'>
-    <%= form_tag sessions_path, role: 'form', class: 'form-inline' do %>
+    <%= form_tag sessions_path, role: 'form', class: 'form-inline form-signin' do %>
       <div class='input-row'>
-        <%= label_tag :email %>
-        <%= text_field_tag :email, params[:email], class: 'form-control', placeholder: 'User name/ Email' %>
+        <%= label_tag :email, 'Username or Email' %>
+        <%= text_field_tag :email, params[:email], class: 'form-control', placeholder: 'Username or Email' %>
       </div>
 
       <div class='input-row'>
         <%= label_tag :password %>
         <%= password_field_tag :password, '', class: 'form-control', placeholder: 'Password' %>
       </div>
-
-      <p>
+      <p class='line'>
         <label></label> Don't have an account! <%= link_to 'Sign up', sign_up_path %>
       </p>
       <br>
 
       <div class='input-row'>
         <label></label>
-        <%= button_tag "Login", class: 'btn btn-primary btn-lg btn-single' %>
-      </div>
-
-      <div class='input-row'>
-        <label></label> Can not sign in <%= link_to 'Forgot Password', forgot_password_path %>
+        <%= button_tag "Login", class: 'btn btn-info btn-signin' %>
+        <%= link_to 'Forgot Password', forgot_password_path %>
       </div>
 
     <% end %>

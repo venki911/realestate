@@ -3,6 +3,22 @@
   border-bottom: medium none $app-hl-color;
 }
 
+.nav > li.item-btn {
+  margin-top: 10px;
+  a {
+    color: #fff;
+    font-weight: 500;
+    padding: 5px 15px;
+    margin-left: 5px;
+    @include border-radius(5px);
+
+    &:hover, &:focus {
+      color: $app-bg-color;
+      background-color: #fff;
+    }
+  }
+}
+
 .nav > li.active {
   margin-top: 10px;
   a {

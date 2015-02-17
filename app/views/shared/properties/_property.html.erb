@@ -33,7 +33,7 @@
 
       <p class='pull-left overflow-hidden'>
         <h4 class="media-heading ">
-         <%= link_to "#{property.title} - #{property.display_id}", edit_member_property_path(property) %>
+         <%= link_to "#{property.title} - #{property.id_with_prefix}", edit_member_property_path(property) %>
         </h4>
 
         <p class='underline tagline'> <%=property.location %> </p>
@@ -61,7 +61,7 @@
 
         <p class='line'>
           <!-- Price -->
-          <div class='total_price' style="font-weight: bold;">
+          <div class='total-price'>
             <% if property.type_of == Property::TYPE_SALE_RENT %>
               <div>
                 Sale for: <%= property.total_price_sale %> $ ,

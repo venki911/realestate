@@ -42,6 +42,9 @@ class Property < ActiveRecord::Base
   PRICE_PER_DURATION_YEAR  = "Year"
 
 
+  PREFIX_ID = "PRT"
+
+
   validates :code_ref, uniqueness: true, if: ->(p){p.code_ref.present?}
 
   validates :width, presence: true, numericality: {greater_than: 0}, unless: ->(p) { p.area.present? }
@@ -59,6 +62,39 @@ class Property < ActiveRecord::Base
   before_create :generate_code_ref
   before_save :calculate_total_price
 
+  def self.search options
+    properties = where("1=1")
+    properties = properties.where(["user_id = ? ", options[:user_id] ]) if options[:user_id].present?
+    properties = properties.where(mark_as_featured: true) if options[:featured].present?
+    if options[:ref].present?
+      param_id = Property::id_without_prefix(options[:ref])
+      properties = properties.where(["(code_ref = ? OR id = ? )", options[:ref], param_id.to_i]) unless param_id.blank?
+    end
+    properties
+  end
+
+
+
+  def toggle_featured
+    self.mark_as_featured = !self.mark_as_featured
+    self.save
+  end
+
+  def toggle_urgent
+    self.mark_as_urgent = !self.mark_as_urgent
+    self.save
+  end
+  
+  def toggle_exclusive
+    self.mark_as_exclusive = !self.mark_as_exclusive
+    self.save
+  end
+
+  def toggle_blocked
+    self.mark_as_blocked = !self.mark_as_blocked
+    self.save
+  end
+
   def self.config_attr_type attr
     quantity_types = [:bedroom, :bathroom, :parking, :livingroom, :dinning_room,:story, :floor,
      :bed, :mattress, :cloth, :dressing_table, :cupboard, :dinning_table, :chair, :sofa, :cabinet,
@@ -72,12 +108,21 @@ class Property < ActiveRecord::Base
     calculate_and_set_total_price_rent
   end
 
-  def display_id
-    "PRT-#{id}"
+  def id_with_prefix
+    "#{Property::PREFIX_ID}-#{id}"
+  end
+
+  def self.id_without_prefix(id_pattern)
+    pattern = "#{Property::PREFIX_ID}-?"
+    id_pattern.sub(/#{pattern}/i, "")
   end
 
   def self.listing
-    where(['verification_status = ? AND mark_as_blocked = ?', Property::VERIFICATION_STATUS_OK, false])
+    where(['verification_status = ? AND mark_as_blocked = ? AND mark_as_featured = ?', Property::VERIFICATION_STATUS_OK, false, false])
+  end
+
+  def self.featured_listing
+    where(['verification_status = ? AND mark_as_blocked = ? AND mark_as_featured = ?', Property::VERIFICATION_STATUS_OK, false, true])
   end
 
   def generate_code_ref
@@ -174,7 +219,7 @@ class Property < ActiveRecord::Base
         end
       end
 
-      if results.size > 10
+      if results.size > 5
         results << "..."
         break
       end
