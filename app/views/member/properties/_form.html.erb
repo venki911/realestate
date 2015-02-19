@@ -10,7 +10,7 @@
             <% end %>
 
             <%= input_row do %>
-              <%= f.input :borey_name, collection: Borey.all, prompt: 'Borey name ?',
+              <%= f.input :borey_name, collection: Borey.all, include_blank: 'Borey name ?',
                                      input_html: {class: 'form-control select'} %>
             <% end %>
 
@@ -20,12 +20,26 @@
             <% end %>
         </div>
 
+        <!-- Status -->
+        <div>
+          <h3 class='section-header'> Status </h3>
+          <%= input_row do %>
+            <%= f.input :status, label: 'Availability', collection: Property.avalable_status, include_blank: false,
+                                      input_html: {class: 'form-control'} %>
+          <% end %>
+
+          <div>
+            <label> </label>
+            <%= f.input :mark_as_urgent, label: 'Urgent', label_html: {class: 'label-checkbox'}, input_html: {class: 'input-inline'} %>
+          </div>
+        </div>
+
         <!-- Property Price -->
         <div class=''>
           <h3 class='section-header'>Rental/Sale</h3>
 
           <%= input_row do %>
-            <%= f.input :type_of, collection: Property.available_types, include_blank: false,
+            <%= f.input :type_of, label: "For" , collection: Property.available_types, include_blank: false,
                                 input_html: {class: 'form-control'} %>
           <% end %>
 
@@ -85,7 +99,7 @@
 
           <%= input_row do %>
             <%= f.association :commune, collection: Commune.order('name').where(district_id: @property.district_id).pluck(:name, :id),
-                              prompt: 'Commune/Sangkat ?', input_html: {class: 'form-control'} %>
+                              include_blank: 'Commune/Sangkat ?', input_html: {class: 'form-control'} %>
           <% end %>
 
         </div>

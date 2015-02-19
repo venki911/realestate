@@ -1,69 +1,76 @@
+.navbar{
+  margin-bottom: 0;
+  min-height: 0;
+}
+
 .top-nav{
   background-color: $app-bg-color;
-  border-bottom: medium none $app-hl-color;
-}
+  border-bottom: 1px solid $app-div-color;
 
-.nav > li.item-btn {
-  margin-top: 10px;
-  a {
-    color: #fff;
-    font-weight: 500;
-    padding: 5px 15px;
-    margin-left: 5px;
-    @include border-radius(5px);
+  .navbar-brand {
+    line-height: unset;
+    padding: unset;
+    height: unset;
+    margin-top: 4px;
+  }
 
-    &:hover, &:focus {
+  .nav > li.active, .nav > li.item-btn {
+    a {
       color: $app-bg-color;
-      background-color: #fff;
+      font-weight: 500;
+      padding: 10px 15px;
+      line-height: 12px;
+      margin-top: 4px;
+      margin-left: 5px;
+      @include border-radius(5px);
+
+      &:hover, &:focus {
+        color: $app-bg-color;
+        background-color: #fff;
+      }
     }
   }
-}
-
-.nav > li.active {
-  margin-top: 10px;
-  a {
-    color: $app-bg-color;
+  .nav > li.active a {
     background-color: #fff;
-    font-weight: 500;
-    padding: 5px 15px;
-    @include border-radius(5px);
-
-    &:hover, &:focus {
-      color: $app-bg-color;
-      background-color: #fff;
-    }
   }
-}
-.nav > li > a {
-  color: #fff;
-  &:hover, &:focus {
-    background-color: $app-bg-color;
-  }
-}
 
-.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-  background-color: $app-hl-color;
-}
-
-.dropdown-menu {
-  background-color: $app-bg-color;
-}
-.dropdown-menu .divider {
-  background-color: $app-div-color;
-}
-
-.dropdown-menu > li > a {
-  color: #fff;
-  &:hover, &:focus {
+  .nav > li.item-btn a {
     background-color: $app-hl-color;
     color: #fff;
   }
-}
 
-.dropdown-menu > li:active {
-  background-color: #fff;
-  font-weight: bold;
-  a {
-    color: $app-bg-color;
+  .nav > li > a {
+    padding: 10px 15px;
+    color: #fff;
+    &:hover, &:focus {
+      background-color: $app-bg-color;
+    }
+  }
+
+  .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+    background-color: $app-hl-color;
+  }
+
+  .dropdown-menu {
+    background-color: $app-bg-color;
+  }
+  .dropdown-menu .divider {
+    background-color: $app-div-color;
+  }
+
+  .dropdown-menu > li > a {
+    color: #fff;
+    &:hover, &:focus {
+      background-color: $app-hl-color;
+      color: #fff;
+    }
+  }
+
+  .dropdown-menu > li:active {
+    background-color: #fff;
+    font-weight: bold;
+    a {
+      color: $app-bg-color;
+    }
   }
 }

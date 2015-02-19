@@ -111,9 +111,9 @@ module ApplicationHelper
 
   def boolean_word bool_value
     if bool_value
-      "<i style='color:green; font-size: 120%;' class='glyphicon glyphicon-remove-circle'> </i>".html_safe
+      "<i style='color:green; font-size: 120%;' class='glyphicon glyphicon-ok-circle'> </i>".html_safe
     else
-      "<i style='color:red; font-size: 120%;' class='glyphicon glyphicon-ok-circle'> </i>".html_safe
+      "<i style='color:red; font-size: 120%;' class='glyphicon glyphicon-remove-circle'> </i>".html_safe
     end
   end
 
@@ -133,6 +133,10 @@ module ApplicationHelper
   end
 
   def app_params
-    params.except(:action, :controller)
+    params.except(:action, :controller, :_method, :authenticity_token)
+  end
+
+  def display_email email
+    email.gsub(/@/, ' at ')
   end
 end

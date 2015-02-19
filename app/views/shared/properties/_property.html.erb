@@ -55,8 +55,8 @@
           </p>
         <% end %>
 
-        <% if !property.feature.blank? %>
-         <p class='line'> Features : <%= property.feature.html_safe %> </p>
+        <% if !property.features_list.empty? %>
+         <p class='line'> Features : <%= tag_facilities(property.features_list, 5) %> </p>
         <% end %>
 
         <p class='line'>

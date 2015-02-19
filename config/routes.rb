@@ -89,6 +89,7 @@ Rails.application.routes.draw do
         put 'toggle_urgent'
         put 'toggle_exclusive'
         put 'toggle_blocked'
+        put 'toggle_status'
       end
     end
     resources :categories

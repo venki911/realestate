@@ -1,0 +1,11 @@
+<div >
+  <p class='line'><%= decoded_address %> </p>
+  <input id='property_lat' class='hidden' style='border:none;'/>
+  <input id='property_lng' class='hidden' style='border: none;' />
+  
+  <div id='p-map'></div>
+</div>
+
+<% content_for(:head) do %>
+   <%= render "layouts/shared/google_map" %>
+<% end %>

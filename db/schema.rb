@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150216142912) do
+ActiveRecord::Schema.define(version: 20150219155816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,6 @@ ActiveRecord::Schema.define(version: 20150216142912) do
   create_table "properties", force: :cascade do |t|
     t.string   "code_ref"
     t.string   "verification_status",     default: "Pending"
-    t.string   "status",                  default: "Available"
     t.string   "swot"
     t.text     "note"
     t.string   "borey_name"
@@ -83,8 +82,8 @@ ActiveRecord::Schema.define(version: 20150216142912) do
     t.string   "unit"
     t.string   "main_photo"
     t.string   "reject_reason"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.integer  "photos_count",            default: 0
     t.float    "total_price_rent"
     t.float    "price_per_unit_rent"
@@ -107,6 +106,7 @@ ActiveRecord::Schema.define(version: 20150216142912) do
     t.string   "building_unit"
     t.boolean  "mark_as_blocked",         default: false
     t.boolean  "mark_as_featured",        default: false
+    t.boolean  "status",                  default: true
   end
 
   add_index "properties", ["category_id"], name: "index_properties_on_category_id", using: :btree

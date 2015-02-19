@@ -37,7 +37,7 @@ class Member::PhotosController < MemberController
   private
   def set_imageable
     klass = [Property].detect{|imageable| params["#{imageable.name.underscore}_id"]}
-    @imageable = klass.find(params["#{klass.name.underscore}_id"])
+    @imageable = klass.find_by_url(params["#{klass.name.underscore}_id"])
   end
 
   def filter_params

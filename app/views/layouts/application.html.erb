@@ -23,6 +23,7 @@
     <%= render "layouts/member/top_nav" %>
     <div class="container">
       <%= yield %>
+      <%= render 'layouts/shared/footer' %>
     </div>
     <%= render 'layouts/shared/notification' %>
     <%= javascript_include_tag "application" %>

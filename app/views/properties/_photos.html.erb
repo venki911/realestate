@@ -1,0 +1,9 @@
+<%= image_tag property.photos.first.image_name.standard.url, class: 'standard-image img-responsive', id: 'main-photo-view' %>
+<div style='margin-top: 10px;'>
+  <% if property.photos_count > 1 %>
+    <% photos = property.photos[1..-1] %>
+    <% photos.each do |photo| %>
+      <%= image_tag photo.image_name.thumb.url, class: 'thumb-preview-image', style: 'width:60px; height: 60px;' %>
+    <% end %>
+  <% end %>
+</div>

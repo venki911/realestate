@@ -132,3 +132,17 @@ small.error {
 .overflow-hidden {
   overflow: hidden;
 }
+
+.section-detail {
+  padding: 5px 0;
+  margin-left: 10px;
+  border-bottom: 2px dotted #eee;
+  label {
+    display: inline-block;
+    width: 120px;
+  }
+  .section-value {
+    // margin-left: 120px;
+    padding-left: 10px;
+  }
+}

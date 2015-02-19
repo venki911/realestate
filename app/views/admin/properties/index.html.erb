@@ -33,6 +33,8 @@
    <td>Exclusive</td>
    <td>Blocked</td>
    <td>Featured</td>
+   <td>Availabe</td>
+   <td></td>
 
   </thead>
 
@@ -52,13 +54,26 @@
         <td><%= property.photos_count%></td>
         <td><%= link_to property.user.full_name, admin_properties_path(app_params.merge(user_id: property.user_id))%></td>
         <td><%= link_to boolean_word(property.mark_as_urgent), toggle_urgent_admin_property_path(property, app_params), method: :put%></td>
-        <td><%= link_to boolean_word(property.mark_as_exclusive), toggle_exclusive_admin_property_path(property, app_params), method: :put %></td>
-        <td><%= link_to boolean_word(property.mark_as_blocked), toggle_blocked_admin_property_path(property, app_params), method: :put %></td>
-        <td><%= link_to boolean_word(property.mark_as_featured), toggle_featured_admin_property_path(property, app_params), method: :put%></td>
+        <td>
+          <%= link_to boolean_word(property.mark_as_exclusive),
+                      toggle_exclusive_admin_property_path(property, app_params), method: :put %></td>
+
+        <td>
+          <%= link_to boolean_word(property.mark_as_blocked),
+                        toggle_blocked_admin_property_path(property, app_params), method: :put %></td>
+
+        <td>
+          <%= link_to boolean_word(property.mark_as_featured),
+                        toggle_featured_admin_property_path(property, app_params), method: :put%></td>
+
+        <td>
+          <%= link_to boolean_word(property.status),
+                        toggle_status_admin_property_path(property, app_params), method: :put%></td>
 
         <td>
           <%=link_to 'Review', review_admin_property_path(property), class: 'btn btn-sm btn-info' %>
         </td>
+
       </tr>
     <% end %>
   </tbody>

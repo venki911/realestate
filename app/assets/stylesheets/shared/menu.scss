@@ -1,0 +1,16 @@
+.footer-block {
+  margin-top: 15px;
+  background-color: $app-bg-color;
+  border-top: 1px solid $app-div-color;
+  #footer-menu {
+    margin-top: 10px;
+    list-style-type: none;
+    li {
+      display: inline-block;
+      padding: 5px 10px;
+      a {
+        color: #fff;
+      }
+    }
+  }
+}

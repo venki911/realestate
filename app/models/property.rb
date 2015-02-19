@@ -1,4 +1,6 @@
 class Property < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper
+
   store_accessor :config_features, :bedroom, :bathroom, :parking, :livingroom, :dinning_room,:story, :floor,
                                    :kitchen, :balcony, :terrace, :garden, :pool
 
@@ -41,9 +43,9 @@ class Property < ActiveRecord::Base
   PRICE_PER_DURATION_MONTH = "Month"
   PRICE_PER_DURATION_YEAR  = "Year"
 
+  PREFIX_ID = "PPN"
 
-  PREFIX_ID = "PRT"
-
+  FACILITY_BOOL = "&#10003"
 
   validates :code_ref, uniqueness: true, if: ->(p){p.code_ref.present?}
 
@@ -62,6 +64,8 @@ class Property < ActiveRecord::Base
   before_create :generate_code_ref
   before_save :calculate_total_price
 
+  attr_accessor :features_list
+
   def self.search options
     properties = where("1=1")
     properties = properties.where(["user_id = ? ", options[:user_id] ]) if options[:user_id].present?
@@ -73,7 +77,10 @@ class Property < ActiveRecord::Base
     properties
   end
 
-
+  def toggle_status
+    self.status = !self.status
+    self.save
+  end
 
   def toggle_featured
     self.mark_as_featured = !self.mark_as_featured
@@ -117,12 +124,22 @@ class Property < ActiveRecord::Base
     id_pattern.sub(/#{pattern}/i, "")
   end
 
+  def has_map?
+    self.lat.present? && self.lng.present? && self.show_on_map?
+  end
+
+  def special?
+    self.mark_as_urgent || self.mark_as_exclusive
+  end
+
   def self.listing
-    where(['verification_status = ? AND mark_as_blocked = ? AND mark_as_featured = ?', Property::VERIFICATION_STATUS_OK, false, false])
+    where([ 'verification_status = ? AND mark_as_blocked = ? AND mark_as_featured = ? AND status = ?',
+            Property::VERIFICATION_STATUS_OK, false, false, true ])
   end
 
   def self.featured_listing
-    where(['verification_status = ? AND mark_as_blocked = ? AND mark_as_featured = ?', Property::VERIFICATION_STATUS_OK, false, true])
+    where([ 'verification_status = ? AND mark_as_blocked = ? AND mark_as_featured = ? AND status = ?',
+            Property::VERIFICATION_STATUS_OK, false, true, true ])
   end
 
   def generate_code_ref
@@ -153,7 +170,7 @@ class Property < ActiveRecord::Base
   end
 
   def self.avalable_status
-    [ STATUS_NOT_AVAILABLE, STATUS_AVAILABLE ]
+    [ [STATUS_AVAILABLE, true], [STATUS_NOT_AVAILABLE, false] ]
   end
 
   def self.available_price_per_sizes
@@ -185,12 +202,8 @@ class Property < ActiveRecord::Base
   end
 
   def title
-    result = borey_name.present? ? "#{borey_name} - #{category.name} " : category.name
+    result = borey_name.present? ? "#{borey_name} #{category.name} " : category.name
     "#{result} for #{type_of}"
-  end
-
-  def feature
-    @feature_list ||= calc_feature
   end
 
   def location
@@ -201,32 +214,52 @@ class Property < ActiveRecord::Base
     result.join(", ")
   end
 
-  private
+  def to_param
+    "#{id_with_prefix} #{self.title}-in-#{province.name}".parameterize
+  end
 
-  def calc_feature
+  def self.find_by_url param_id
+    length = Property::PREFIX_ID.length + 1
+    id = param_id[length..-1]
+    find(id)
+  end
+
+  def marked_items
+    result = []
+    result << 'Urgent' if self.mark_as_urgent
+    result << 'Exclusive' if self.mark_as_exclusive
+    result
+  end
+
+  def features_list
+    return @features_list if @features_list
     boolean_attr = [ :kitchen, :balcony, :terrace, :garden, :pool, :satellite_dish, :fax, :generator, :playground, :water_heater,
                      :electricity, :water, :garbage, :security, :pest_control, :cable_tv, :laundry, :gym ]
 
     config_attrs = Property.stored_attributes[:config_features] + Property.stored_attributes[:config_equipments] + Property.stored_attributes[:config_services]
-    results = []
+    @features_list = features_list_for(config_attrs)
+    @features_list
+  end
+
+  def features_list_for(config_attrs)
+    boolean_attr = [ :kitchen, :balcony, :terrace, :garden, :pool, :satellite_dish, :fax, :generator, :playground, :water_heater,
+                     :electricity, :water, :garbage, :security, :pest_control, :cable_tv, :laundry, :gym ]
+
+    results = {}
     config_attrs.each do |attr|
       value = self.send(attr)
       if value.to_i != 0
         if boolean_attr.include?(attr)
-          results << "&#10003 #{attr.to_s.titleize}"
+          results[attr] = Property::FACILITY_BOOL
         else
-          results << "#{value} #{attr.to_s.titleize}"
+          results[attr] = value
         end
       end
-
-      if results.size > 5
-        results << "..."
-        break
-      end
     end
-    results.join(", ")
+    results
   end
 
+  private
   def default_thumb_url
     'logo/realestate.png'
   end
