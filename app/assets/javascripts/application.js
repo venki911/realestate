@@ -7,6 +7,7 @@
 //= require jquery.Jcrop
 //= require rails-timeago
 //= require pace.min
+//= require jssor.slider.mini
 
 //= require bootstrap-sprockets
 
@@ -15,6 +16,7 @@
 //= require shared/notification
 //= require shared/resource_location_map
 //= require shared/jcrop_init
+//= require shared/slider_init
 
 //= require registration/page
 

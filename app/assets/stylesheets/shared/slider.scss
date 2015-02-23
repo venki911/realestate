@@ -1,0 +1,84 @@
+// jssor slider arrow navigator skin 02 css
+// .jssora02l              (normal)
+// .jssora02r              (normal)
+// .jssora02l:hover        (normal mouseover)
+// .jssora02r:hover        (normal mouseover)
+// .jssora02ldn            (mousedown)
+// .jssora02rdn            (mousedown)
+
+.jssora02l, .jssora02r, .jssora02ldn, .jssora02rdn
+{
+  position: absolute;
+  cursor: pointer;
+  display: block;
+    background: asset-url('jssor-slider/a11.png') no-repeat;
+    overflow:hidden;
+}
+.jssora02l { background-position: -3px -33px; }
+.jssora02r { background-position: -63px -33px; }
+.jssora02l:hover { background-position: -123px -33px; }
+.jssora02r:hover { background-position: -183px -33px; }
+.jssora02ldn { background-position: -243px -33px; }
+.jssora02rdn { background-position: -303px -33px; }
+
+
+
+
+// jssor slider thumbnail navigator skin 03 css
+// .jssort03 .p            (normal)
+// .jssort03 .p:hover      (normal mouseover)
+// .jssort03 .pav          (active)
+// .jssort03 .pav:hover    (active mouseover)
+// .jssort03 .pdn          (mousedown)
+
+.jssort03 .w, .jssort03 .pav:hover .w
+{
+  position: absolute;
+  width: 60px;
+  height: 30px;
+  border: white 1px dashed;
+}
+* html .jssort03 .w
+{
+  width: 62px;
+  height: 32px;
+}
+.jssort03 .pdn .w, .jssort03 .pav .w { border-style: solid; }
+.jssort03 .c
+{
+  width: 62px;
+  height: 32px;
+  filter:  alpha(opacity=45);
+  opacity: .45;
+  
+  transition: opacity .6s;
+    -moz-transition: opacity .6s;
+    -webkit-transition: opacity .6s;
+    -o-transition: opacity .6s;
+}
+.jssort03 .p:hover .c, .jssort03 .pav .c
+{
+  filter:  alpha(opacity=0);
+  opacity: 0;
+}
+.jssort03 .p:hover .c
+{
+  transition: none;
+  -moz-transition: none;
+  -webkit-transition: none;
+  -o-transition: none;
+}
+
+
+//Loading
+.slider-loading {
+  position: absolute;
+  display: block;
+  // background: asset-url('loading.gif') no-repeat center center;
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height:60px;
+  margin-left: -30px;
+  margin-top: -30px;
+}
