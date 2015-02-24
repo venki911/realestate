@@ -94,7 +94,7 @@ class Member::PropertiesController < MemberController
   private
 
   def filter_note_params
-    params.require(:property).permit(:note)
+    params.require(:property).permit(:note, :bootsy_image_gallery_id)
   end
 
   def filter_config_params

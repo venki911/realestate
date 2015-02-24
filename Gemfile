@@ -39,6 +39,7 @@ gem "fog"
 gem "jquery-fileupload-rails"
 gem "rails-timeago"
 gem "font-awesome-rails"
+gem 'bootsy'
 
 gem 'sidekiq'
 gem 'sinatra', :require => nil

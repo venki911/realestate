@@ -124,11 +124,11 @@
   </div>
 <% end %>
 
+<%= render 'contact', property: property %>
 
 <% if property.note.present? %>
   <h3 class='section-header'> Summary </h3>
-  <div class='section-detail' >
-    <p class='line'><%= property.note%></p>
+  <div class='clearfix' style='margin-left: 10px;' >
+    <%= property.note.html_safe%>
   </div>
 <% end %>
-<%= render 'contact', property: property %>

@@ -1,5 +1,6 @@
 class Property < ActiveRecord::Base
   include ActionView::Helpers::TextHelper
+  include Bootsy::Container
 
   store_accessor :config_features, :bedroom, :bathroom, :parking, :livingroom, :dinning_room,:story, :floor,
                                    :kitchen, :balcony, :terrace, :garden, :pool

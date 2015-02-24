@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
   require 'sidekiq/web'
   require 'admin_constraint'
   mount Sidekiq::Web => '/sidekiq',constraints: AdminConstraint.new
