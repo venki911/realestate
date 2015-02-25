@@ -20,6 +20,7 @@
 //= require shared/slider_init
 
 //= require registration/page
+//= require property/search
 
 //= require member/property_form
 //= require member/property_map

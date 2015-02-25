@@ -1,7 +1,20 @@
 
+<% if current_user %>
+  <div class='text-right'>
+  <%= link_to '', class: 'btn btn-primary' do %>
+    <i class='glyphicon glyphicon-eye-open'> </i> Favorite this Property
+  <% end %>
+  </div>
+<% end %>
+
 <h3 class='section-header' style='margin-top: 0px;'> General info</h3>
 
-<div class='section-detail'> 
+<div class='section-detail' style='position: relative;'>
+
+  <% if property.mark_as_urgent %>
+    <%= image_tag "properties/urgent-property.png", style: 'right: 0px; position: absolute; top: -20px;' %>
+  <% end %>
+
   <label class='pull-left'> Location </label>
   <div class='section-value'>
     <% if property.has_map? %>

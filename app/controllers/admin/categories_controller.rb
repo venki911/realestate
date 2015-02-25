@@ -39,6 +39,6 @@ class Admin::CategoriesController < AdminController
 
   private
   def filter_params
-    params.require(:category).permit(:name)
+    params.require(:category).permit(:name, :is_land)
   end
 end

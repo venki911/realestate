@@ -41,7 +41,8 @@ class Admin::CompaniesController < AdminController
   end
 
   def filter_params
-    params.require(:company).permit(:name, :license, :year_founded, :phone, :email, :website, :logo, :summary, :lat, :lng, :bootsy_image_gallery_id)
+    params.require(:company).permit(:name, :license, :year_founded, :phone, :email, :website, :logo, :address,
+                                    :summary, :lat, :lng, :bootsy_image_gallery_id)
   end
 
 end

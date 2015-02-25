@@ -77,9 +77,9 @@ $sortable-height: 200px;
   &:last-child {
     border-bottom: none !important;
   }
-  padding: 10px 0;
   .media{
     position: relative;
+    padding: 10px 0;
   }
   .media-body {
     padding: 10px 0;
@@ -138,12 +138,24 @@ $sortable-height: 200px;
   color: $app-special-color;
 }
 .facility-tag, .p-tag {
-  background: none repeat scroll 0 0 #ddd;
-  border-bottom: 1px solid #eee;
+  background: none repeat scroll 0 0 #f7f7f7;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
   border-radius: 5px;
   display: inline-block;
   line-height: 1.6;
   margin: 3px;
   padding: 2px 10px;
   white-space: nowrap;
+}
+
+.search-control {
+  // float: left;
+  margin: 10px 5px;
+  input {
+    width: 100%;
+  }
+  select {
+    width: 100%;
+  }
 }

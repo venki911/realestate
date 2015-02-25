@@ -24,7 +24,7 @@
         <div>
           <h3 class='section-header'> Status </h3>
           <%= input_row do %>
-            <%= f.input :status, label: 'Availability', collection: Property.avalable_status, include_blank: false,
+            <%= f.input :status, label: 'Availability', collection: Property.available_status, include_blank: false,
                                       input_html: {class: 'form-control'} %>
           <% end %>
 

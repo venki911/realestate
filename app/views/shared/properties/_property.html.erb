@@ -64,19 +64,19 @@
           <div class='total-price'>
             <% if property.type_of == Property::TYPE_SALE_RENT %>
               <div>
-                Sale for: <%= property.total_price_sale %> $ ,
-                Rent for: <%= property.total_price_rent %> $ / <%=property.price_per_duration_rent%>
+                Sale for : <%= property.total_price_sale %> $ ,
+                Rent for : <%= property.total_price_rent %> $ 
               </div>
             <% elsif property.type_of == Property::TYPE_RENT %>
-              <div> Rent for: <%= property.total_price_rent %> $ / <%=property.price_per_duration_rent%> </div>
+              <div> Rent for : <%= property.total_price_rent %> $  </div>
             <% else %>
-              <div> <%=property.type_of %> for: <%= property.total_price_sale %> $ </div>
+              <div> <%=property.type_of %> for : <%= property.total_price_sale %> $ </div>
             <% end %>
           </div> <!--End price-->
         </p>
       </p>
       
-      <div class='text-right' style='position: absolute; right: 0px; bottom: 2px;'>
+      <div class='text-right' style='position: absolute; right: 10px; bottom: 20px;'>
         <span class='label label-warning'> <%= property.verification_status %> </span>
       </div>
     </div>

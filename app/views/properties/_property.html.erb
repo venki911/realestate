@@ -1,5 +1,13 @@
 <li class='p-item highlighter'>
   <div class="media" style="display:block;">
+    <% if property.mark_as_urgent %>
+      <%= image_tag "properties/urgent-property.png", style: 'right: -15px; position: absolute; top: -20px;' %>
+    <% end %>
+
+    <% if property.mark_as_exclusive && false %>
+      <%= image_tag "properties/exclusive-property.png", style: 'right: -20px; position: absolute; bottom: -10px;' %>
+    <% end %>
+
     <div class="media-left">
 
       <!-- Image -->
@@ -10,14 +18,14 @@
       <div style='padding-top: 5px;'>
         <%= link_to property_path(property) do %>
           <span class='label label-primary space-right'>
-            <%= property.photos_count %>
             <i class='glyphicon glyphicon-camera'> </i>
+            <%= pluralize(property.photos_count, '') %> 
           </span>
         <% end %>
 
         <% if property.show_on_map? && property.lat.present? %>
           <%=link_to property_path(property) do %>
-            <span class='label label-primary space-right'> <i class='glyphicon glyphicon-map-marker'> </i> </span>
+            <span class='label label-primary'> <i class='glyphicon glyphicon-map-marker'> </i> </span>
           <% end %>
         <% end %>
       </div>
@@ -26,65 +34,55 @@
 
     <div class="media-body">
 
-      <div class='pull-right' style='width: 200px;'>
+      <div class='pull-right' style='width: 200px; margin-top: 20px;'>
         <!-- Poster profile -->
         <%= render 'poster', user: property.user %>
       </div>
 
       <p class='pull-left overflow-hidden'>
-        <h4 class="media-heading ">
-         <%= link_to "#{property.title} , #{property.id_with_prefix}", property_path(property) %>
+        <h4 class="media-heading">
+          <%= link_to "#{property.title} , #{property.id_with_prefix}", property_path(property) %>
         </h4>
 
-        <p class='underline tagline'> <%=property.location %> </p>
-        <p class='line'>
+        <div class='underline tagline'> <%=property.location %> </div>
+        <div class='line'>
           Land size : 
             <%= property.width %> meter
             x
             <%= property.length %> meter
             ~ <%= property.area %> <%= property.unit %>
-        </p>
+        </div>
 
         <% if property.building_size? %>
-          <p class='line'>
+          <div class='line'>
             Building size :
               <%= property.building_width %> meter
               x
               <%= property.building_length %> meter
               ~ <%= property.building_area %> <%= property.building_unit %>
-          </p>
+          </div>
         <% end %>
         
         <% if !property.features_list.empty? %>
-         <p class='line'> Facilities : <%= tag_facilities(property.features_list, 4) %> </p>
+         <div class='line'> Facilities : <%= tag_facilities(property.features_list, 4) %> </div>
         <% end %>
 
-        <p class='line'>
+        <div class='line'>
           <!-- Price -->
           <div class='total-price'>
             <% if property.type_of == Property::TYPE_SALE_RENT %>
               <div>
-                Sale for: <%= property.total_price_sale %> $ ,
-                Rent for: <%= property.total_price_rent %> $ / <%=property.price_per_duration_rent%>
+                Sale for : <%= property.total_price_sale %> $ ,
+                Rent for : <%= property.total_price_rent %> $
               </div>
             <% elsif property.type_of == Property::TYPE_RENT %>
-              <div> Rent for: <%= property.total_price_rent %> $ / <%=property.price_per_duration_rent%> </div>
+              <div> Rent for : <%= property.total_price_rent %> $ </div>
             <% else %>
-              <div> <%=property.type_of %> for: <%= property.total_price_sale %> $ </div>
+              <div> <%=property.type_of %> for : <%= property.total_price_sale %> $ </div>
             <% end %>
           </div> <!--End price-->
-        </p>
+        </div>
       </p>
-      
-      <div class='text-right' style='position: absolute; right: 0px; bottom: 2px;'>
-        <% if property.mark_as_urgent %>
-          <span class='label label-info'> Urgent</span>
-        <% end %>
-
-        <% if property.mark_as_exclusive %>
-          <span class='label label-info'> Exclusive</span>
-        <% end %>
-      </div>
     </div>
   </div>
 </li>

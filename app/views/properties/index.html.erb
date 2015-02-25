@@ -4,11 +4,12 @@
   <div class='col-lg-8'>
     <ul class='no-space'>
     <% @properties.each do |property| %>
-      <%= render "property", property: PropertyPresenter.new(property) %>
+      <%= render "property", property: property %>
     <% end %>
     </ul>
   </div>
 
   <div class='col-lg-4'>
+   <%= render "shared/properties/search" %>
   </div>
 </div>

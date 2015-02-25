@@ -1,4 +1,6 @@
 class Company < ActiveRecord::Base
+  include Bootsy::Container
+  
   has_many :properties
   has_many :agents, -> { where(role: User::ROLE_AGENT) }, class_name: 'User'
 

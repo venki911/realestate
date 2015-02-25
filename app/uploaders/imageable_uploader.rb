@@ -44,16 +44,10 @@ class ImageableUploader < CarrierWave::Uploader::Base
     process resize_to_fit: [150, 150]
   end
 
-  def create_fit_size w, h
-    image = Magick::Image.read(current_path)
-    # width = img[0].columns
-    # height = img[0].rows
-    if image[:width] > image[:height]
-      # original is landscape
-      resize_to_fill(w, h)
-    else
-      # original is portrait
-      resize_to_fit(w, h)
+  def manipulate_to width, height
+    manipulate! do |img|
+      image.resize "#{width}x#{height}"
+      img
     end
   end
 

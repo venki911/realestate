@@ -31,6 +31,11 @@
           <%= image_tag @company.logo.thumb.url, width: 100, height: 100 %>
           <%= f.input :logo, as: :file, label: false %>
         <% end %>
+
+        <%= input_row do %>
+          <%= f.input :address, as: :text, label: false, 
+                                input_html: { class: 'form-control', style: 'width: 100%;', rows: 6, placeholder: 'Address'} %>
+        <% end %>
       </div>
 
       <div class="col-lg-6">
