@@ -8,7 +8,7 @@ label.required abbr{
 }
 
 .input-row {
-  margin-bottom: 6px;
+  margin-bottom: 10px;
 }
 
 label.inline {
@@ -145,4 +145,24 @@ small.error {
     // margin-left: 120px;
     padding-left: 10px;
   }
+}
+
+.home-tagline {
+  height: 350px;
+  background-color: #f8f8f8;
+  background-repeat:no-repeat;
+  background-size:100%;
+  background-position:center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.rounded {
+  @include border-radius(6px);
+}
+.box {
+  margin-top: 10px;
+  background: rgba(255,255,255,0.6);
+  padding: 10px;
+  
 }

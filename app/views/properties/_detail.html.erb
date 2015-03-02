@@ -82,7 +82,6 @@
   </div>
 <% end %>
 
-
 <!-- Price -->
 <div class='total-price'>
   <% if property.type_of == Property::TYPE_SALE_RENT %>
@@ -93,7 +92,7 @@
 
     <div class='section-detail'>
       <label class='pull-left'> Rent for </label>
-      <div class='section-value'><%= property.total_price_rent %> $ / <%=property.price_per_duration_rent%> </div>
+      <div class='section-value'><%= property.total_price_rent %> $</div>
     </div>
   <% elsif property.type_of == Property::TYPE_RENT %>
     <div class='section-detail'>

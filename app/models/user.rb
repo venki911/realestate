@@ -43,6 +43,14 @@ class User < ActiveRecord::Base
 
   after_update :crop_image
 
+  def self.search options
+    users = all
+    users = users.where(user_name: options[:user_name]) unless options[:user_name].blank?
+    users = users.where(['first_name LIKE ?', "%#{options[:name]}%"]) unless options[:name].blank?
+    users = users.where(['phone = ?', options[:phone_number] ]) unless options[:phone_number].blank?
+    users = users.where(['role = ?', options[:role] ]) unless options[:role].blank?
+    users
+  end
 
   def crop_image
     avatar.recreate_versions! if self.crop_x.present?

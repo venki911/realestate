@@ -1,6 +1,6 @@
 class Admin::UsersController < AdminController
   def index
-    @users = User.includes(:company).order('created_at DESC').page(params[:page])
+    @users = User.includes(:company).order('created_at DESC').search(params).page(params[:page])
   end
 
   def toggle_block

@@ -1,6 +1,7 @@
 $(function(){
   initSearch()
   handleSearchProvinceChange()
+  clearForm();
 })
 
 function initSearch(){
@@ -15,7 +16,14 @@ function initSearch(){
   })
 }
 
-handleSearchProvinceChange = function(){
+function clearForm(){
+  $(".btn-clear").on('click', function(){
+    $(".form-search")[0].reset();
+    return false;
+  })
+}
+
+function handleSearchProvinceChange(){
   $("#search_province_id").on('change', function(){
     $this = $(this)
     var provinceId = $this.val()

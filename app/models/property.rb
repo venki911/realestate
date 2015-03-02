@@ -23,20 +23,10 @@ class Property < ActiveRecord::Base
   include PropertyValidation
   include PropertyCalculator
   include PropertyOptions
+  include PropertySearch
 
   before_create :generate_code_ref
   before_save :calculate_total_price
-
-  def self.search options
-    properties = where("1=1")
-    properties = properties.where(["user_id = ? ", options[:user_id] ]) if options[:user_id].present?
-    properties = properties.where(mark_as_featured: true) if options[:featured].present?
-    if options[:ref].present?
-      param_id = Property::id_without_prefix(options[:ref])
-      properties = properties.where(["(code_ref = ? OR id = ? )", options[:ref], param_id.to_i]) unless param_id.blank?
-    end
-    properties
-  end
 
   def toggle_status
     self.status = !self.status
@@ -70,16 +60,6 @@ class Property < ActiveRecord::Base
   def self.id_without_prefix(id_pattern)
     pattern = "#{Property::PREFIX_ID}-?"
     id_pattern.sub(/#{pattern}/i, "")
-  end
-
-  def self.listing
-    where([ 'verification_status = ? AND mark_as_blocked = ? AND mark_as_featured = ? AND status = ?',
-            Property::VERIFICATION_STATUS_OK, false, false, true ])
-  end
-
-  def self.featured_listing
-    where([ 'verification_status = ? AND mark_as_blocked = ? AND mark_as_featured = ? AND status = ?',
-            Property::VERIFICATION_STATUS_OK, false, true, true ])
   end
 
   def generate_code_ref

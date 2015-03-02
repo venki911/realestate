@@ -28,7 +28,12 @@ Rails.application.routes.draw do
   get 'sign_up_fb' => 'registrations#create_with_fb'
   get 'sign_up_fb_m' => 'registrations#create_with_fb_m'
 
-  resources :properties
+  get 'search' => 'properties#search'
+  resources :properties do
+    collection do
+      get 'search'
+    end
+  end
 
   namespace :member do
     root 'properties#index'
@@ -95,7 +100,12 @@ Rails.application.routes.draw do
     end
     resources :categories
     resources :companies
+
     resources :users, only: [:index] do
+      collection do 
+        get 'search'
+      end
+      
       member do
         put 'toggle_block'
       end

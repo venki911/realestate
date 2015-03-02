@@ -22,6 +22,10 @@ module PropertyOptions
       [self::TYPE_RENT, self::TYPE_SALE_RENT, self::TYPE_SALE, self::TYPE_PAWN]
     end
 
+    def available_search_types
+      [self::TYPE_RENT, self::TYPE_SALE, self::TYPE_PAWN]
+    end
+
     def admin_verfication_status
       [ slef::VERIFICATION_STUTUS_PENDING, self::VERIFICATION_STATUS_OK, self::VERIFICATION_STATUS_REJECT ]
     end

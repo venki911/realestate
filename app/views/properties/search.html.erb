@@ -1,6 +1,5 @@
 <%= paginate(@properties) %>
-
-<%= page_title("List of properties") %>
+<%= page_title("Property Search result") %>
 
 <div class='row'>
   <div class='col-lg-8'>
@@ -12,6 +11,6 @@
   </div>
 
   <div class='col-lg-4'>
-
+   <%= render "shared/properties/search" %>
   </div>
 </div>
