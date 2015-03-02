@@ -43,6 +43,7 @@ gem 'bootsy'
 
 gem 'sidekiq'
 gem 'sinatra', :require => nil
+gem 'asset_sync'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -55,8 +56,6 @@ group :development, :test do
   gem 'spring'
   gem 'capistrano-rails'
 
-
-  gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'pry-rails'
   
