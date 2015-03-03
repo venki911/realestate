@@ -6,10 +6,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-p "file: #{File.expand_path('../application.yml', __FILE__)}"
 if File.exists?(File.expand_path('../application.yml', __FILE__))
   config = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
-  p config
   config.merge! config.fetch(Rails.env, {})
   config.each do |key, value|
     ENV[key] ||= value.to_s unless value.kind_of? Hash
@@ -38,7 +36,7 @@ module Cochero
     config.active_job.queue_name_prefix = Rails.env
     config.active_job.queue_adapter = :sidekiq
 
-    config.web_console.whitelisted_ips = %w( 127.0.0.1 192.168.1.100 )
+    # config.web_console.whitelisted_ips = %w( 127.0.0.1 192.168.1.100 )
 
   end
 end

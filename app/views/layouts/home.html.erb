@@ -23,9 +23,17 @@
   </head>
   <body>
     <%= render "layouts/top_nav" %>
-    <%= render "layouts/head" %>
+    <%= yield(:header) if content_for?(:header) %>
     <div class="container">
-      <%= yield %>
+      <div class='row'>
+        <div class='main-body col-lg-7 col-md-6'>
+          <%= yield %>
+        </div>
+        <div class='sidebar col-lg-5 col-md-6'>
+          <%= yield(:sidebar) %>
+        </div>
+      </div>
+      
     </div>
     <%= render 'layouts/shared/footer' %>
     <%= render 'layouts/shared/notification' %>

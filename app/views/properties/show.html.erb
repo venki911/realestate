@@ -2,20 +2,17 @@
 <% sections = { detail: :detail, photos: :photos, contact: :contact, map: :map} %>
 <% tab = params[:tab] || 'detail' %>
 
-<div class='row'>
-  <div class='col-lg-6'>
-    <%#= render 'show_tab', property: @property, tab: tab %>
-    <!-- <p class='line' style='margin-top: 20px;'> <%#= render tab, property: @property %> </p> -->
-    <%= render tab, property: @property %>
-  </div>
 
-  <div class='col-lg-6'>
-    <%= render 'photos', property: @property %>
-    <% if @property.has_map? %>
-      <%= render 'map', property: @property %>
-    <% end %>
-  </div>
-</div>
+<%#= render 'show_tab', property: @property, tab: tab %>
+<!-- <p class='line' style='margin-top: 20px;'> <%#= render tab, property: @property %> </p> -->
+<%= render tab, property: @property %>
+
+<%= content_for :sidebar do %>
+  <%= render 'photos', property: @property %>
+  <% if @property.has_map? %>
+    <%= render 'map', property: @property %>
+  <% end %>
+<% end %>
 
 
 

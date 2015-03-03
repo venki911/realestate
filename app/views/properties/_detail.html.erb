@@ -7,140 +7,150 @@
   </div>
 <% end %>
 
-<h3 class='section-header' style='margin-top: 0px;'> General info</h3>
+<div class='section-panel'>
+  <h3 class='section-header' style='margin-top: 0px;'> General info</h3>
 
-<div class='section-detail' style='position: relative;'>
+  <div class='section-detail' style='position: relative;'>
 
-  <% if property.mark_as_urgent %>
-    <%= image_tag "properties/urgent-property.png", style: 'right: 0px; position: absolute; top: -20px;' %>
-  <% end %>
+    <% if property.mark_as_urgent %>
+      <%= image_tag "properties/urgent-property.png", style: 'right: 0px; position: absolute; top: -20px;' %>
+    <% end %>
 
-  <label class='pull-left'> Location </label>
-  <div class='section-value'>
-    <% if property.has_map? %>
-      <%= link_to '#p-map', class: '' do %>
-        <i class='glyphicon glyphicon-map-marker'> </i>
+    <label class='pull-left'> Location </label>
+    <div class='section-value'>
+      <% if property.has_map? %>
+        <%= link_to '#p-map', class: '' do %>
+          <i class='glyphicon glyphicon-map-marker'> </i>
+          <%=property.location %>
+        <% end %>
+      <% else %>
         <%=property.location %>
       <% end %>
-    <% else %>
-      <%=property.location %>
-    <% end %>
+    </div>
   </div>
-</div>
 
-<div class='section-detail'> 
-  <label class='pull-left'> ID Ref </label>
-  <div class='section-value'> <%=property.id_with_prefix %> </div>
-</div>
-
-<% if property.borey_name.present? %>
-<div class='section-detail'> 
-  <label class='pull-left'> Borey name </label>
-  <div class='section-value'> <%=property.borey_name %> </div>
-</div>
-<% end %>
-
-<div class='section-detail'>
-  <label class='pull-left'> Type </label>
-  <div class='section-value'> <%=property.category.name %> </div>
-</div>
-
-<% if property.special? %>
-<div class='section-detail'>
-  <label class='pull-left'> Offer </label>
-
-  <div class='section-value'>
-    <%= marked_items_for(property) %>
+  <div class='section-detail'> 
+    <label class='pull-left'> ID Ref </label>
+    <div class='section-value'> <%=property.id_with_prefix %> </div>
   </div>
-</div>
-<% end %>
 
-<div class='section-detail'>
-  <label class='pull-left'>Code Ref </label>
-  <div class='section-value'> <%=property.code_ref %> </div>
-</div>
-
-<div class='section-detail'>
-  <label class="pull-left"> Land size </label>
-  <div class='section-value'>
-    <%= property.width %> meter
-    x
-    <%= property.length %> meter
-    ~ <%= property.area %> <%= property.unit %>
+  <% if property.borey_name.present? %>
+  <div class='section-detail'> 
+    <label class='pull-left'> Borey name </label>
+    <div class='section-value'> <%=property.borey_name %> </div>
   </div>
-</div>
+  <% end %>
 
-<% if property.building_size? %>
   <div class='section-detail'>
-    <label class='pull-left'> Building size </label>
+    <label class='pull-left'> Type </label>
+    <div class='section-value'> <%=property.category.name %> </div>
+  </div>
+
+  <% if property.special? %>
+  <div class='section-detail'>
+    <label class='pull-left'> Offer </label>
+
     <div class='section-value'>
-      <%= property.building_width %> meter
-      x
-      <%= property.building_length %> meter
-      ~ <%= property.building_area %> <%= property.building_unit %>
+      <%= marked_items_for(property) %>
     </div>
   </div>
-<% end %>
+  <% end %>
 
-<!-- Price -->
-<div class='total-price'>
-  <% if property.type_of == Property::TYPE_SALE_RENT %>
-    <div class='section-detail'>
-      <label class='pull-left'> Sale for </label>
-      <div calss='section-value'><%= property.total_price_sale %> $ </div>
-    </div>
+  <div class='section-detail'>
+    <label class='pull-left'>Code Ref </label>
+    <div class='section-value'> <%=property.code_ref %> </div>
+  </div>
 
-    <div class='section-detail'>
-      <label class='pull-left'> Rent for </label>
-      <div class='section-value'><%= property.total_price_rent %> $</div>
+  <div class='section-detail'>
+    <label class="pull-left"> Land size </label>
+    <div class='section-value'>
+      <%= property.width %> meter
+      x
+      <%= property.length %> meter
+      ~ <%= property.area %> <%= property.unit %>
     </div>
-  <% elsif property.type_of == Property::TYPE_RENT %>
+  </div>
+
+  <% if property.building_size? %>
     <div class='section-detail'>
-      <label class='pull-left'>Rent for </label>
+      <label class='pull-left'> Building size </label>
       <div class='section-value'>
-        <%= property.total_price_rent %> $ / <%=property.price_per_duration_rent%> 
+        <%= property.building_width %> meter
+        x
+        <%= property.building_length %> meter
+        ~ <%= property.building_area %> <%= property.building_unit %>
       </div>
     </div>
-  <% else %>
-    <div class='section-detail'>
-      <label class='pull-left'> <%=property.type_of %> for </label>
-      <div class='section-value'> <%=property.total_price_sale %> $ </div>
-    </div>
   <% end %>
-</div> <!--End price-->
+
+  <!-- Price -->
+  <div class='total-price'>
+    <% if property.type_of == Property::TYPE_SALE_RENT %>
+      <div class='section-detail'>
+        <label class='pull-left'> Sale for </label>
+        <div calss='section-value'><%= property.total_price_sale %> $ </div>
+      </div>
+
+      <div class='section-detail'>
+        <label class='pull-left'> Rent for </label>
+        <div class='section-value'><%= property.total_price_rent %> $</div>
+      </div>
+    <% elsif property.type_of == Property::TYPE_RENT %>
+      <div class='section-detail'>
+        <label class='pull-left'>Rent for </label>
+        <div class='section-value'>
+          <%= property.total_price_rent %> $ / <%=property.price_per_duration_rent%> 
+        </div>
+      </div>
+    <% else %>
+      <div class='section-detail'>
+        <label class='pull-left'> <%=property.type_of %> for </label>
+        <div class='section-value'> <%=property.total_price_sale %> $ </div>
+      </div>
+    <% end %>
+  </div> <!--End price-->
+</div>
 
 <!-- Feature -->
 <% features = property.features_list_for(Property.stored_attributes[:config_features]) %>
 <% if features.length > 0 %>
-  <h3 class='section-header'>Features</h3>
-  <div class='section-detail'>
-    <%= tag_facilities(features) %>
+  <div class="section-panel">
+    <h3 class='section-header'>Features</h3>
+    <div class='section-detail'>
+      <%= tag_facilities(features) %>
+    </div>
   </div>
 <% end %>
 
 <!-- Equipment -->
 <% equipments = property.features_list_for(Property.stored_attributes[:config_equipments])%>
 <% if equipments.length > 0 %>
-  <h3 class='section-header'> Equipments</h3>
-  <div class="section-detail">
-    <%= tag_facilities(equipments) %>
+  <div class="section-panel">
+    <h3 class='section-header'> Equipments</h3>
+    <div class="section-detail">
+      <%= tag_facilities(equipments) %>
+    </div>
   </div>
 <% end %>
 
 <!-- Services -->
 <% services = property.features_list_for(Property.stored_attributes[:config_services])%>
 <% if services.length > 0 %>
-  <h3 class='section-header'> Services</h3>
-  <div class='section-detail'>
-    <%= tag_facilities(services) %>
+  <div class="section-panel">
+    <h3 class='section-header'> Services</h3>
+    <div class='section-detail'>
+      <%= tag_facilities(services) %>
+    </div>
   </div>
 <% end %>
 
 <%= render 'contact', property: property %>
 
 <% if property.note.present? %>
-  <h3 class='section-header'> Summary </h3>
-  <div class='clearfix' style='margin-left: 10px;' >
-    <%= property.note.html_safe%>
+  <div class="section-panel">
+    <h3 class='section-header'> Summary </h3>
+    <div class='clearfix' style='margin-left: 10px;' >
+      <%= property.note.html_safe%>
+    </div>
   </div>
 <% end %>

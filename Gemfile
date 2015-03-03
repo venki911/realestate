@@ -32,10 +32,12 @@ gem 'email_validator'
 gem "koala", "~> 1.11.0rc"
 gem "simple_form"
 gem "kaminari"
+
 gem "carrierwave"
+gem 'carrierwave-aws' #using amazon aws-sdk is more featured than fog
+
 gem "mini_magick"
 gem 'bootstrap-sass', '~> 3.3.3'
-gem "fog"
 gem "jquery-fileupload-rails"
 gem "rails-timeago"
 gem "font-awesome-rails"

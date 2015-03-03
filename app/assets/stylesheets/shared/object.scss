@@ -141,6 +141,10 @@ small.error {
     display: inline-block;
     width: 120px;
   }
+
+  &:last-child {
+    border-bottom: none;
+  }
   .section-value {
     // margin-left: 120px;
     padding-left: 10px;
