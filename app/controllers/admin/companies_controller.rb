@@ -18,11 +18,11 @@ class Admin::CompaniesController < AdminController
   end
 
   def edit
-    @company = Company.find(params[:id])
+    @company = Company.by_slug(params[:id])
   end
 
   def update
-    @company = Company.find(params[:id])
+    @company = Company.by_slug(params[:id])
     if @company.update_attributes(filter_params)
       redirect_to admin_companies_path, notice: 'Company has been updated'
     else
@@ -32,7 +32,7 @@ class Admin::CompaniesController < AdminController
   end
 
   def destroy
-    @company = Company.find(params[:id])
+    @company = Company.by_slug(params[:id])
     if @company.destroy
       redirect_to admin_companies_path, notice: 'Company has been removed'
     else
@@ -41,8 +41,8 @@ class Admin::CompaniesController < AdminController
   end
 
   def filter_params
-    params.require(:company).permit(:name, :license, :year_founded, :phone, :email, :website, :logo, :address,
-                                    :summary, :lat, :lng, :bootsy_image_gallery_id)
+    params.require(:company).permit(:name, :license, :year_founded, :mobile_phone, :office_phone, :email,
+                                    :website, :logo, :address, :summary, :lat, :lng, :bootsy_image_gallery_id)
   end
 
 end
