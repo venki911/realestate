@@ -7,7 +7,7 @@
   </div>
 <% end %>
 
-<div class='section-panel'>
+<div class='section-panel box'>
   <h3 class='section-header' style='margin-top: 0px;'> General info</h3>
 
   <div class='section-detail' style='position: relative;'>
@@ -64,9 +64,9 @@
   <div class='section-detail'>
     <label class="pull-left"> Land size </label>
     <div class='section-value'>
-      <%= property.width %> meter
+      <%= property.width %> m
       x
-      <%= property.length %> meter
+      <%= property.length %> m
       ~ <%= property.area %> <%= property.unit %>
     </div>
   </div>
@@ -75,9 +75,9 @@
     <div class='section-detail'>
       <label class='pull-left'> Building size </label>
       <div class='section-value'>
-        <%= property.building_width %> meter
+        <%= property.building_width %> m
         x
-        <%= property.building_length %> meter
+        <%= property.building_length %> m
         ~ <%= property.building_area %> <%= property.building_unit %>
       </div>
     </div>
@@ -111,43 +111,8 @@
   </div> <!--End price-->
 </div>
 
-<!-- Feature -->
-<% features = property.features_list_for(Property.stored_attributes[:config_features]) %>
-<% if features.length > 0 %>
-  <div class="section-panel">
-    <h3 class='section-header'>Features</h3>
-    <div class='section-detail'>
-      <%= tag_facilities(features) %>
-    </div>
-  </div>
-<% end %>
-
-<!-- Equipment -->
-<% equipments = property.features_list_for(Property.stored_attributes[:config_equipments])%>
-<% if equipments.length > 0 %>
-  <div class="section-panel">
-    <h3 class='section-header'> Equipments</h3>
-    <div class="section-detail">
-      <%= tag_facilities(equipments) %>
-    </div>
-  </div>
-<% end %>
-
-<!-- Services -->
-<% services = property.features_list_for(Property.stored_attributes[:config_services])%>
-<% if services.length > 0 %>
-  <div class="section-panel">
-    <h3 class='section-header'> Services</h3>
-    <div class='section-detail'>
-      <%= tag_facilities(services) %>
-    </div>
-  </div>
-<% end %>
-
-<%= render 'contact', property: property %>
-
 <% if property.note.present? %>
-  <div class="section-panel">
+  <div class="section-panel box">
     <h3 class='section-header'> Summary </h3>
     <div class='clearfix' style='margin-left: 10px;' >
       <%= property.note.html_safe%>

@@ -4,7 +4,7 @@
 }
 
 .top-nav{
-  background-color: $app-bg-color;
+  background: $app-bg-color;
   border-bottom: 1px solid $app-div-color;
 
   .navbar-brand {
@@ -25,17 +25,17 @@
       @include border-radius(5px);
 
       &:hover, &:focus {
-        color: $app-bg-color;
-        background-color: #fff;
+        color: #fff;
+        background: $app-hl-color;
       }
     }
   }
   .nav > li.active a {
-    background-color: #fff;
+    background: #fff;
   }
 
   .nav > li.item-btn a {
-    background-color: $app-hl-color;
+    background: $app-hl-color;
     color: #fff;
   }
 
@@ -43,31 +43,32 @@
     padding: 10px 15px;
     color: #fff;
     &:hover, &:focus {
-      background-color: $app-bg-color;
+      background: $app-bg-color;
+      color: #fff;
     }
   }
 
   .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-    background-color: $app-hl-color;
+    background: $app-hl-color;
   }
 
   .dropdown-menu {
-    background-color: $app-bg-color;
+    background: $app-bg-color;
   }
   .dropdown-menu .divider {
-    background-color: $app-div-color;
+    background: $app-div-color;
   }
 
   .dropdown-menu > li > a {
     color: #fff;
     &:hover, &:focus {
-      background-color: $app-hl-color;
+      background: $app-hl-color;
       color: #fff;
     }
   }
 
   .dropdown-menu > li:active {
-    background-color: #fff;
+    background: #fff;
     font-weight: bold;
     a {
       color: $app-bg-color;

@@ -47,18 +47,18 @@
         <div class='underline tagline'> <%=property.location %> </div>
         <div class='line'>
           Land size : 
-            <%= property.width %> meter
+            <%= property.width %> m 
             x
-            <%= property.length %> meter
+            <%= property.length %> m 
             ~ <%= property.area %> <%= property.unit %>
         </div>
 
         <% if property.building_size? %>
           <div class='line'>
             Building size :
-              <%= property.building_width %> meter
+              <%= property.building_width %> m 
               x
-              <%= property.building_length %> meter
+              <%= property.building_length %> m 
               ~ <%= property.building_area %> <%= property.building_unit %>
           </div>
         <% end %>

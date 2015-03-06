@@ -1,7 +1,7 @@
 <div class='home-tagline' style='background-image: url(<%=asset_url("slides/01.jpg") %>); ' >
   <div class='container'>
     <div class='clearfix' style="position:relative;">
-      <div class='pull-left box rounded' style="margin-top: 50px;" >
+      <div class='box-trans rounded-top' style="margin-top: 120px; height: 230px; padding-top:5px;" >
 
         <h3 style="margin:10px;"> Property Search </h3>
         <%= form_tag search_path(), method: 'get', class: 'form-search', id: 'form-search' do %>
@@ -31,14 +31,19 @@
 
 
               <div class='search-control' >
+                <%= select_tag :borey_name,
+                               options_for_select(Borey.all, params[:borey]),
+                               style: 'width: 12em;',
+                               include_blank: 'Borey name', class: 'form-control ' %>
+
                 <%= text_field_tag :min_price, params[:min_price], placeholder: 'Min Price $',
-                                   class: 'form-control', style: 'width: 10em;' %>
+                                   class: 'form-control', style: 'width: 7em;' %>
                 <%= text_field_tag :max_price, params[:max_price], placeholder: 'Max Price $',
-                                   class: 'form-control ', style: 'width: 10em;' %>
-                <%= text_field_tag :min_area, params[:min_area], placeholder: 'Min Area Sqm',
-                                   class: 'form-control ', style: 'width: 10em;' %>
-                <%= text_field_tag :max_area, params[:max_area], placeholder: 'Max Area Sqm',
-                                   class: 'form-control ', style: 'width: 10em;' %>
+                                   class: 'form-control ', style: 'width: 7em;' %>
+                <%= text_field_tag :min_area, params[:min_area], placeholder: 'Min Sqm',
+                                   class: 'form-control ', style: 'width: 7em;' %>
+                <%= text_field_tag :max_area, params[:max_area], placeholder: 'Max Sqm',
+                                   class: 'form-control ', style: 'width: 7em;' %>
               </div>
 
             </div>
@@ -48,14 +53,13 @@
                 <a class='btn btn-clear btn-primary btn-block' style="width: 8em;"> <i class='glyphicon glyphicon-remove' > </i> Clear </a>
               </div>
             </div>
+          </div>
 
-            <div style='padding: 10px; margin-top: 20px;' class="clearfix">
-              <h4>
-                Become a member for free
-                <%= link_to "Sign up now", '', class: 'btn btn-info btn-lg'  %>
-              </h4>
-            </div>
-
+          <div style='padding: 10px; margin-top: 5px;' class="clearfix">
+            <h4>
+              Become a member
+              <%= link_to "Sign up now", '', class: 'btn btn-info' %>
+            </h4>
           </div>
 
         <% end %>

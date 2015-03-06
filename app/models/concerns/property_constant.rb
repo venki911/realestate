@@ -5,7 +5,7 @@ module PropertyConstant
     MAX_PHOTO_ALLOWED = 6
 
     UNIT_HECTAR = "Hectar"
-    UNIT_M2     = "Meter2"
+    UNIT_M2     = "Sqm"
 
     VERIFICATION_STUTUS_PENDING = "Pending"
     VERIFICATION_STATUS_OK = "Verified"
@@ -21,7 +21,7 @@ module PropertyConstant
     TYPE_PAWN = "Pawn"
 
     PRICE_PER_SIZE_TOTAL = "Total"
-    PRICE_PER_SIZE_M2    = "Meter2"
+    PRICE_PER_SIZE_M2    = "Sqm"
     PRICE_PER_SIZE_HECTAR = "Hectar"
 
     PRICE_PER_DURATION_MONTH = "Month"

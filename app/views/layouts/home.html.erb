@@ -25,17 +25,19 @@
     <%= render "layouts/top_nav" %>
     <%= yield(:header) if content_for?(:header) %>
     <div class="container">
-      <div class='row'>
-        <div class='main-body col-lg-7 col-md-6'>
-          <%= yield %>
+      <div class='row content-body'>
+        <div class='col-lg-8' >
+          <div class='main-body'>
+            <%= yield %>
+          </div>
         </div>
-        <div class='sidebar col-lg-5 col-md-6'>
-          <%= yield(:sidebar) %>
+        <div class='col-lg-4'>
+          <div> <%= yield(:sidebar) %> </div>
         </div>
       </div>
       
     </div>
-    <%= render 'layouts/shared/footer' %>
+    <%#= render 'layouts/shared/footer' %>
     <%= render 'layouts/shared/notification' %>
     <%= javascript_include_tag "application" %>
   </body>

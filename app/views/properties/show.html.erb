@@ -1,18 +1,14 @@
 <%= page_title @property.title %>
 <% sections = { detail: :detail, photos: :photos, contact: :contact, map: :map} %>
-<% tab = params[:tab] || 'detail' %>
+<% tab = params[:tab] || 'general' %>
 
 
-<%#= render 'show_tab', property: @property, tab: tab %>
+<%= render 'show_tab', property: @property, tab: tab %>
 <!-- <p class='line' style='margin-top: 20px;'> <%#= render tab, property: @property %> </p> -->
-<%= render tab, property: @property %>
+<div class="" style='margin-top: 20px;'>
+  <%= render tab, property: @property %>
+</div>
 
-<%= content_for :sidebar do %>
-  <%= render 'photos', property: @property %>
-  <% if @property.has_map? %>
-    <%= render 'map', property: @property %>
-  <% end %>
-<% end %>
 
 
 

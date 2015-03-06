@@ -11,10 +11,19 @@ module PropertySearch
       properties = properties.by_type(options[:type])
 
       properties = properties.by_ref(options[:ref])
+      properties = properties.by_borey_name(options[:borey_name])
       properties = properties.area_between(options[:min_area], options[:max_area], options[:category_id])
       properties = properties.price_between(options[:min_price], options[:max_price], options[:type])
       properties = properties.in_location(options[:province_id], options[:district_id])
 
+      properties
+    end
+
+    def by_borey_name(borey_name)
+      properties = where("true")
+      if !borey_name.blank?
+        properties = properties.where(["borey_name = ?", borey_name])
+      end
       properties
     end
 

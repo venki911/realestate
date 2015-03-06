@@ -32,6 +32,7 @@ label.inline {
   font-size: 120%;
   margin: 15px -15px 5px;
   padding: 5px 15px;
+  padding-top: 15px;
 }
 
 .vertical-border-right{
@@ -162,11 +163,28 @@ small.error {
 }
 
 .rounded {
-  @include border-radius(6px);
+  @include border-radius(5px);
 }
+
+.rounded-top {
+  @include border-radius-top(5px);
+}
+
 .box {
   margin-top: 10px;
-  background: rgba(255,255,255,0.6);
+  background: #f7f7f7;
   padding: 10px;
-  
+  padding-top: 0;
+  @include border-radius(5px);
+}
+
+.box-trans {
+  margin-top: 10px;
+  background: rgba(255,255,255,0.9);
+  padding: 10px;
+  padding-top: 0;
+}
+
+.content-body {
+  padding-top: 10px;
 }
