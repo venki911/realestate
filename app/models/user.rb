@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password(validations: false)
 
+
   GENDER_MALE = "Male"
   GENDER_FEMALE = "Female"
   GENDER_OTHER  = "Other"
@@ -11,30 +12,15 @@ class User < ActiveRecord::Base
   ROLE_AGENT = "Agent"
   ROLE_INDIVIDUAL = "Owner"
   ROLE_ADMIN = "Admin"
-
   MAX_NUMBER_OF_POST = 6
+
+  include Bootsy::Container
+  include Slugify
+  include UserValidation
 
   has_many :properties
   belongs_to :company
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-
-  validates :email, presence: true
-  validates :email, email: true
-  validates :email, uniqueness: true
-
-  validates :user_name, presence: true, if: ->(user) {user.sign_up_step != SIGN_UP_STEP_FB }
-  validates :user_name, uniqueness: true, if: ->(user) {user.sign_up_step != SIGN_UP_STEP_FB}
-
-  validates :phone, presence: true, if: ->(user) { user.sign_up_step != SIGN_UP_STEP_FB }
-
-  validates :password, presence: true, if: ->(user) { !user.password.nil? && user.sign_up_step != SIGN_UP_STEP_FB }
-  validates :password, length: { in: 6..72}, if: ->(user) { !user.password.nil? && user.sign_up_step != SIGN_UP_STEP_FB }
-  validates :password, confirmation: true, if: ->(user) { !user.password.nil? && user.sign_up_step != SIGN_UP_STEP_FB }
-
-  validates :role, presence: true, if: ->(user) { user.sign_up_step == SIGN_UP_STEP_SITE }
-  validates :role, inclusion: { in: [ROLE_INDIVIDUAL, ROLE_AGENT] }, if: ->(user) { user.sign_up_step == SIGN_UP_STEP_SITE }
 
   attr_accessor :agree, :old_password
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
@@ -43,11 +29,15 @@ class User < ActiveRecord::Base
 
   after_update :crop_image
 
+  def title
+    full_name
+  end
+
   def self.search options
     users = all
     users = users.where(user_name: options[:user_name]) unless options[:user_name].blank?
     users = users.where(['first_name LIKE ?', "%#{options[:name]}%"]) unless options[:name].blank?
-    users = users.where(['phone = ?', options[:phone_number] ]) unless options[:phone_number].blank?
+    users = users.where(['mobile_phone = ?', options[:mobile_phone] ]) unless options[:mobile_phone].blank?
     users = users.where(['role = ?', options[:role] ]) unless options[:role].blank?
     users
   end

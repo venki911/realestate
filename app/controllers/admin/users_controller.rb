@@ -4,7 +4,7 @@ class Admin::UsersController < AdminController
   end
 
   def toggle_block
-    user = User.find(params[:id])
+    user = User.by_slug(params[:id])
     if user.toggle_blocked_status
       redirect_to admin_users_path, notice: "User: #{user.full_name} has been #{user.blocked_status}"
     else

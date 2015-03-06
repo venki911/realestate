@@ -86,7 +86,7 @@ class Member::UsersController < MemberController
 
   private
   def filter_profile_params
-    params.require(:user).permit(:first_name, :last_name, :phone, :email, :user_name, :gender, :role)
+    params.require(:user).permit(:first_name, :last_name, :phone, :email, :user_name, :gender, :role, :bio, :bootsy_image_gallery_id)
   end
 
   def filter_company_params
