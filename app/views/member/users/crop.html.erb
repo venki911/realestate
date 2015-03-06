@@ -1,19 +1,19 @@
 <%= page_title("Edit Photo") %>
 <%= page_header "Edit Photo" %>
 
-<%= render 'shared/users/profile_tab', current_index: 2 %>
+<%= render 'shared/users/profile_tab', current_index: 4 %>
 
-<%= simple_form_for([:member, current_user], url: member_update_crop_path, html: {class: 'form form-inline', multipart: true}) do |f| %>
-  <div class='row'>
-    <div class='col-lg-6'>
-      <p> Original image </p>
-      <div class='standard'>
-        <%= image_tag current_user.avatar.standard.url, id: 'cropbox', width: 400, height: 400 %>
-      </div>
+<%= simple_form_for([:member, current_user], url: member_update_crop_path, 
+                     html: {class: 'form form-inline', multipart: true}) do |f| %>
+  <div>
+    <div class='standard'>
+      <!-- <h3 class='section-header'> Original image </h3> -->
+      <%= image_tag current_user.avatar.standard.url, id: 'cropbox', width: 600 %>
     </div>
 
-    <div class='col-lg-6'>
-      <p>Preview</p>
+    <br/>
+    <div class="clearfix">
+      <!-- <h3 class='section-header'>Preview</h3> -->
       <div class='thumb-preview pull-left' style='width: 150px; height: 150px; overflow: hidden; background: #eee;'>
         <%= image_tag current_user.avatar.standard.url,
                       class: 'thumb-img-preview' %>
@@ -24,12 +24,6 @@
         <%= image_tag current_user.avatar.standard.url,
                       class: 'thumb-img-preview' %>
       </div>
-
-      <br style='clear:both;'>
-
-      <%= input_row style: 'margin-top: 15px;' do %>
-        <%= f.button :submit, "Update", class: 'btn btn-primary' %>
-      <%end%>
     </div>
 
   </div>
@@ -37,5 +31,9 @@
   <% %w(x y h w).each do |field| %>
    <%= f.input "crop_#{field}", as: :hidden %>
   <% end %>
+
+  <%= input_row style: 'margin-top: 15px;' do %>
+    <%= f.button :submit, "Update", class: 'btn btn-primary' %>
+  <%end%>
 
 <% end %>

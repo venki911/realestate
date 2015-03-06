@@ -24,7 +24,12 @@
 
     <%= link_to member_photo_path(),
                 class: "btn btn-default #{active_index(current_index == 2)}" do %>
-      <i class='glyphicon glyphicon'> </i> Photo
+      <i class='glyphicon glyphicon'> </i> Avatar image
+    <% end %>
+
+    <%= link_to member_crop_path(),
+                class: "btn btn-default #{active_index(current_index == 4)}" do %>
+      <i class='glyphicon glyphicon'> </i> Reposition avatar
     <% end %>
   </div>
 
