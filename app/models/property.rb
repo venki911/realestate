@@ -16,6 +16,8 @@ class Property < ActiveRecord::Base
   belongs_to :district
   belongs_to :commune
   belongs_to :user, counter_cache: true
+  has_many :favorites, dependent: :destroy
+  has_many :users, through: :favorites
 
   has_many :photos, as: :imageable, dependent: :destroy
   

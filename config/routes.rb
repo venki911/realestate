@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   root 'properties#index'
   resources :properties
 
+  resources :favorites, only: [:create]
+
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'sign_in' => 'sessions#new'

@@ -1,54 +1,52 @@
-  <%= simple_form_for @user, url: registrations_path, role: 'form', html: {class: 'form-inline'} do |f| %>
+  <%= simple_form_for @user, url: registrations_path, role: 'form', html: {class: ''} do |f| %>
     <%= errors_for(@user) %>
 
     <%= input_row do %>
-      <%= f.input :first_name, input_html: { class: 'form-control', placeholder: 'First name' } %>
+      <%= f.input :first_name, label: false, input_html: { class: 'form-control', placeholder: 'First name' } %>
     <%end%>
 
     <%= input_row do %>
-      <%= f.input :last_name, input_html: {class: 'form-control', placeholder: 'Last name' } %>
+      <%= f.input :last_name, label: false, input_html: {class: 'form-control', placeholder: 'Last name' } %>
     <%end%>
 
     <%= input_row do %>
-      <%= f.input :phone, required: true, input_html: { class: 'form-control', placeholder: 'Phone' } %>
+      <%= f.input :phone, label: false, required: true, input_html: { class: 'form-control', placeholder: 'Phone' } %>
     <%end%>
 
     <%= input_row do %>
-      <%= f.input :user_name, required: true, input_html: { class: 'form-control', placeholder: 'User name' } %>
+      <%= f.input :user_name, label: false, required: true, input_html: { class: 'form-control', placeholder: 'User name' } %>
     <%end%>
 
     <%= input_row do %>
-      <%= f.input :email, input_html: { class: 'form-control', placeholder: 'Email' } %>
+      <%= f.input :email, label: false, input_html: { class: 'form-control', placeholder: 'Email' } %>
     <%end%>
 
     <%= input_row do %>
-      <%= f.input :gender, collection: User.available_genders,
+      <%= f.input :gender, label: false, collection: User.available_genders,
                   include_blank: false,
                   input_html: { class: 'form-control', placeholder: 'Gender'} %>
     <%end%>
 
     <%= input_row do %>
-      <%= f.input :role, collection: User.available_roles, label: 'You are ?',
+      <%= f.input :role, label: false, collection: User.available_roles,
                   include_blank: false,
                   input_html: { class: 'form-control', placeholder: 'Gender'} %>
     <%end%>
 
     <%= input_row do %>
-      <%= f.input :password, required: true, input_html: { class: 'form-control', placeholder: 'Password'} %>
+      <%= f.input :password, label: false, required: true, input_html: { class: 'form-control', placeholder: 'Password'} %>
     <%end%>
 
     <%= input_row do %>
-      <%= f.input :password_confirmation, required: true, label: 'Password confirm', input_html: { class: 'form-control', placeholder: 'Confirm' } %>
+      <%= f.input :password_confirmation, label: false, required: true, input_html: { class: 'form-control', placeholder: 'Password Confirm' } %>
     <%end%>
 
     <%= input_row do %>
-      <label> </label>
-      <%= f.check_box :agree, id: 'agree-term' %>
+      <%= f.check_box :agree, label: false, id: 'agree-term' %>
       <label for='agree-term' class='inline' > Agree with our <%= link_to 'Terms and Policy', '' %> </label>
     <%end%>
 
     <%= input_row do %>
-      <label> </label>
-      <%= f.button :submit, "Create Account", class: 'btn btn-info', id: 'btn-registration' %>
+      <%= f.button :submit, "Sign me up", class: 'btn btn-info btn-lg btn-block', id: 'btn-registration' %>
     <%end%>
   <% end %>

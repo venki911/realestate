@@ -1,41 +1,48 @@
 <% content_for(:title) { "Login" } %>
-
-<div class='form-box row'>
-  <div class='col-lg-6'>
-    <%= form_tag sessions_path, role: 'form', class: 'form-inline form-signin' do %>
+<div style='background: rgba(255,255,255,0.6)'>
+  <div class='form-box clearfix'
+    <%= form_tag sessions_path, role: 'form', class: '' do %>
       <div class='input-row'>
-        <%= label_tag :email, 'Username or Email' %>
-        <%= text_field_tag :email, params[:email], class: 'form-control', placeholder: 'Username or Email' %>
+        <%= text_field_tag :email, params[:email], class: 'form-control', placeholder: 'Username or Email', width: '100%' %>
       </div>
 
       <div class='input-row'>
-        <%= label_tag :password %>
-        <%= password_field_tag :password, '', class: 'form-control', placeholder: 'Password' %>
+        <%= password_field_tag :password, '', class: 'form-control', placeholder: 'Password', width: '100%' %>
       </div>
+
       <p class='line'>
-        <label></label> Don't have an account! <%= link_to 'Sign up', sign_up_path %>
+        Don't have an account! <%= link_to 'Sign up', sign_up_path %>
       </p>
+
+      <p class='line'>
+        Can't not sign in <%= link_to 'Forgot Password', forgot_password_path %>
+      </p>
+
       <br>
 
-      <div class='input-row'>
-        <label></label>
-        <%= button_tag "Login", class: 'btn btn-info btn-signin' %>
-        <%= link_to 'Forgot Password', forgot_password_path %>
+      <div class='input-row text-right'>
+        <%= button_tag "Sign me in", class: 'btn btn-info btn-signin btn-block btn-lg' %>
       </div>
 
     <% end %>
   </div>
 
+  <div style='position:relative; margin: 20px 0;' class="clearfix">
+    <hr />
+    <div style='position:absolute; font-size: 200%; font-weight: bolder; left: 50%; top: 0; '>
+      <i style='background: #fff; margin-left: -30px; border: 4px solid #ccc; border-radius: 50%; padding: 5px;'> OR </i>
+    </div>
+  </div>
 
-  <div class='col-lg-6'>
+  <div class='social'>
     <div class='input-row'>
-      <%=link_to '#', class: 'fb-login btn btn-lg btn-social btn-facebook', data: { url: sign_in_fb_path } do %>
+      <%=link_to '#', class: 'fb-login btn btn-lg btn-social btn-facebook btn-block', data: { url: sign_in_fb_path } do %>
         <i class='fa fa-facebook'></i> Sign in With Facebook
       <% end %>
     </div>
-  
+
     <div class='input-row'>
-      <%=link_to @koala_auth.url_for_oauth_code(:callback => sign_in_fb_m_url), class: 'btn btn-lg btn-social btn-facebook' do %>
+      <%=link_to @koala_auth.url_for_oauth_code(:callback => sign_in_fb_m_url), class: 'btn btn-lg btn-social btn-facebook btn-block' do %>
         <i class='fa fa-facebook'></i> Sign in With Facebook Mobile
       <% end %>
     </div>

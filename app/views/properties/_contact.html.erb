@@ -1,5 +1,5 @@
 <!-- Contact -->
-<div class='poster-info section-panel box'>
+<div class='poster-info section-panel box clearfix'>
   <h3 class='section-header' style='margin-top: 0px;'> Contact </h3>
   <div style='margin-left: 10px;'>
     <div class='pull-left' >
@@ -28,6 +28,18 @@
           <label class='pull-left'> Email </label>
           <div class='section-value'><%= display_email(property.user.email)%></div>
         </div>
+
+        <div class='section-detail'>
+          <label class='pull-left'> Total properties </label>
+          <div class='section-value'><%= property.user.properties_count %></div>
+        </div>
     </div>
   </div>
+
+  <% if !property.user.bio.empty? %>
+    <h3 class='section-header' style='margin-top: 0px;'> Bio </h3>
+    <p class='clearfix'>
+      <%= property.user.bio.html_safe %>
+    </p>
+  <% end %>
 </div>

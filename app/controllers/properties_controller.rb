@@ -1,6 +1,9 @@
 class PropertiesController < HomeController
   def index
-    @properties = Property.listing.page(params[:page])
+    @properties = Property.includes(:photos, :province, :district, :commune, :category, :user, :users)
+                          .order('created_at DESC')
+                          .listing
+                          .page(params[:page])
   end
 
   def show
@@ -8,7 +11,7 @@ class PropertiesController < HomeController
   end
 
   def search
-    @properties = Property.includes(:photos, :province, :district, :commune, :category, :user)
+    @properties = Property.includes(:photos, :province, :district, :commune, :category, :user, :users)
                           .order('created_at')
                           .search(params)
                           .page(params[:page])

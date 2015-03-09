@@ -18,6 +18,7 @@
 //= require shared/resource_location_map
 //= require shared/jcrop_init
 //= require shared/slider_init
+//= require shared/btn_status
 
 //= require registration/page
 //= require property/search
@@ -25,6 +26,8 @@
 //= require member/property_form
 //= require member/property_map
 //= require member/property_photo
+
+//= require favorite/add
 
 //= require admin/property
 //= require admin/company_map

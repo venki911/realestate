@@ -3,6 +3,10 @@
   min-height: 0;
 }
 
+.navbar-toggle{
+  padding: unset;
+}
+
 .top-nav{
   background: $app-bg-color;
   border-bottom: 1px solid $app-div-color;

@@ -5,11 +5,12 @@
 
   <div class="media-body">
     <h4 class="media-heading"> <%= user.full_name %></h4>
+    <div class=''> <%=user.company.name %> </div>
     <p class='line'>
-      Tel : <%= user.phone %>
-      <% if user.company %>
-        Company : <%=user.company.name %>
-      <% end %>
+      <div>
+        <label> Tel : </label> 
+        <%= user.phone %>
+       </div>
     </p>
   </div>
 </div>

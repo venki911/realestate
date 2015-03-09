@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306155636) do
+ActiveRecord::Schema.define(version: 20150307030734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -71,6 +71,16 @@ ActiveRecord::Schema.define(version: 20150306155636) do
     t.datetime "updated_at",  null: false
   end
 
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "property_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "favorites", ["property_id"], name: "index_favorites_on_property_id", using: :btree
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
+
   create_table "photos", force: :cascade do |t|
     t.string   "image_name"
     t.integer  "imageable_id"
@@ -125,6 +135,7 @@ ActiveRecord::Schema.define(version: 20150306155636) do
     t.boolean  "mark_as_blocked",         default: false
     t.boolean  "mark_as_featured",        default: false
     t.boolean  "status",                  default: true
+    t.integer  "favorites_count",         default: 0
   end
 
   add_index "properties", ["category_id"], name: "index_properties_on_category_id", using: :btree
@@ -164,8 +175,11 @@ ActiveRecord::Schema.define(version: 20150306155636) do
     t.boolean  "blocked",                 default: false
     t.text     "bio"
     t.string   "slug"
+    t.integer  "favorites_count",         default: 0
   end
 
+  add_foreign_key "favorites", "properties"
+  add_foreign_key "favorites", "users"
   add_foreign_key "properties", "categories"
   add_foreign_key "properties", "communes"
   add_foreign_key "properties", "districts"

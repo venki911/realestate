@@ -1,7 +1,6 @@
 <div class='text-center'>
   <div class="btn-group" role="group" aria-label="...">
     <%=link_to 'General Info', property_path(property), class: "btn btn-default #{active_index(tab == 'general' )} " %>
-    <%=link_to 'Facilities', property_path(property, tab: :facilities), class: "btn btn-default #{active_index(tab == 'facilities' )} " %>
     <%=link_to 'Photos', property_path(property, tab: :photos), class: "btn btn-default #{active_index(tab == 'photos' )} " %>
     <%=link_to 'Map', property_path(property, tab: :map), class: "btn btn-default #{active_index(tab == 'map' )} " %>
     <%=link_to 'Contact', property_path(property, tab: :contact), class: "btn btn-default #{active_index(tab == 'contact' )} " %>

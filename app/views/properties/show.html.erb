@@ -6,6 +6,20 @@
 <%= render 'show_tab', property: @property, tab: tab %>
 <!-- <p class='line' style='margin-top: 20px;'> <%#= render tab, property: @property %> </p> -->
 <div class="" style='margin-top: 20px;'>
+  <% if current_user %>
+    <div class='text-right'>
+    <% if @property.users.include?(current_user) %>
+      <a href='#' class='btn btn-default disabled'>
+        <i class='glyphicon glyphicon-eye-open'> </i> Added to Favorite list
+      </a>
+    <% else %>
+      <%= link_to '', class: 'btn btn-default add-favorite', data: { property_id: @property.id} do %>
+        <i class='glyphicon glyphicon-eye-open'> </i> Favorite this Property
+      <% end %>
+    <% end %>
+
+    </div>
+  <% end %>
   <%= render tab, property: @property %>
 </div>
 

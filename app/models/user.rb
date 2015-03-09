@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
 
   has_many :properties
   belongs_to :company
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_properties, class_name: 'Property', through: :favorites
 
 
   attr_accessor :agree, :old_password
