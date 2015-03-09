@@ -1,13 +1,13 @@
 # encoding: utf-8
 
-class ImageableUploader < CarrierWave::Uploader::Base
+class ImageableUploader < Uploader
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  # storage :file
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
@@ -20,7 +20,7 @@ class ImageableUploader < CarrierWave::Uploader::Base
   def default_url
     # For Rails 3.1+ asset pipeline compatibility:
     # "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-    ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
+    ActionController::Base.helpers.asset_path("fallback/photo/" + [version_name, "default.png"].compact.join('_'))
   end
 
   # Process files as they are uploaded:
@@ -42,6 +42,13 @@ class ImageableUploader < CarrierWave::Uploader::Base
 
   version :thumb, from_version: :medium do
     process resize_to_fit: [150, 150]
+  end
+
+  def manipulate_to width, height
+    manipulate! do |img|
+      image.resize "#{width}x#{height}"
+      img
+    end
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

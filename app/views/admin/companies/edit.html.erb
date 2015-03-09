@@ -1,5 +1,8 @@
 <%= page_title("Update Company") %>
-<%= page_header "Update Company" %>
 
-<%= breadcrumb_admin([ {Company: admin_companies_path}, { Edit: nil } ]) %>
+<%= breadcrumb_admin([ {Companies: admin_companies_path}, { Edit: nil } ]) %>
+<% admin_nav_menu_item(:company) %>
+
+
+<%= page_header "Update Company" %>
 <%= render 'form' %>

@@ -13,4 +13,6 @@
 /tmp
 /config/database.yml
 /config/secrets.yml
+/config/application.yml
 /public/uploads
+/public/assets/*

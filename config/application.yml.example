@@ -1,0 +1,24 @@
+default: &default
+  APP_NAME: "Realestate"
+
+  AWS_KEY: ""
+  AWS_SECRET: ""
+
+  FB_ID: ""
+  FB_SECRET: ""
+
+  GOOGLE_MAP_API_KEY: ""
+
+  EMAIL_SUPPORT: channa.ly@instedd.org
+  EMAIL_SYSTEM: channa.ly@instedd.org
+  EMAIL_CEO:  channa.info@gmail.com
+
+
+test:
+  <<: *default
+
+development:
+  <<: *default
+
+production:
+  <<: *default

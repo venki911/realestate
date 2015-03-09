@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- No Index -->
+    <meta name="robots" content="noindex" />
+    <meta name="googlebot" content="noindex" />
     
     <title><%= content_for?(:title) ? yield(:title) : "Realestate" %></title>
 
@@ -22,10 +25,16 @@
   <body>
     <%= render "layouts/admin/top_nav" %>
     <div class="container">
-      <br />
-      <%= yield(:breadcrumb) if content_for?(:breadcrumb) %>
-      <%= yield %>
+      <div class='content-body'>
+          <div class='main-body'>
+            <%= yield(:breadcrumb) if content_for?(:breadcrumb) %>
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+      
     </div>
+    <%#= render 'layouts/shared/footer' %>
     <%= render 'layouts/shared/notification' %>
     <%= javascript_include_tag "application" %>
   </body>

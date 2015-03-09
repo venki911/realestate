@@ -1,0 +1,89 @@
+<% klass = property.users.include?(current_user) ? "highlight" : "" %>
+<li class='p-item highlighter <%=klass%>'>
+  <div class="media" style="display:block;">
+    <% if property.mark_as_urgent %>
+      <%= image_tag "properties/urgent-property.png", style: 'right: -15px; position: absolute; top: -20px;' %>
+    <% end %>
+
+    <% if property.mark_as_exclusive && false %>
+      <%= image_tag "properties/exclusive-property.png", style: 'right: -20px; position: absolute; bottom: -10px;' %>
+    <% end %>
+
+    <div class="media-left">
+
+      <!-- Image -->
+      <%= link_to property_path(property) do %>
+        <%image_tag property.logo, class: "media-object", alt: "" %>
+      <% end %>
+
+      <div style='padding-top: 5px;'>
+        <%= link_to property_path(property) do %>
+          <span class='label label-primary space-right'>
+            <i class='glyphicon glyphicon-camera'> </i>
+            <%= pluralize(property.photos_count, '') %> 
+          </span>
+        <% end %>
+
+        <% if property.show_on_map? && property.lat.present? %>
+          <%=link_to property_path(property) do %>
+            <span class='label label-primary'> <i class='glyphicon glyphicon-map-marker'> </i> </span>
+          <% end %>
+        <% end %>
+      </div>
+
+    </div>
+
+    <div class="media-body">
+
+      <div class='pull-right' style='width: 250px; margin-top: 20px;'>
+        <!-- Poster profile -->
+        <%= render 'poster', user: property.user %>
+      </div>
+
+      <p class='pull-left overflow-hidden'>
+        <h4 class="media-heading">
+          <%= link_to "#{property.title} , #{property.id_with_prefix}", property_path(property) %>
+        </h4>
+
+        <div class='underline tagline'> <%=property.location %> </div>
+        <div class='line'>
+          Land size : 
+            <%= property.width %> m 
+            x
+            <%= property.length %> m 
+            ~ <%= property.area %> <%= property.unit %>
+        </div>
+
+        <% if property.building_size? %>
+          <div class='line'>
+            Building size :
+              <%= property.building_width %> m 
+              x
+              <%= property.building_length %> m 
+              ~ <%= property.building_area %> <%= property.building_unit %>
+          </div>
+        <% end %>
+        
+        <% if !property.features_list.empty? %>
+         <div class='line'> Facilities : <%= tag_facilities(property.features_list, 4) %> </div>
+        <% end %>
+
+        <div class='line'>
+          <!-- Price -->
+          <div class='total-price'>
+            <% if property.type_of == Property::TYPE_SALE_RENT %>
+              <div>
+                Sale for : <%= property.total_price_sale %> $ ,
+                Rent for : <%= property.total_price_rent %> $
+              </div>
+            <% elsif property.type_of == Property::TYPE_RENT %>
+              <div> Rent for : <%= property.total_price_rent %> $ </div>
+            <% else %>
+              <div> <%=property.type_of %> for : <%= property.total_price_sale %> $ </div>
+            <% end %>
+          </div> <!--End price-->
+        </div>
+      </p>
+    </div>
+  </div>
+</li>

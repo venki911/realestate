@@ -11,16 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150207073003) do
+ActiveRecord::Schema.define(version: 20150307030734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
 
+  create_table "bootsy_image_galleries", force: :cascade do |t|
+    t.integer  "bootsy_resource_id"
+    t.string   "bootsy_resource_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bootsy_images", force: :cascade do |t|
+    t.string   "image_file"
+    t.integer  "image_gallery_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "categories", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.boolean  "is_land",    default: false
   end
 
   create_table "communes", force: :cascade do |t|
@@ -35,7 +50,7 @@ ActiveRecord::Schema.define(version: 20150207073003) do
     t.string   "name"
     t.string   "license"
     t.integer  "year_founded"
-    t.string   "phone"
+    t.string   "office_phone"
     t.string   "email"
     t.string   "website"
     t.string   "logo"
@@ -44,6 +59,9 @@ ActiveRecord::Schema.define(version: 20150207073003) do
     t.text     "summary"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.text     "address"
+    t.string   "mobile_phone"
+    t.string   "slug"
   end
 
   create_table "districts", force: :cascade do |t|
@@ -52,6 +70,16 @@ ActiveRecord::Schema.define(version: 20150207073003) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "property_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "favorites", ["property_id"], name: "index_favorites_on_property_id", using: :btree
+  add_index "favorites", ["user_id"], name: "index_favorites_on_user_id", using: :btree
 
   create_table "photos", force: :cascade do |t|
     t.string   "image_name"
@@ -66,8 +94,7 @@ ActiveRecord::Schema.define(version: 20150207073003) do
 
   create_table "properties", force: :cascade do |t|
     t.string   "code_ref"
-    t.string   "verification_status", default: "Pending"
-    t.string   "status",              default: "Available"
+    t.string   "verification_status",     default: "Pending"
     t.string   "swot"
     t.text     "note"
     t.string   "borey_name"
@@ -83,21 +110,32 @@ ActiveRecord::Schema.define(version: 20150207073003) do
     t.string   "unit"
     t.string   "main_photo"
     t.string   "reject_reason"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.integer  "photos_count",        default: 0
-    t.float    "total_price"
-    t.float    "price_per_unit"
-    t.string   "price_per_size"
-    t.string   "price_per_duration"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.integer  "photos_count",            default: 0
+    t.float    "total_price_rent"
+    t.float    "price_per_unit_rent"
+    t.string   "price_per_size_rent"
+    t.string   "price_per_duration_rent"
     t.float    "lat"
     t.float    "lng"
-    t.boolean  "show_on_map",         default: true
+    t.boolean  "show_on_map",             default: true
     t.hstore   "config_features"
     t.hstore   "config_equipments"
     t.hstore   "config_services"
-    t.boolean  "mark_as_urgent",      default: false
-    t.boolean  "mark_as_exclusive",   default: false
+    t.boolean  "mark_as_urgent",          default: false
+    t.boolean  "mark_as_exclusive",       default: false
+    t.float    "total_price_sale"
+    t.float    "price_per_unit_sale"
+    t.string   "price_per_size_sale"
+    t.float    "building_width"
+    t.float    "building_length"
+    t.float    "building_area"
+    t.string   "building_unit"
+    t.boolean  "mark_as_blocked",         default: false
+    t.boolean  "mark_as_featured",        default: false
+    t.boolean  "status",                  default: true
+    t.integer  "favorites_count",         default: 0
   end
 
   add_index "properties", ["category_id"], name: "index_properties_on_category_id", using: :btree
@@ -118,8 +156,8 @@ ActiveRecord::Schema.define(version: 20150207073003) do
     t.string   "email"
     t.string   "phone"
     t.string   "password_digest"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.string   "user_name"
     t.string   "fb_id"
     t.float    "lat"
@@ -133,8 +171,15 @@ ActiveRecord::Schema.define(version: 20150207073003) do
     t.integer  "sign_up_step",            default: 0
     t.string   "role"
     t.integer  "properties_count",        default: 0
+    t.integer  "company_id"
+    t.boolean  "blocked",                 default: false
+    t.text     "bio"
+    t.string   "slug"
+    t.integer  "favorites_count",         default: 0
   end
 
+  add_foreign_key "favorites", "properties"
+  add_foreign_key "favorites", "users"
   add_foreign_key "properties", "categories"
   add_foreign_key "properties", "communes"
   add_foreign_key "properties", "districts"

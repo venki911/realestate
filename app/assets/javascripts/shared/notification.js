@@ -19,6 +19,11 @@ function setNotification(key, value) {
       templateData.type = 'info'
       templateData.icon = 'ok'
     }
+    else if (key == 'info') {
+      templateData.title = "Info"
+      templateData.type = 'warning'
+      templateData.icon = 'info'
+    }
     else{
       templateData.title = "Failure"
       templateData.type = 'danger'

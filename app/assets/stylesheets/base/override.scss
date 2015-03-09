@@ -1,0 +1,39 @@
+.form-control {
+  padding-left: 5px !important;
+}
+.form-inline {
+  .form-control {
+    width: 15em;
+  }
+  label {
+    width: 12em !important;
+  }
+}
+
+h1 {
+  font-size: 140%;
+}
+
+h2 {
+  font-size: 130%;
+}
+
+h3 {
+  font-size: 120%;
+}
+
+input {
+  padding-left: 5px;
+}
+
+.form-search {
+  .form-control {
+    display: inline !important;
+  }
+}
+
+.btn-group {
+  a {
+    padding: 5px 20px;
+  }
+}

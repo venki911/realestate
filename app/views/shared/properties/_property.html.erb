@@ -1,27 +1,84 @@
-<div class='p-item'>
-  <div class="media">
+<li class='p-item highlighter'>
+  <div class="media" style="display:block;">
     <div class="media-left">
+
+      <!-- Image -->
       <%= link_to edit_member_property_path(property) do %>
-        <%image_tag property.main_thumb_photo, class: "media-object", alt: "" %>
+        <%image_tag property.logo, class: "media-object", alt: "" %>
       <% end %>
+
+      <div style='padding-top: 5px;'>
+        <%= link_to show_photos_member_property_path(property) do %>
+          <span class='label label-primary space-right'>
+            <%= property.photos_count %>
+            <i class='glyphicon glyphicon-camera'> </i>
+          </span>
+        <% end %>
+
+        <% if property.show_on_map? && property.lat.present? %>
+          <%=link_to show_map_member_property_path(property) do %>
+            <span class='label label-primary space-right'> <i class='glyphicon glyphicon-map-marker'> </i> </span>
+          <% end %>
+        <% end %>
+      </div>
+
     </div>
+
     <div class="media-body">
-      <div> <strong class="media-heading"><%= property.display_title %></strong> </div>
-      <strong> <%=property.display_description %>  </strong>
-      <div> Size <%=property.display_area%> </div>
-      <p>
+
+      <div class='pull-right' style='width: 200px;'>
+        <!-- Poster profile -->
+        <%= render 'shared/users/poster', user: property.user %>
+      </div>
+
+      <p class='pull-left overflow-hidden'>
+        <h4 class="media-heading ">
+         <%= link_to "#{property.title} - #{property.id_with_prefix}", edit_member_property_path(property) %>
+        </h4>
+
+        <p class='underline tagline'> <%=property.location %> </p>
+        <p class='line'>
+          Land size : 
+            <%= property.width %> meter
+            x
+            <%= property.length %> meter
+            ~ <%= property.area %> <%= property.unit %>
+        </p>
+
+        <% if property.building_size? %>
+          <p class='line'>
+            Building size :
+              <%= property.building_width %> meter
+              x
+              <%= property.building_length %> meter
+              ~ <%= property.building_area %> <%= property.building_unit %>
+          </p>
+        <% end %>
+
+        <% if !property.features_list.empty? %>
+         <p class='line'> Features : <%= tag_facilities(property.features_list, 5) %> </p>
+        <% end %>
+
+        <p class='line'>
+          <!-- Price -->
+          <div class='total-price'>
+            <% if property.type_of == Property::TYPE_SALE_RENT %>
+              <div>
+                Sale for : <%= property.total_price_sale %> $ ,
+                Rent for : <%= property.total_price_rent %> $ 
+              </div>
+            <% elsif property.type_of == Property::TYPE_RENT %>
+              <div> Rent for : <%= property.total_price_rent %> $  </div>
+            <% else %>
+              <div> <%=property.type_of %> for : <%= property.total_price_sale %> $ </div>
+            <% end %>
+          </div> <!--End price-->
+        </p>
       </p>
-
-      <%=property.display_verification_status %>
-
-      <div style='bottom: 0px; padding-right: 10px; ' class='text-right'>
-        <div class='pull-left'> <%=property.display_user%> </div>
-        <div class='pull-right'>
-    
-          <span class='label label-info'> <i class='glyphicon glyphicon-camera'> </i> <%= property.photos_count %> </span>
-
-        </div>
+      
+      <div class='text-right' style='position: absolute; right: 10px; bottom: 20px;'>
+        <span class='label label-warning'> <%= property.verification_status %> </span>
       </div>
     </div>
   </div>
-</div>
+</li>

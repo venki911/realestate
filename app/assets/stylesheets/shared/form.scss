@@ -1,0 +1,33 @@
+input.form-control, select.form-control{
+
+}
+
+.sub {
+  margin-left: 2em;
+  .form-control{
+    width: 13em !important;
+  }
+}
+
+.btn-single {
+  min-width: 12em;
+}
+
+.config_numeric{
+  label {
+    display: inline-block;
+    width: 6em !important;
+  }
+
+  .form-control {
+    width: 6em;
+    margin-bottom: 15px;
+  }
+}
+
+.config_boolean{
+  label {
+    display: inline-block;
+    width: 10em;
+  }
+}

@@ -20,4 +20,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  user_mailer:
+    forgot_password:
+      subject: 'Reset Password Instruction'
+    password_change:
+      subject: 'Password Changed'
+    property_rejected:
+      subject: 'Correct your property data'

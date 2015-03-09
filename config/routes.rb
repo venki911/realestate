@@ -1,14 +1,26 @@
 Rails.application.routes.draw do
 
-  root 'dashboards#index'
+  mount Bootsy::Engine => '/bootsy', as: 'bootsy'
+  require 'sidekiq/web'
+  require 'admin_constraint'
+  mount Sidekiq::Web => '/sidekiq',constraints: AdminConstraint.new
+
+  root 'properties#index'
+  resources :properties
+
+  resources :favorites, only: [:create]
 
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'sign_in' => 'sessions#new'
   get 'sign_in_fb' => 'sessions#create_with_fb'
   get 'sign_in_fb_m' => 'sessions#create_with_fb_m'
+  get 'blocked' => 'dashboards#blocked'
 
   delete 'sign_out' => 'sessions#destroy'
+
+  get '/forgot-password' => 'passwords#new', as: :forgot_password
+  resources :passwords
 
   resources :districts, only: [:index]
   resources :communes, only: [:index]
@@ -18,10 +30,36 @@ Rails.application.routes.draw do
   get 'sign_up_fb' => 'registrations#create_with_fb'
   get 'sign_up_fb_m' => 'registrations#create_with_fb_m'
 
-  resources :properties
+  get 'search' => 'properties#search'
+  resources :properties do
+    collection do
+      get 'search'
+    end
+  end
 
   namespace :member do
     root 'properties#index'
+
+    get 'layout-property' => 'layouts#property'
+
+    get 'profile' => 'users#profile'
+    patch 'update_profile' => 'users#update_profile'
+
+    get 'company' => 'users#company'
+    patch 'update_company' => 'users#update_company'
+
+    get 'photo' => 'users#photo'
+    patch 'update_photo' => 'users#update_photo'
+
+    get 'new_password' => 'users#new_password'
+    post 'create_password' => 'users#create_password'
+
+    get 'change_password' => 'users#change_password'
+    patch 'update_password' => 'users#update_password'
+
+    get 'crop' => 'users#crop'
+    patch 'update_crop' => 'users#update_crop'
+
     resources :properties do
       member do
         get 'show_map'
@@ -30,6 +68,9 @@ Rails.application.routes.draw do
 
         get 'show_config'
         put 'update_config'
+
+        get 'show_note'
+        put 'update_note'
       end
 
       resources :photos, only: [:index, :create, :destroy, :edit] do
@@ -41,7 +82,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    root 'provinces#index'
+    root 'users#index'
 
     #Place
     resources :provinces
@@ -52,11 +93,25 @@ Rails.application.routes.draw do
       member do
         get 'review'
         put 'update_review'
+        put 'toggle_featured'
+        put 'toggle_urgent'
+        put 'toggle_exclusive'
+        put 'toggle_blocked'
+        put 'toggle_status'
       end
     end
     resources :categories
     resources :companies
-    resources :users
+
+    resources :users, only: [:index] do
+      collection do 
+        get 'search'
+      end
+      
+      member do
+        put 'toggle_block'
+      end
+    end
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

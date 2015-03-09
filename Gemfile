@@ -32,12 +32,20 @@ gem 'email_validator'
 gem "koala", "~> 1.11.0rc"
 gem "simple_form"
 gem "kaminari"
+
 gem "carrierwave"
+gem 'carrierwave-aws' #using amazon aws-sdk is more featured than fog
+
 gem "mini_magick"
 gem 'bootstrap-sass', '~> 3.3.3'
-gem "fog"
 gem "jquery-fileupload-rails"
 gem "rails-timeago"
+gem "font-awesome-rails"
+gem 'bootsy'
+
+gem 'sidekiq'
+gem 'sinatra', :require => nil
+gem 'asset_sync'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -50,8 +58,6 @@ group :development, :test do
   gem 'spring'
   gem 'capistrano-rails'
 
-
-  gem 'dotenv-rails'
   gem 'factory_girl_rails'
   gem 'pry-rails'
   

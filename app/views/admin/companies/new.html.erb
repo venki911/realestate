@@ -1,5 +1,8 @@
 <%= page_title("Create a Company") %>
+
+<%= breadcrumb_admin([ {Companies: admin_companies_path}, { New: nil } ]) %>
+<% admin_nav_menu_item(:company) %>
+
 <%= page_header "Create a Company" %>
 
-<%= breadcrumb_admin([ {Company: admin_companies_path}, { New: nil } ]) %>
 <%= render 'form' %>

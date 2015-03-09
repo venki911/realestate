@@ -1,5 +1,5 @@
-<%= page_title("Edit Property") %>
-<%= page_header "Edit Property" do %>
+<%= page_title("General") %>
+<%= page_header "General" do %>
   <%= render "property_tab", property: @property, current_index: 0 %>
 <% end %>
 
@@ -11,7 +11,7 @@
 <% end %>
 
 <blockquote>
-  <strong class='badge' style='font-size: 90%;'> <%= @property.display_id %> </strong> is your property ID.
+  <strong> <%= @property.id_with_prefix %> </strong> is your property ID.
   This ID is used by our company to identify the property. You might exchange this with buyer/saler.
 </blockquote>
 

@@ -4,7 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
+    <!-- No index this layout -->
+    <meta name="robots" content="noindex" />
+    <meta name="googlebot" content="noindex" />
+
     <title><%= content_for?(:title) ? yield(:title) : "Realestate" %></title>
 
     <%= stylesheet_link_tag    "application" %>
@@ -23,9 +26,21 @@
   </head>
   <body>
     <%= render "layouts/member/top_nav" %>
+
     <div class="container">
-      <%= yield %>
+      <div class='row content-body'>
+        <div class='col-lg-8' >
+          <div class='main-body'>
+            <%= yield %>
+          </div>
+        </div>
+        <div class='col-lg-4'>
+          <div> <%= yield(:sidebar) %> </div>
+        </div>
+      </div>
+      
     </div>
+    <%#= render 'layouts/shared/footer' %>
     <%= render 'layouts/shared/notification' %>
     <%= javascript_include_tag "application" %>
   </body>

@@ -1,0 +1,66 @@
+<%= page_title("Users list") %>
+
+<%= breadcrumb_admin([ Users: nil ])%>
+<% admin_nav_menu_item(:user) %>
+
+<%= input_row class: 'clearfix' do %>
+  <%= form_tag admin_users_path, method: :get, class: 'form form-inline form-admin-search' do %>
+    <div class='pull-left'>
+      <%= page_header "List of user" %>
+    </div>
+
+    <div class='pull-right'>
+      <%= text_field_tag :user_name, params[:user_name], placeholder: 'User name', class: 'form-control' %>
+      <%= text_field_tag :name, params[:name], placeholder: 'Full name', class: 'form-control' %>
+      <%= text_field_tag :mobile_phone, params[:mobile_phone], placeholder: 'Mobile phone', class: 'form-control' %>
+      <%= select_tag :role, options_for_select(User.available_roles, params[:role]), include_blank: 'Role', class: 'form-control short' %>
+      <button class="btn btn-info"> <i class='glyphicon glyphicon-search'> </i>  Search </button>
+    </div>
+  <% end %>
+<% end %>
+
+
+<%= paginate @users %>
+
+<table class='table'>
+  <thead>
+   <td>No</td>
+   <td>Photo</td>
+   <td>Name</td>
+   <td>Username</td>
+   <td>Email</td>
+   <td>Phone</td>
+   <td>Role</td>
+   <td>Gender</td>
+   <td>Properties</td>
+   <td>Logged in at</td>
+   <td>Facebook</td>
+   <td></td>
+  </thead>
+
+  <tbody>
+    <% @users.each_with_index do |user, index| %>
+      <tr>
+        <td><%= index_in_paginate(index+1) %></td>
+        <td><%= image_tag user.avatar.thumb.url, class: 'img-circle small-thumb' %></td>
+        <td><%= user.full_name %></td>
+        <td><%= user.user_name %></td>
+        <td><%= user.email %></td>
+        <td><%= user.phone %></td>
+        <td><%= user.role %></td>
+        <td><%= user.gender %></td>
+        <td>
+          <% if user.properties_count >0  %>
+            <%= link_to user.properties_count, admin_properties_path(user_id: user.id), class: 'badge badge-info' %>
+          <% else %>
+            <%= user.properties_count %>
+          <% end %>
+        </td>
+        <td><%= timeago_tag user.last_signed_in_at %></td>
+        <td><%= fb_profile_for(user) %></td>
+        <td><%= link_to (user.blocked ? "Unblock" : "Block"), toggle_block_admin_user_path(user), method: :PUT %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @users %>

@@ -3,17 +3,12 @@ label.required abbr{
   font-weight: bold;
 }
 
-form {
-  max-width: 600px;
-  // padding: 20px;
-}
-
 .form-lg {
   min-width: $screen-lg-min;
 }
 
 .input-row {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
 }
 
 label.inline {
@@ -22,7 +17,7 @@ label.inline {
 }
 
 .form {
-  @include form-inline(10em);
+  @include form-inline(13em);
 }
 
 .img-preview {
@@ -31,15 +26,13 @@ label.inline {
 }
 
 .action-header {
-  margin-bottom: 10px;
 }
 
 .section-header {
   font-size: 120%;
-  // background: #eee;
-  // border-bottom: 2px solid #ccc;
-  margin: 15px -15px;
-  padding: 10px 15px;
+  margin: 15px -15px 5px;
+  padding: 5px 15px;
+  padding-top: 15px;
 }
 
 .vertical-border-right{
@@ -59,12 +52,13 @@ label.inline {
 #notification {
   right: 25px;
   top: 65px;
-  border: 1px solid #eee;
+
   position: fixed;
   display: block;
   z-index: 9999;
   min-width: 320px;
   @include border-radius(5px);
+  border: 1px solid #eee;
 }
 .error {
   color: red;
@@ -97,5 +91,107 @@ small.error {
 }
 
 .checkbox-grid {
-  margin: 10px !important;
+  margin: 10px 10px 10px 0px !important;
+}
+
+.small-thumb {
+  height: 24px;
+  margin-bottom: -10px;
+  margin-top: -10px;
+  width: 24px;
+}
+
+.medium-thumb {
+  height: 64px;
+  width: 64px;
+}
+
+.exp-step {
+  padding: 0 0 0 10px;
+  li {
+    list-style-type: ideograph-numeric;
+    padding: 5px 0px;
+  }
+}
+.space-right {
+  margin-right: 5px;
+}
+.img-frame {
+  background: #fff;
+  @include border-radius(5px);
+  padding: 6px;
+}
+.no-space {
+  padding: 0;
+  margin: 0;
+}
+
+.highlight{
+  background: #fef;
+}
+
+.highlighter {
+  &:hover {
+    background: #ffe;
+  }
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.section-detail {
+  padding: 5px 0;
+  margin-left: 10px;
+  border-bottom: 2px dotted #eee;
+  label {
+    display: inline-block;
+    width: 120px;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+  .section-value {
+    // margin-left: 120px;
+    padding-left: 10px;
+  }
+}
+
+.home-tagline {
+  height: 350px;
+  background-color: #f8f8f8;
+  background-repeat:no-repeat;
+  background-size:100%;
+  background-position:center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.rounded {
+  @include border-radius(5px);
+}
+
+.rounded-top {
+  @include border-radius-top(5px);
+}
+
+.box {
+  margin-top: 10px;
+  background: #f7f7f7;
+  padding: 10px;
+  padding-top: 0;
+  @include border-radius(5px);
+}
+
+.box-trans {
+  margin-top: 10px;
+  background: rgba(255,255,255,0.6);
+  padding: 10px;
+  padding-top: 0;
+  border-left: 1px solid #fff;
+  border-top: 1px solid #eee;
+}
+
+.content-body {
+  padding-top: 10px;
 }

@@ -1,6 +1,6 @@
-.bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
-  width: auto;
-}
+// .bootstrap-select:not([class*="col-"]):not([class*="form-control"]):not(.input-group-btn) {
+//   width: auto;
+// }
 
 #uploaded-images{
   padding: 0px;
@@ -8,17 +8,14 @@
 }
 
 .unit {
-  width: 3em;
-  .selectpicker {
-    width: 6em !important;
-  }
+  width: 7em !important;
 }
 .wrapper-area-field, .wrapper-unit-field {
   display: inline !important;
 }
 
-#property_area {
-  width: 6em !important;
+.property_area {
+  width: 8em !important;
 }
 
 #selected-images {
@@ -34,17 +31,18 @@
 }
 
 .btn-img-removal {
-  background-color: #d1d1d1;
+  background-color: #eee;
   border-radius: 15px;
   display: block;
   height: 28px;
-  padding-left: 7px;
-  padding-top: 7px;
+  padding-left: 2px;
+  padding-top: 2px;
   position: absolute;
   right: 0;
   top: -14px;
   width: 28px;
   text-decoration: none;
+  font-size: 24px;
   &:hover {
     font-weight: bold;
     text-decoration: none;
@@ -67,35 +65,59 @@ $sortable-height: 200px;
 }
 
 .sortable-placeholder {
-  border: 1px dotted #ccc;
+  border: 2px dotted #aaa;
   @include make-lg-column(3);
   @include make-md-column(3);
   height: $sortable-height;
 }
 
+
 .p-item {
-  border: 1px solid #f7f7f7;
-  margin-bottom: 15px;
-  @include border-radius(5px);
-  background-color: #eee;
+  border-bottom: 1px dashed #aaa;
+  &:last-child {
+    border-bottom: none !important;
+  }
   .media{
     position: relative;
+    padding: 10px 0;
   }
   .media-body {
     padding: 10px 0;
   }
-}
 
-.p-item img.media-object{
+  img.media-object{
    width: 120px;
    height: 120px;
-   border-radius: 5px 0 0 5px;
+   // border-radius: 5px 0 0 5px;
+  }
+  .media-heading {
+    margin-top: -10px;
+    font-size: 16px;
+  }
+  hr {
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+
+  .underline {
+    // padding-bottom: 5px;
+    // border-bottom: 1px dotted #ccc;
+  }
+  .tagline {
+    opacity: 0.7;
+    font-style: italic;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .media-left, .media-right, .media-body {
+    padding-bottom: 2px;
+  }
 }
-.verification{
+.float-bottom{
   padding: 5px;
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 0px;
+  bottom: 0px;
 }
 
 #p-map {
@@ -103,3 +125,39 @@ $sortable-height: 200px;
   background-color: #eee;
 }
 
+.sale-rent {
+  font-size: 120%;
+  margin-top: 20px;
+}
+.line {
+  margin-bottom: 5px;
+}
+.total-price, .big {
+  font-weight: bold;
+  font-size: 120%;
+}
+.special-color {
+  color: $app-special-color;
+}
+.facility-tag, .p-tag {
+  background: none repeat scroll 0 0 #fff;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-radius: 5px;
+  display: inline-block;
+  line-height: 1.6;
+  margin: 3px;
+  padding: 2px 10px;
+  white-space: nowrap;
+}
+
+.search-control {
+  // float: left;
+  margin: 5px 5px;
+  input {
+    width: 100%;
+  }
+  select {
+    width: 100%;
+  }
+}

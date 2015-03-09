@@ -1,0 +1,78 @@
+<div class='home-tagline' style='background-image: url(<%=asset_url("slides/01.jpg") %>); ' >
+  <div class='container'>
+    <div class='clearfix' style="position:relative;">
+      <div class='box-trans rounded-top' style="margin-top: 120px; height: 230px; padding-top:5px;" >
+
+        <h3 style="margin:10px;"> Property Search </h3>
+        <%= form_tag search_path(), method: 'get', class: 'form-search', id: 'form-search' do %>
+          <div style='margin-top: 15px;' class="clearfix">
+            <div class='pull-left'>
+              <div class='search-control' >
+                <%= select_tag :category_id, options_for_select(Category.order(:name).pluck(:name, :id), params[:category_id]),
+                                include_blank: 'Category', class: 'form-control', style: 'width: 12em;' %>
+                <%= select_tag :type, options_for_select(Property.available_search_types, params[:type]),
+                                include_blank: 'Type',
+                                class: 'form-control', style: 'width: 8em;' %>
+
+
+                <%= select_tag :province_id,
+                               options_for_select(Province.order(:name).pluck(:name, :id), params[:province_id]),
+                               id: 'search_province_id', style:'width: 10em;',
+                               include_blank: 'City/Province', class: 'form-control ' %>
+
+
+
+                <%= select_tag :district_id,
+                               options_for_select(District.order('name').where(province_id: params[:province_id]).pluck(:name, :id), params[:district_id]),
+                               id: 'search_district_id', style: 'width: 10em;',
+                               include_blank: 'District/Khan', class: 'form-control ' %>
+
+              </div>
+
+
+              <div class='search-control' >
+                <%= select_tag :borey_name,
+                               options_for_select(Borey.all, params[:borey]),
+                               style: 'width: 12em;',
+                               include_blank: 'Borey name', class: 'form-control ' %>
+
+                <%= text_field_tag :min_price, params[:min_price], placeholder: 'Min Price $',
+                                   class: 'form-control', style: 'width: 7em;' %>
+                <%= text_field_tag :max_price, params[:max_price], placeholder: 'Max Price $',
+                                   class: 'form-control ', style: 'width: 7em;' %>
+                <%= text_field_tag :min_area, params[:min_area], placeholder: 'Min Sqm',
+                                   class: 'form-control ', style: 'width: 7em;' %>
+                <%= text_field_tag :max_area, params[:max_area], placeholder: 'Max Sqm',
+                                   class: 'form-control ', style: 'width: 7em;' %>
+              </div>
+
+            </div>
+            <div class='pull-left'>
+              <div class='search-control'>
+                <button class='btn btn-primary btn-block' style="width: 8em;"> 
+                  <i class='glyphicon glyphicon-search' > </i> Search
+                </button>
+                <a class='btn btn-clear btn-default btn-block' style="width: 8em;">
+                  <i class='glyphicon glyphicon-remove' > </i> Clear
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div style='margin: 5px 0;' class="clearfix">
+            <h4>
+              Become a member
+              <%= link_to "Sign up now", '', class: 'btn btn-info' %>
+            </h4>
+          </div>
+
+        <% end %>
+      </div>
+
+<!--  <div class='box rounded' style="bottom: 0; top: 0; right: 0;height: 330px;padding: 10px; margin: 10px; width: 380px; position: absolute;" >
+         Content
+      </div> -->
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="media">
+  <div class="media-left">
+    <a href="#"> <%= image_tag user.avatar.thumb.url, class: 'img-circle medium-thumb' %> </a>
+  </div>
+
+  <div class="media-body">
+    <h4 class="media-heading"> <%= user.full_name %></h4>
+    <p class='line'>
+      Tel : <%= user.phone %>
+      <% if user.company %>
+        Company : <%=user.company.name %>
+      <% end %>
+    </p>
+  </div>
+</div>

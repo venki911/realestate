@@ -1,18 +1,9 @@
-.sign-in {
-  .form-box {
-    width: 500px;
-    top: 200px;
-    margin: 0 auto;
-    @include border-radius($radius);
-
-    .form-center {
-      margin-top: 100px;
-      padding: 20px;
-      background: #eee;
-    }
+.form-signin {
+  input {
+    width: 24em !important;
   }
-  .btn-block {
-    display: block;
-    width: 100%;
+  .btn-signin {
+    width: 6em;
+    margin-right: 1em;
   }
 }

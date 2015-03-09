@@ -1,5 +1,9 @@
-<%= page_title("Company") %>
-<%= page_header "Company" do %>
+<%= page_title("Companies") %>
+
+<%= breadcrumb_admin([ Companies: nil ])%>
+<% admin_nav_menu_item(:company) %>
+
+<%= page_header "Companies" do %>
   <%= link_to "New", new_admin_company_path, class: 'btn btn-info' %>
 <% end %>
 
@@ -13,9 +17,11 @@
       <td>Name</td>
       <td>License</td>
       <td>Founded</td>
-      <td>Phone</td>
+      <td>Office Phone</td>
+      <td>Mobile</td>
+      <td>Website</td>
       <td>Email</td>
-      <td>Action</td>
+      <td width=120></td>
     </tr>
   </thead>
 
@@ -23,11 +29,13 @@
     <% @companies.each_with_index do |company, index| %>
       <tr>
         <td><%= index_in_paginate(index+1) %></td>
-        <td><%= image_tag company.logo.thumb.url, alt: company.name %></td>
+        <td><%= image_tag company.logo.thumb.url, alt: nil, width: 50, height: 50 %></td>
         <td><%= company.name%></td>
         <td><%= company.license %>
         <td><%= company.year_founded %>
-        <td><%= company.phone %>
+        <td><%= company.office_phone %>
+        <td><%= company.mobile_phone %>
+        <td><%= company.website %>
         <td><%= company.email %>
         <td>
           <%=link_to 'Edit', edit_admin_company_path(company) %> | 

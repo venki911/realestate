@@ -12,12 +12,17 @@
 
         <%= input_row do %>
           <%= f.input :year_founded, collection: 1980..2015, include_blank: false,
-                              input_html: {class: 'selectpicker'} %>
+                              input_html: {class: 'form-control'} %>
         <% end %>
 
         <%= input_row do %>
-          <%= f.input :phone, input_html: {class: 'form-control'} %>
+          <%= f.input :office_phone, input_html: {class: 'form-control'} %>
         <% end %>
+
+        <%= input_row do %>
+          <%= f.input :mobile_phone, input_html: {class: 'form-control'} %>
+        <% end %>
+
 
         <%= input_row do %>
           <%= f.input :email, input_html: {class: 'form-control'} %>
@@ -28,20 +33,18 @@
         <% end %>
 
         <%= input_row do %>
+          <%= f.input :address, as: :string, label: 'Address', 
+                                input_html: { class: 'form-control'} %>
+        <% end %>
+        
+        <br/>
+        <%= input_row do %>
+          <label> Company Logo </label>
           <%= image_tag @company.logo.thumb.url, width: 100, height: 100 %>
           <%= f.input :logo, as: :file, label: false %>
         <% end %>
 
-        <%= input_row do %>
-          <%= f.input :summary, as: :text, input_html: {class: 'form-control'} %>
-        <% end %>
 
-        <%= input_row do %>
-          <label></label>
-          <button class='btn btn-info btn-form-action'>
-            <i class=''> </i> Save
-          </button>
-        <% end %>
       </div>
 
       <div class="col-lg-6">
@@ -65,5 +68,17 @@
 
       </div>
     </div>
+
+    <%= input_row do %>
+      <%= f.input :summary, as: :bootsy, editor_options: { alert_unsaved: false, image: true },
+                            input_html: { class: 'form-control', rows: 15, cols: 80, style: 'width: 100%;'} %>
+    <% end %>
+
+
+    <%= input_row do %>
+      <button class='btn btn-info btn-form-action'>
+        <i class=''> </i> Save
+      </button>
+    <% end %>
   <% end %>
 </div>

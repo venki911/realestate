@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   layout "sign_in"
 
   skip_before_action :authenticate_user!, except: [:destroy]
+  skip_before_action :block_invalid_user!
 
   def new
     if user_signed_in?

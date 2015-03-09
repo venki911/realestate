@@ -22,11 +22,11 @@ class Member::PropertiesController < MemberController
   end
 
   def show_map
-    @property = Property.find(params[:id])
+    @property = Property.find_by_url(params[:id])
   end
 
   def update_map
-    @property = Property.find(params[:id])
+    @property = Property.find_by_url(params[:id])
     if @property.update_attributes(filter_map_params)
       if params[:next].present?
         redirect_to show_photos_member_property_path(@property, next: true), notice: 'Property map has been saved'
@@ -40,13 +40,11 @@ class Member::PropertiesController < MemberController
   end
 
   def show_config
-    @property = Property.find(params[:id])
+    @property = Property.find_by_url(params[:id])
   end
 
   def update_config
-    p filter_config_params
-
-    @property = Property.find(params[:id])
+    @property = Property.find_by_url(params[:id])
     if @property.update_attributes(filter_config_params)
       if params[:next].present?
         redirect_to show_map_member_property_path(@property, next: true), notice: 'Property features have been saved'
@@ -60,15 +58,29 @@ class Member::PropertiesController < MemberController
   end
 
   def show_photos
-    @property = Property.find(params[:id])
+    @property = Property.find_by_url(params[:id])
+  end
+
+  def show_note
+    @property = Property.find_by_url(params[:id])
+  end
+
+  def update_note
+    @property = Property.find_by_url(params[:id])
+    if @property.update_attributes(filter_note_params)
+      redirect_to show_note_member_property_path(@property), notice: 'Successfully update property note'
+    else
+      flash.now.alert = 'Failed to update property note'
+      render :show_note
+    end
   end
 
   def edit
-    @property = current_user.properties.find(params[:id])
+    @property = current_user.properties.find_by_url(params[:id])
   end
 
   def update
-    @property = current_user.properties.find_by(id: params[:id])
+    @property = current_user.properties.find_by_url(params[:id])
     @property.resume_rejected!
     
     if(@property.update_attributes(filter_params))
@@ -80,6 +92,10 @@ class Member::PropertiesController < MemberController
   end
 
   private
+
+  def filter_note_params
+    params.require(:property).permit(:note, :bootsy_image_gallery_id)
+  end
 
   def filter_config_params
     configs  = Property.stored_attributes[:config_features]
@@ -93,11 +109,14 @@ class Member::PropertiesController < MemberController
   end
 
   def filter_params
-    params.require(:property).permit(:code_ref, :borey_name, :category_id, :note,
-           :type_of, :price_per_unit, :price_per_size, :price_per_duration,
-           :width, :length, :area, :unit, :province_id, :district_id, :commune_id )
+    params.require(:property).permit(:code_ref, :borey_name, :category_id, :type_of,
+           :price_per_unit_rent, :price_per_size_rent, :price_per_duration_rent,
+           :price_per_unit_sale, :price_per_size_sale,
+           :building_width, :building_length, :building_area, :building_unit,
+           :width, :length, :area, :unit,
+           :status, :mark_as_urgent,
+           :province_id, :district_id, :commune_id)
   end
-
 
   def check_over_quota
     if current_user.over_quota?

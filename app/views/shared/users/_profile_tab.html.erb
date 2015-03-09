@@ -1,0 +1,36 @@
+<div style='margin-top: 10px; margin-bottom: 15px;'>
+  <div class="btn-group " role="group">
+    <%= link_to member_profile_path(),
+                class: "btn btn-default #{active_index(current_index == 0)}" do %>
+      <i class='glyphicon glyphicon'> </i> Profile
+    <% end %>
+
+    <% if current_user.sign_up_step == User::SIGN_UP_STEP_FB %>
+      <%= link_to member_new_password_path(),
+                  class: "btn btn-default #{active_index(current_index == 3)}" do %>
+        <i class='glyphicon glyphicon'> </i> Create Password
+      <% end %>
+    <% else %>
+       <%= link_to member_change_password_path(),
+                  class: "btn btn-default #{active_index(current_index == 3)}" do %>
+        <i class='glyphicon glyphicon'> </i> Change Password
+      <% end %>
+    <% end %>
+
+    <%= link_to member_company_path(),
+                  class: "btn btn-default #{active_index(current_index == 1)}" do %>
+      <i class='glyphicon glyphicon'> </i> Company
+    <% end %>
+
+    <%= link_to member_photo_path(),
+                class: "btn btn-default #{active_index(current_index == 2)}" do %>
+      <i class='glyphicon glyphicon'> </i> Avatar image
+    <% end %>
+
+    <%= link_to member_crop_path(),
+                class: "btn btn-default #{active_index(current_index == 4)}" do %>
+      <i class='glyphicon glyphicon'> </i> Reposition avatar
+    <% end %>
+  </div>
+
+</div>
