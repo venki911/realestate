@@ -1,6 +1,7 @@
 <% content_for(:title) { "Sign up" } %>
 
 <div style='background: rgba(255,255,255,0.6)'>
+
   <div class='form-box clearfix'>
     <%= render 'form' %>
   </div>
@@ -12,6 +13,7 @@
     </div>
   </div>
 
+
   <div class='social'>
     <div class='input-row'>
       <%=link_to '#', class: 'fb-login btn btn-lg btn-social btn-facebook btn-block', data: { url: sign_up_fb_path } do %>
@@ -19,10 +21,13 @@
       <% end %>
     </div>
 
+    <!-- 
     <div class='input-row'>
       <%=link_to @koala_auth.url_for_oauth_code(:callback => sign_up_fb_m_url), class: 'btn btn-lg btn-social btn-facebook btn-block' do %>
         <i class='fa fa-facebook'> </i> Create With Facebook Mobile
       <% end %>
     </div>
+     -->
   </div>
+
 </div>

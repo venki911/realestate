@@ -1,30 +1,8 @@
 <% content_for(:title) { "Login" } %>
 <div style='background: rgba(255,255,255,0.6)'>
-  <div class='form-box clearfix'
-    <%= form_tag sessions_path, role: 'form', class: '' do %>
-      <div class='input-row'>
-        <%= text_field_tag :email, params[:email], class: 'form-control', placeholder: 'Username or Email', width: '100%' %>
-      </div>
 
-      <div class='input-row'>
-        <%= password_field_tag :password, '', class: 'form-control', placeholder: 'Password', width: '100%' %>
-      </div>
-
-      <p class='line'>
-        Don't have an account! <%= link_to 'Sign up', sign_up_path %>
-      </p>
-
-      <p class='line'>
-        Can't not sign in <%= link_to 'Forgot Password', forgot_password_path %>
-      </p>
-
-      <br>
-
-      <div class='input-row text-right'>
-        <%= button_tag "Sign me in", class: 'btn btn-info btn-signin btn-block btn-lg' %>
-      </div>
-
-    <% end %>
+  <div class='form-box clearfix'>
+    <%= render 'form' %>
   </div>
 
   <div style='position:relative; margin: 20px 0;' class="clearfix">
@@ -40,11 +18,12 @@
         <i class='fa fa-facebook'></i> Sign in With Facebook
       <% end %>
     </div>
-
+  <!-- 
     <div class='input-row'>
       <%=link_to @koala_auth.url_for_oauth_code(:callback => sign_in_fb_m_url), class: 'btn btn-lg btn-social btn-facebook btn-block' do %>
         <i class='fa fa-facebook'></i> Sign in With Facebook Mobile
       <% end %>
     </div>
+  -->
   </div>
 </div>
