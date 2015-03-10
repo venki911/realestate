@@ -47,4 +47,10 @@ RSpec.configure do |config|
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  # Capybara::DSL (visit/page) is included spec/features
+  # Rack-test DSL (get|post|put|delete|head/response.body) in examples in spec/requests and spec/controller
+  # To use capybara move example from requests to features, otherwise below config is used (not recommended)
+
+  config.include Capybara::DSL, file_path: "spec/requests"
 end
