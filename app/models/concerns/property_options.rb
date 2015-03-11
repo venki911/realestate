@@ -27,7 +27,7 @@ module PropertyOptions
     end
 
     def admin_verfication_status
-      [ slef::VERIFICATION_STUTUS_PENDING, self::VERIFICATION_STATUS_OK, self::VERIFICATION_STATUS_REJECT ]
+      [ self::VERIFICATION_STUTUS_PENDING, self::VERIFICATION_STATUS_OK, self::VERIFICATION_STATUS_REJECT ]
     end
   end
 end
