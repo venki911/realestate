@@ -26,7 +26,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'active_model_serializers'
-gem 'unicorn'
 
 gem 'email_validator'
 gem "koala", "~> 1.11.0rc"
@@ -81,6 +80,7 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'puma'
 end
 
 group :test do
