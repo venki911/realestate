@@ -1,5 +1,11 @@
 class UserMailerPreview < ActionMailer::Preview
 
+  def welcome_member
+    define_user_class
+    user = Struct::User.new("channa.info@gmail.com", "Channa", "Ly", "rqthghujc14567-378")
+    UserMailer.welcome_member(user)
+  end
+
   def forgot_password
     define_user_class
     user = Struct::User.new("channa.info@gmail.com", "Channa", "Ly", "rqthghujc14567-378")
@@ -25,11 +31,6 @@ class UserMailerPreview < ActionMailer::Preview
     property = Struct::Property.new("CPT5670", "Invalid photo dimension" ,user)
     UserMailer.property_rejected(property)
   end
-
-
-
-
-
 
   private
   def define_user_class

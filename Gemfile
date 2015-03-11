@@ -55,6 +55,9 @@ group :development do
   gem 'capistrano-rbenv'
   gem 'capistrano-bundler'
   gem 'capistrano-passenger'
+
+  gem 'better_errors'
+  gem 'brakeman'
 end
 
 group :development, :test do
