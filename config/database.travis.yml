@@ -9,11 +9,19 @@
 # And be sure to use new-style password hashing:
 #   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
 #
+postgresql: &postgresql
+  adapter: postgresql
+  username: postgres
+  password:
+  database: cochero_<%= Rails.env %>
+  min_messages: ERROR
+
 default: &default
   adapter: postgresql
   encoding: utf8
   pool: 5
   host: localhost
+  <<: *postgresql
 
 development:
   <<: *default
@@ -47,6 +55,6 @@ test:
 #
 production:
   <<: *default
-  database: cochero_development
+  database: cochero_production
   # username: stream_alert
   # password: <%= ENV['STREAM_ALERT_DATABASE_PASSWORD'] %>
