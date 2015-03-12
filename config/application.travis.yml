@@ -1,0 +1,41 @@
+default: &default
+  APP_NAME: "Realestate"
+  HOST: ''
+
+  SECRET_KEY_BASE: ''
+  AWS_ACCESS_KEY: ''
+  AWS_SECRET: ''
+
+  MANDRILL_USERNAME: 'channa.info@gmail.com'
+  MANDRILL_PASSWORD: 'f3dQZgGqJGiojkNQfcpiBg'
+
+
+  FOG_REGION: ''
+  FOG_DIRECTORY: ''
+  FOG_PROVIDER: ''
+
+  FB_ID: ''
+  FB_SECRET: ''
+
+  GOOGLE_MAP_API_KEY: ''
+
+  EMAIL_SUPPORT: channa.ly@instedd.org
+  EMAIL_SYSTEM: channa.ly@instedd.org
+  EMAIL_CEO:  channa.info@gmail.com
+  RACK_ENV: development
+
+  CODECLIMATE_REPO_TOKEN: ''
+
+
+test:
+  <<: *default
+  CODECLIMATE_REPO_TOKEN: ''
+
+development:
+  <<: *default
+  FOG_DIRECTORY: ''
+
+production:
+  <<: *default
+  FOG_DIRECTORY: ''
+  RACK_ENV: ''

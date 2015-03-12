@@ -13,5 +13,6 @@ script:
   - bundle exec rspec spec
 
 before_script:
+  - cp config/application.travis.yml config/application.yml
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database cochero_test' -U postgres
