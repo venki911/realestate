@@ -8,6 +8,7 @@ class PropertiesController < HomeController
 
   def show
     @property = Property.find_by_url(params[:id])
+    @favorite = @property.favorites.find_by(user_id: current_user.id)
   end
 
   def search

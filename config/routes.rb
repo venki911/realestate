@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   root 'properties#index'
   resources :properties
 
-  resources :favorites, only: [:create]
+  resources :favorites, only: [:create, :index, :destroy]
 
   resources :sessions, only: [:new, :create, :destroy]
 

@@ -2,8 +2,7 @@ class FavoritesController < ApplicationController
   layout 'home'
 
   def create
-    favorite = Favorite.new(property_id: params[:property_id], user_id: current_user.id)
-
+    favorite = current_user.favorites.build(property_id: params[:property_id])
     begin
       favorite.save!
       render json: favorite
@@ -12,5 +11,8 @@ class FavoritesController < ApplicationController
     end
   end
 
+  def index
+    @properties = Property.where(id: current_user.favorites.pluck(:property_id)).page(params[:page])
+  end
 
 end

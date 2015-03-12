@@ -8,7 +8,7 @@
 <div class="" style='margin-top: 20px;'>
   <% if current_user %>
     <div class='text-right'>
-    <% if @property.users.include?(current_user) %>
+    <% if @favorite %>
       <a href='#' class='btn btn-default disabled'>
         <i class='glyphicon glyphicon-eye-open'> </i> Added to Favorite list
       </a>

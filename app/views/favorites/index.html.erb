@@ -1,0 +1,14 @@
+<%= paginate(@properties) %>
+
+<%= page_title("List of favorite properties") %>
+<%= content_for(:header) { render 'shared/properties/search_main' } %>
+
+<%= paginate @properties %>
+
+<ul class='no-space'>
+  <% @properties.each do |property| %>
+    <%= render "properties/property", property: property %>
+  <% end %>
+</ul>
+
+<%= paginate @properties %>
