@@ -15,4 +15,10 @@ class FavoritesController < ApplicationController
     @properties = Property.where(id: current_user.favorites.pluck(:property_id)).page(params[:page])
   end
 
+  def destroy
+    favorite = current_user.favorites.find(params[:id])
+    favorite.destroy
+    head :ok
+  end
+
 end

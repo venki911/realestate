@@ -27,7 +27,7 @@
 //= require member/property_map
 //= require member/property_photo
 
-//= require favorite/add
+//= require favorite/add-remove
 
 //= require admin/property
 //= require admin/company_map

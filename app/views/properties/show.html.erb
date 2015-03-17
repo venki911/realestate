@@ -6,17 +6,20 @@
 <%= render 'show_tab', property: @property, tab: tab %>
 <!-- <p class='line' style='margin-top: 20px;'> <%#= render tab, property: @property %> </p> -->
 <div class="" style='margin-top: 20px;'>
+
   <% if current_user %>
     <div class='text-right'>
-    <% if @favorite %>
-      <a href='#' class='btn btn-default disabled'>
-        <i class='glyphicon glyphicon-eye-open'> </i> Added to Favorite list
-      </a>
-    <% else %>
-      <%= link_to '', class: 'btn btn-default add-favorite', data: { property_id: @property.id} do %>
-        <i class='glyphicon glyphicon-eye-open'> </i> Favorite this Property
+
+      <%=link_to '#', class: 'btn btn-default btn-danger', id:'remove-favorite',
+                 style:"#{@favorite ? '' : 'display:none;'}", 
+                 data: { favorite_id: @favorite ? @favorite.id : '' } do %>
+        <i class='glyphicon glyphicon-eye-open'> </i> Cancel from Favorite list
       <% end %>
-    <% end %>
+
+      <%= link_to '', class: 'btn btn-default', id: 'add-favorite' , style: "#{@favorite ? 'display:none;' : '' }",
+                      data: { property_id: @property.id} do %>
+        <i class='glyphicon glyphicon-eye-open'> </i> Add this to Favorite list
+      <% end %>
 
     </div>
   <% end %>
