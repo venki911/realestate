@@ -1,8 +1,7 @@
 <%= paginate(@properties) %>
 
 <%= page_title("List of properties") %>
-<%= content_for(:header) { render 'shared/properties/search_main' } %>
-
+<%= content_for(:sidebar) { render 'shared/properties/search' } %>
 <ul class='no-space'>
   <% @properties.each do |property| %>
     <%= render "property", property: property %>

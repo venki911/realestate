@@ -24,9 +24,6 @@
     <%= hidden_field_tag :type, params[:type], id: 'p-search-type' %>
     <div style='margin-top: 15px;' class="clearfix">
       <div class=''>
-        <div class='search-control' >
-          <%= text_field_tag :ref, params[:ref], placeholder: 'Id', class: 'form-control ' %>
-        </div>
 
         <div class='search-control' >
           <%= select_tag :category_id, options_for_select(Category.order(:name).pluck(:name, :id), params[:category_id]),
@@ -45,6 +42,12 @@
                          options_for_select(District.order('name').where(province_id: params[:province_id]).pluck(:name, :id), params[:district_id]),
                          id: 'search_district_id',
                          include_blank: 'District/Khan', class: 'form-control ' %>
+        </div>
+
+        <div class="search-control">
+          <%= select_tag :borey_name,
+                         options_for_select(Borey.all, params[:borey]),
+                         include_blank: 'Borey name', class: 'form-control ' %>
         </div>
 
         <div class='search-control' >

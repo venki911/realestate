@@ -18,7 +18,23 @@
     margin-top: 4px;
   }
 
-  .nav > li.active, .nav > li.item-btn {
+  .nav > li.item-btn {
+     a {
+        color: $menu-text-color;
+        background: $menu-btn-bg-color;
+        font-weight: 500;
+        padding: 10px 15px;
+        line-height: 12px;
+        margin-top: 4px;
+        margin-left: 5px;
+        &:hover {
+          color: $menu-text-color-hover;
+          background: $menu-btn-bg-color-hover;
+        }
+     }
+  }
+
+  .nav > li.active {
     a {
       color: $app-bg-color;
       font-weight: 500;
@@ -29,26 +45,19 @@
       @include border-radius(5px);
 
       &:hover, &:focus {
-        color: #fff;
+        color: $menu-text-color;
         background: $app-hl-color;
       }
     }
   }
-  .nav > li.active a {
-    background: #fff;
-  }
-
-  .nav > li.item-btn a {
-    background: $app-hl-color;
-    color: #fff;
-  }
 
   .nav > li > a {
     padding: 10px 15px;
-    color: #fff;
+    color: $menu-text-color;
+    font-size: 110%;
     &:hover, &:focus {
       background: $app-bg-color;
-      color: #fff;
+      color: $menu-text-color;
     }
   }
 
@@ -64,10 +73,10 @@
   }
 
   .dropdown-menu > li > a {
-    color: #fff;
+    color: $menu-text-color;
     &:hover, &:focus {
       background: $app-hl-color;
-      color: #fff;
+      color: $menu-text-color;
     }
   }
 
@@ -78,4 +87,8 @@
       color: $app-bg-color;
     }
   }
+}
+
+.dropdown-menu .divider {
+  margin: 3px 0;
 }
