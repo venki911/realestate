@@ -37,21 +37,16 @@
         </h4>
 
         <p class='underline tagline'> <%=property.location %> </p>
-        <p class='line'>
-          Land size : 
-            <%= property.width %> meter
-            x
-            <%= property.length %> meter
-            ~ <%= property.area %> <%= property.unit %>
-        </p>
+
+        <% if property.land_size? %>
+          <p class='line'>
+            Land size : <%= land_dimension(property)%>
+          </p>
+        <% end %>
 
         <% if property.building_size? %>
           <p class='line'>
-            Building size :
-              <%= property.building_width %> meter
-              x
-              <%= property.building_length %> meter
-              ~ <%= property.building_area %> <%= property.building_unit %>
+            Building size : <%= building_dimension(property) %>
           </p>
         <% end %>
 

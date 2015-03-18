@@ -1,6 +1,8 @@
 <% content_for(:title) { "Login" } %>
-<div style='background: rgba(255,255,255,0.6)'>
 
+
+<div class="panel panel-default">
+  <%= page_header("Sign in to  #{ENV['APP_NAME']}") %>
   <div class='form-box clearfix'>
     <%= render 'form' %>
   </div>

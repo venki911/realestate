@@ -1,7 +1,8 @@
 <% content_for(:title) { "Sign up" } %>
 
-<div style='background: rgba(255,255,255,0.6)'>
+<div class="panel panel-default">
 
+  <%= page_header("Become member #{ENV['APP_NAME']}") %>
   <div class='form-box clearfix'>
     <%= render 'form' %>
   </div>

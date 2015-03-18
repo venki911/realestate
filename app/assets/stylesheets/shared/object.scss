@@ -74,13 +74,6 @@ small.error {
 .edge-right {
   margin-right: -15px;
 }
-.navbar-brand{
-  margin-top: -6px;
-  color: #fff;
-  &:hover {
-    
-  }
-}
 
 .label-checkbox {
   padding-left: 15px;
@@ -194,4 +187,15 @@ small.error {
 
 .content-body {
   padding-top: 10px;
+}
+
+.logo {
+  width: 24px;
+}
+.header-title {
+  padding: 10px 0px;
+}
+
+.panel {
+  padding: 0 10px;
 }

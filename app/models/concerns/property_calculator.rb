@@ -11,7 +11,11 @@ module PropertyCalculator
   end
 
   def building_size?
-    building_width.present? && building_length.present? && building_area.present?
+    (building_width.present? && building_length.present?) || building_area.present?
+  end
+
+  def land_size?
+    (width.present? && length.present?) || area.present?
   end
 
   def logo

@@ -5,7 +5,9 @@
 
   <div class="media-body">
     <h4 class="media-heading"> <%= user.full_name %></h4>
-    <div class=''> <%=user.company.name %> </div>
+    <% if user.company_id.present? %>
+      <div class=''> <%=user.company.name %> </div>
+    <% end %>
     <p class='line'>
       <div>
         <label> Tel : </label> 

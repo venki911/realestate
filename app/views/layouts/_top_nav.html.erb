@@ -1,4 +1,4 @@
-<nav class='navbar navbar-fixed-top top-nav'>
+<nav class='navbar navbar-default navbar-fixed-top'>
   <div class="container">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -6,7 +6,7 @@
         <span class='glyphicon glyphicon-align-justify'></span>
       </button>
       <%=link_to root_path, class: 'navbar-brand' do %>
-        <%= image_tag "logo/realestate.png", style: 'width: 32px;' %>
+        <%= image_tag "logo/realestate.png", class: 'logo' %>
       <% end %>
     </div>
 
@@ -51,8 +51,8 @@
             </ul>
           </li>
         <% else %>
-          <li class='item-btn'><%=link_to 'Sign Up', sign_up_path, class: 'btn btn-app' %></li>
-          <li class='item-btn'><%=link_to 'Sign In', sign_in_path, class: 'btn btn-app' %></li>
+          <li class='item-btn'><%=link_to 'Sign Up', sign_up_path, class: '' %></li>
+          <li class='item-btn'><%=link_to 'Sign In', sign_in_path, class: '' %></li>
         <% end %>
       </ul>
       

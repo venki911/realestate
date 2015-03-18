@@ -27,4 +27,28 @@ module PropertyHelper
   def marked_items_for property
     property.marked_items.map{|item| "<span class='big'>#{item}</span>" }.join(", ").html_safe
   end
+
+  def land_dimension(property)
+    results = []
+    if property.width.present? && property.length.present?
+      results << "#{property.width}m x #{property.length}m"
+    end
+
+    if property.area
+      results << "#{property.area} #{property.unit}"
+    end
+    results.join(" ~ ")
+  end
+
+  def building_dimension(property)
+    results = []
+    if property.width.present? && property.length.present?
+      results << "#{property.building_width}m x #{property.building_length}m"
+    end
+
+    if property.area
+      results << "#{property.building_area} #{property.building_unit}"
+    end
+    results.join(" ~ ")
+  end
 end

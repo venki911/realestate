@@ -52,24 +52,20 @@
     <div class='section-value'> <%=property.code_ref %> </div>
   </div>
 
+  <% if property.land_size? %>
   <div class='section-detail'>
     <label class="pull-left"> Land size </label>
     <div class='section-value'>
-      <%= property.width %> m
-      x
-      <%= property.length %> m
-      ~ <%= property.area %> <%= property.unit %>
+      <%= land_dimension(property) %>
     </div>
   </div>
+  <% end %>
 
   <% if property.building_size? %>
     <div class='section-detail'>
       <label class='pull-left'> Building size </label>
       <div class='section-value'>
-        <%= property.building_width %> m
-        x
-        <%= property.building_length %> m
-        ~ <%= property.building_area %> <%= property.building_unit %>
+        <%= building_dimension(property) %>
       </div>
     </div>
   <% end %>

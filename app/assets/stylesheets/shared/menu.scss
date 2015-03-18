@@ -1,3 +1,8 @@
+.navbar-default .navbar-nav > li > a {
+    // color: #337ab0;
+    font-size: 14px;
+    font-weight: 500;
+}
 .footer-block {
   margin-top: 15px;
   background-color: $app-bg-color;
@@ -8,9 +13,6 @@
     li {
       display: inline-block;
       padding: 5px 10px;
-      a {
-        color: #fff;
-      }
     }
   }
 }

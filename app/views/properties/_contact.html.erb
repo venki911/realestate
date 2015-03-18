@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <% if !property.user.bio.empty? %>
+  <% if property.user.bio.present? %>
     <h3 class='section-header' style='margin-top: 0px;'> Bio </h3>
     <p class='clearfix'>
       <%= property.user.bio.html_safe %>
