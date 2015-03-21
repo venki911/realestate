@@ -2,7 +2,14 @@ module Authenticable
   extend ActiveSupport::Concern
 
   included do
+    before_action :restrict_staging!
     before_action :authenticate_user!
+  end
+
+  def restrict_staging!
+    authenticate_or_request_with_http_basic do |username, password|
+      [username, password] == [ENV['STAGING_USER'], ENV['STAGING_PASSWORD']]
+    end
   end
 
   def current_user
